@@ -95,3 +95,53 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
   services.openssh.port = 22;
 }
 ```
+
+## Firewall
+
+```bash
+{ config, pkgs, ... }:
+
+{
+  networking.firewall.enable = false;
+
+  networking.nftables.enable = true;
+
+  networking.firewall.ipv4Forward = true;
+
+  networking.nftables.extraRules = ''
+    flush ruleset
+
+    table inet filter {
+
+      chain input {
+        type filter hook input priority 0;
+        policy drop;                      
+        iif lo accept;                    
+        ct state established,related accept;
+        iif eth0 accept;
+        tcp dport 22 accept;
+      }
+
+      chain forward {
+        type filter hook forward priority 0;
+        policy drop;
+        iif eth0 oif eth1 accept;
+        iif eth1 oif eth0 ct state established,related accept;
+        iif eth0 oif eth0 accept;
+      }
+    }
+
+    table ip nat {
+
+      chain prerouting {
+        type nat hook prerouting priority 0;
+      }
+
+      chain postrouting {
+        type nat hook postrouting priority 100;
+        oifname "eth1" masquerade;
+      }
+    }
+  '';
+}
+```
