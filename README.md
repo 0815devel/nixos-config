@@ -75,3 +75,25 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
   networking.firewall.enable = true;
 }
 ```
+
+## SSH
+
+```bash
+{ config, pkgs, ... }:
+
+{
+  services.openssh.enable = true;
+
+  services.openssh.passwordAuthentication = true;
+  services.openssh.permitRootLogin = "yes";
+  services.openssh.challengeResponseAuthentication = false;
+
+  users.users.root = {
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBEXAMPLEKEYHERE benutzer@client"
+    ];
+  };
+
+  services.openssh.port = 22;
+}
+```
