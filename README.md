@@ -74,7 +74,7 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 }
 ```
 
-## SSH
+# SSH
 
 ```bash
 { config, pkgs, ... }:
@@ -96,7 +96,7 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 }
 ```
 
-## Firewall
+# Firewall
 
 ```bash
 { config, pkgs, ... }:
@@ -147,7 +147,7 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 }
 ```
 
-## Wireguard
+# Wireguard
 
 ```bash
 { config, pkgs, ... }:
