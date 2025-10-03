@@ -215,3 +215,30 @@ Firewall (nftables)
   };
 }
 ```
+
+@ caddy
+
+```nix
+{ config, pkgs, ... }:
+
+{
+  services.caddy.enable = true;
+  services.caddy.package = pkgs.caddy;  # use default Caddy package
+
+  # Optional: run as root if binding to ports < 1024
+  services.caddy.user = "root";
+
+  services.caddy.config = ''
+    # Example: Reverse proxy from WAN to internal service
+    router.internal {
+        reverse_proxy 10.0.0.100:8080
+    }
+
+    # Optional TLS (automatic)
+    # router.internal {
+    #     tls your-email@example.com
+    #     reverse_proxy 10.0.0.100:8080
+    # }
+  '';
+}
+```
