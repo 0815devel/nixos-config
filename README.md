@@ -249,11 +249,6 @@ Firewall (nftables)
 { config, pkgs, ... }:
 
 {
-  networking.interfaces = {
-    eth1.useDHCP = false; # WAN PPPoE
-    wg0.ipv6 = false;     # VPN
-  };
-
   networking.routing.tables = {
     # Table 100 for PPPoE WAN
     100 = { name = "pppoe"; };
@@ -262,17 +257,24 @@ Firewall (nftables)
   };
 
   networking.routing.rules = [
-    # Example: route all LAN host 10.0.0.50 via VPN
+    # Route all traffic from LAN host 10.0.0.50 via VPN
     { from = "10.0.0.50"; table = "vpn"; priority = 100; }
 
-    # Default LAN traffic via WAN
+    # Default LAN traffic via WAN (PPPoE)
     { from = "10.0.0.0/24"; table = "pppoe"; priority = 200; }
   ];
 
-  # Define default gateways for tables
+  # Routes per table
   networking.routes = {
-    "pppoe" = [ { address = "default"; via = "PPPoE_GATEWAY_IP"; dev = "eth1"; } ];
-    "vpn"   = [ { address = "default"; via = "10.10.0.2"; dev = "wg0"; } ];
+    # PPPoE table: use interface only, dynamic gateway assigned by PPPoE
+    "pppoe" = [
+      { dev = "eth1"; }  # Default route uses PPPoE interface
+    ];
+
+    # VPN table: interface-based routing
+    "vpn" = [
+      { dev = "wg0"; }
+    ];
   };
 }
 ```
