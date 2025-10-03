@@ -1,6 +1,11 @@
 # nixos-config
 Repo for my personal NixOS config
 
+# todo
+
+- Policy-Based Routing
+- systemd-networkd
+
 # Interfaces
 
 ```nix
@@ -240,42 +245,6 @@ Firewall (nftables)
     #     reverse_proxy 10.0.0.100:8080
     # }
   '';
-}
-```
-
-# Policy-Based Routing
-
-```nix
-{ config, pkgs, ... }:
-
-{
-  networking.routing.tables = {
-    # Table 100 for PPPoE WAN
-    100 = { name = "pppoe"; };
-    # Table 200 for WireGuard VPN
-    200 = { name = "vpn"; };
-  };
-
-  networking.routing.rules = [
-    # Route all traffic from LAN host 10.0.0.50 via VPN
-    { from = "10.0.0.50"; table = "vpn"; priority = 100; }
-
-    # Default LAN traffic via WAN (PPPoE)
-    { from = "10.0.0.0/24"; table = "pppoe"; priority = 200; }
-  ];
-
-  # Routes per table
-  networking.routes = {
-    # PPPoE table: use interface only, dynamic gateway assigned by PPPoE
-    "pppoe" = [
-      { dev = "eth1"; }  # Default route uses PPPoE interface
-    ];
-
-    # VPN table: interface-based routing
-    "vpn" = [
-      { dev = "wg0"; }
-    ];
-  };
 }
 ```
 
