@@ -43,3 +43,35 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
   };
 }
 ```
+
+# dnsmasq
+
+```bash
+{ config, pkgs, ... }:
+
+{
+  imports = [ ];
+
+  networking.hostName = "lan-server";
+
+  networking.interfaces.eth0.ipAddress = "10.0.0.1";
+  networking.interfaces.eth0.prefixLength = 24;
+  networking.interfaces.eth0.ipv6 = false;
+
+  networking.dnsmasq.enable = true;
+
+  networking.dnsmasq.extraConfig = ''
+    interface=eth0
+    bind-interfaces
+    dhcp-range=10.0.0.127,10.0.0.254,24h
+    dhcp-option=3,10.0.0.1       # Gateway
+    dhcp-option=6,1.1.1.1        # DNS
+    dhcp-option=15,internal      # Domain Name
+    listen-address=10.0.0.1
+    no-resolv
+    dhcp-authoritative
+  '';
+
+  networking.firewall.enable = true;
+}
+```
