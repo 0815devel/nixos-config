@@ -71,8 +71,6 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
     no-resolv
     dhcp-authoritative
   '';
-
-  networking.firewall.enable = true;
 }
 ```
 
