@@ -5,6 +5,7 @@ Repo for my personal NixOS config
 
 - Policy-Based Routing
 - systemd-networkd
+- PPPoE
 
 # Interfaces
 
