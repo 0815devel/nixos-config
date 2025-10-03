@@ -1,4 +1,4 @@
-'''nix
+```nix
 { config, pkgs, ... }:
 
 {
