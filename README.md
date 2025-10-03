@@ -216,7 +216,7 @@ Firewall (nftables)
 }
 ```
 
-# caddy
+# Caddy
 
 ```nix
 { config, pkgs, ... }:
