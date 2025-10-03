@@ -7,6 +7,9 @@ Repo for my personal NixOS config
 { config, pkgs, ... }:
 
 {
+
+  networking.hostName = "router";
+
   networking.interfaces = {
     # LAN
     eth0 = {
@@ -62,7 +65,7 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 
   networking.pppoe = {
     enable = true;
-    interfaces = [ "eth0" ];
+    interfaces = [ "eth1" ];
     userNameFile = config.sops.secrets.pppoe-user.path;
     passwordFile = config.sops.secrets.pppoe-password.path;
   };
@@ -76,12 +79,6 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 
 {
   imports = [ ];
-
-  networking.hostName = "lan-server";
-
-  networking.interfaces.eth0.ipAddress = "10.0.0.1";
-  networking.interfaces.eth0.prefixLength = 24;
-  networking.interfaces.eth0.ipv6 = false;
 
   networking.dnsmasq.enable = true;
 
