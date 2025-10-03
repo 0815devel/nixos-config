@@ -1,6 +1,31 @@
 # nixos-config
 Repo for my personal NixOS config
 
+# Interfaces
+
+```bash
+{ config, pkgs, ... }:
+
+{
+  networking.interfaces = {
+    # LAN
+    eth0 = {
+      macAddress = "00:11:22:33:44:55";
+      ipAddress = "10.0.0.1";
+      prefixLength = 24;
+      ipv6 = false;
+    };
+
+    # WAN
+    eth1 = {
+      macAddress = "66:77:88:99:AA:BB";
+      ipv6 = false;
+      useDHCP = false;
+    };
+  };
+}
+```
+
 # PPPoE
 
 ## Private/Public Key
