@@ -278,3 +278,42 @@ Firewall (nftables)
   };
 }
 ```
+
+# Fail2Ban
+
+```nix
+{ config, pkgs, ... }:
+
+{
+  services.fail2ban = {
+    enable = true;
+
+    bantime = "1h";        # Ban duration
+    findtime = "10m";      # Observation window
+    maxretry = 5;          # Retries before ban
+
+    ignoreIP = [ "127.0.0.1/8" "10.0.0.0/24" ]; # Trusted IP ranges
+
+    jails = {
+      caddy-http = ''
+        enabled = true
+        port    = http,https
+        filter  = caddy-http
+        logpath = /var/log/caddy/access.log
+        maxretry = 10
+        findtime = 10m
+        bantime  = 1h
+      '';
+    };
+
+    # Custom filter for Caddy
+    filters = {
+      "caddy-http" = ''
+        [Definition]
+        failregex = <HOST> -.*"(GET|POST).*HTTP.*" (404|401|403)
+        ignoreregex =
+      '';
+    };
+  };
+}
+```
