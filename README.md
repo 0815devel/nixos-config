@@ -146,3 +146,28 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
   '';
 }
 ```
+
+## Wireguard
+
+```bash
+{ config, pkgs, ... }:
+
+{
+  networking.wireguard.enable = true;
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      privateKey = "PRIVATE_KEY";
+      listenPort = 51820;
+      addresses = [ "10.10.0.1/24" ];
+      peers = [
+        {
+          publicKey = "PUBLIC_KEY";
+          allowedIPs = [ "10.10.0.2/32" ];
+          endpoint = "client.example.com:51820";
+        }
+      ];
+    };
+  };
+}
+```
