@@ -135,6 +135,7 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 
       chain prerouting {
         type nat hook prerouting priority 0;
+        tcp dport 2222 iif "eth1" dnat to 10.0.0.100:22
       }
 
       chain postrouting {
