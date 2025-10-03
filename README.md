@@ -7,7 +7,7 @@ Repo for my personal NixOS config
 { config, pkgs, ... }:
 
 {
-  networking.hostName = "router";
+  networking.hostName = "router.internal";
 
   networking.interfaces = {
     # LAN interface
