@@ -17,11 +17,13 @@ age-keygen -o ~/.config/sops/age/keys.txt
 
 ## Secrets erstellen und verschlüsseln
 
-# secrets.yaml
+### secrets.yaml
 ```bash
 pppoe-user: dein-user
 pppoe-password: dein-geheimes-passwort
+```
 
+```bash
 sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 ```
 
