@@ -1,28 +1,28 @@
 # nixos-config
 Repo for my personal NixOS config
 
-# Schritt-für-Schritt-Anleitung: PPPoE unter NixOS mit verschlüsseltem Passwort
+# PPPoE
 
-## Private/Public Key erzeugen
+## Private/Public Key
 ```bash
 age-keygen -o ~/.config/sops/age/keys.txt
-# Private Key bleibt lokal
-# Public Key ins Repo zum Verschlüsseln
+# Private Key lokal
+# Public Key encrypted on GitHub
 ```
 
-## Secrets erstellen und verschlüsseln
+## Secrets
 
 ```bash
 # secrets.yaml
-pppoe-user: dein-user
-pppoe-password: dein-geheimes-passwort
+pppoe-user: user
+pppoe-password: password
 ```
 
 ```bash
 sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 ```
 
-## NixOS-Konfiguration
+## NixOS Configuration
 
 ```bash
 { config, pkgs, ... }:
