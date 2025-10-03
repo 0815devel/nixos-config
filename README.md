@@ -242,3 +242,37 @@ Firewall (nftables)
   '';
 }
 ```
+
+# Policy-Based Routing
+
+```nix
+{ config, pkgs, ... }:
+
+{
+  networking.interfaces = {
+    eth1.useDHCP = false; # WAN PPPoE
+    wg0.ipv6 = false;     # VPN
+  };
+
+  networking.routing.tables = {
+    # Table 100 for PPPoE WAN
+    100 = { name = "pppoe"; };
+    # Table 200 for WireGuard VPN
+    200 = { name = "vpn"; };
+  };
+
+  networking.routing.rules = [
+    # Example: route all LAN host 10.0.0.50 via VPN
+    { from = "10.0.0.50"; table = "vpn"; priority = 100; }
+
+    # Default LAN traffic via WAN
+    { from = "10.0.0.0/24"; table = "pppoe"; priority = 200; }
+  ];
+
+  # Define default gateways for tables
+  networking.routes = {
+    "pppoe" = [ { address = "default"; via = "PPPoE_GATEWAY_IP"; dev = "eth1"; } ];
+    "vpn"   = [ { address = "default"; via = "10.10.0.2"; dev = "wg0"; } ];
+  };
+}
+```
