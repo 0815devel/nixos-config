@@ -170,6 +170,9 @@ Firewall (nftables)
   networking.nftables.extraRules = ''
     flush ruleset  # Clear existing rules
 
+    define LAN = "eth0"
+    define WAN = "eth1_7"
+
     ##########################
     # Filter table
     ##########################
@@ -183,8 +186,8 @@ Firewall (nftables)
         iif lo accept;                     # Allow loopback
         ct state established,related accept; # Allow established connections
 
-        iif eth0 accept;                   # Allow all traffic from LAN
-        iif eth1 tcp dport 22 accept;      # Allow SSH from WAN if needed
+        iif $LAN accept;                   # Allow all traffic from LAN
+        iif $WAN tcp dport 22 accept;      # Allow SSH from WAN if needed
       }
 
       # FORWARD chain - handle routed traffic
@@ -192,9 +195,9 @@ Firewall (nftables)
         type filter hook forward priority 0;
         policy drop;                       # Default drop
 
-        iif eth0 oif eth1 accept;          # Allow LAN -> WAN
-        iif eth1 oif eth0 ct state established,related accept; # Allow WAN -> LAN responses
-        iif eth0 oif eth0 accept;          # Allow LAN internal traffic
+        iif $LAN oif $WAN accept;          # Allow LAN -> WAN
+        iif $WAN oif $LAN ct state established,related accept; # Allow WAN -> LAN responses
+        iif $LAN oif $LAN accept;          # Allow LAN internal traffic
       }
     }
 
@@ -206,13 +209,13 @@ Firewall (nftables)
       # PREROUTING - port forwarding from WAN
       chain prerouting {
         type nat hook prerouting priority 0;
-        tcp dport 2222 iif "eth1" dnat to 10.0.0.100:22  # WAN port 2222 -> LAN host 22
+        tcp dport 2222 iif $WAN dnat to 10.0.0.100:22  # WAN port 2222 -> LAN host 22
       }
 
       # POSTROUTING - masquerade LAN -> WAN
       chain postrouting {
         type nat hook postrouting priority 100;
-        oifname "eth1" masquerade;  # Masquerade outgoing WAN traffic
+        oifname $WAN masquerade;  # Masquerade outgoing WAN traffic
       }
     }
   '';
@@ -255,7 +258,7 @@ Firewall (nftables)
   services.caddy.package = pkgs.caddy;  # use default Caddy package
 
   # Optional: run as root if binding to ports < 1024
-  services.caddy.user = "root";
+  services.caddy.user = "caddy";
 
   services.caddy.config = ''
     # Example: Reverse proxy from WAN to internal service
