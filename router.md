@@ -20,6 +20,7 @@
       id = 7;
       interface = "eth1";
     };
+  };
 
   networking.interfaces = {
     # LAN interface
@@ -89,7 +90,7 @@ rm inexio-password.txt
         '';
       };
     };
-  };
+
   systemd.services."pppd@inexio".serviceConfig = {
     LoadCredentialEncrypted = [
       "user:/etc/nixos/secrets/inexio-user.cred"
