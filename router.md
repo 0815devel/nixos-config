@@ -9,24 +9,24 @@
 { config, pkgs, ... }:
 
 {
-  networking.hostName = "router.internal";
+networking = {
+  hostName = "router.internal";
 
-  # Set DNS servers globally
-  networking.nameservers = [ "1.1.1.1" ];
+  # Global DNS
+  nameservers = [ "1.1.1.1" ];
 
-  networking = {
-    # VLAN 7 of eth1
-    vlans.eth1_7 = {
-      id = 7;
-      interface = "eth1";
-    };
+  # VLAN 7 on eth1
+  vlans.eth1_7 = {
+    id = 7;
+    interface = "eth1";
   };
 
-  networking.interfaces = {
-    # LAN interface
+  # Interfaces
+  interfaces = {
+    # LAN
     eth0 = {
       macAddress = "00:11:22:33:44:55";
-      ipAddress = "10.0.0.1";   # LAN gateway IP
+      ipAddress = "10.0.0.1";
       prefixLength = 24;
       ipv6 = false;
     };
@@ -36,11 +36,12 @@
       macAddress = "66:77:88:99:AA:BB";
       ipv6 = false;
       useDHCP = false;
+    };
 
-    # WAN interface
+    # WAN
     eth1_7 = {
       ipv6 = false;
-      useDHCP = false;          # PPPoE will handle IP
+      useDHCP = false; # PPPoE will handle IP
     };
   };
 }
