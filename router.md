@@ -11,6 +11,9 @@
 {
   networking.hostName = "router.internal";
 
+  # Set DNS servers globally
+  networking.nameservers = [ "1.1.1.1" ];
+
   networking = {
     # VLAN 7 of eth1
     vlans.eth1_7 = {
@@ -27,6 +30,7 @@
       ipv6 = false;
     };
 
+    # WAN physical
     eth1 = {
       macAddress = "66:77:88:99:AA:BB";
       ipv6 = false;
@@ -74,19 +78,19 @@ rm inexio-password.txt
       enable = true;
       peers.inexio = {
         config = ''
-          plugin rp-pppoe.so eth1.7
-          user "$(cat /run/credentials/inexio.user)"
+          plugin rp-pppoe.so eth1_7
+          user "$(cat /run/credentials/pppd@inexio.user)"
           noauth
           defaultroute
           usepeerdns
           persist
           hide-password
-          password "$(cat run/credentials/inexio.password)"
+          password "$(cat run/credentials/pppd@inexio.password)"
         '';
       };
     };
   };
-  systemd.services."inexio".serviceConfig = {
+  systemd.services."pppd@inexio".serviceConfig = {
     LoadCredentialEncrypted = [
       "user:/etc/nixos/secrets/inexio-user.cred"
       "password:/etc/nixos/secrets/inexio-password.cred"
