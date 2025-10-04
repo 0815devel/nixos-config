@@ -2,7 +2,6 @@
 
 - Policy-Based Routing
 - systemd-networkd
-- PPPoE
 
 # Interfaces
 
@@ -11,6 +10,13 @@
 
 {
   networking.hostName = "router.internal";
+
+  networking = {
+    # VLAN 7 of eth1
+    vlans.eth1_7 = {
+      id = 7;
+      interface = "eth1";
+    };
 
   networking.interfaces = {
     # LAN interface
@@ -21,9 +27,13 @@
       ipv6 = false;
     };
 
-    # WAN interface
     eth1 = {
       macAddress = "66:77:88:99:AA:BB";
+      ipv6 = false;
+      useDHCP = false;
+
+    # WAN interface
+    eth1_7 = {
       ipv6 = false;
       useDHCP = false;          # PPPoE will handle IP
     };
@@ -36,21 +46,22 @@
 ## Private/Public Key
 
 ```bash
-age-keygen -o ~/.config/sops/age/keys.txt
-# Private Key is kept locally
-# Public Key encrypted and stored on GitHub
-```
-
-## Secrets
-
-```yaml
-# secrets.yaml
-pppoe-user: user
-pppoe-password: password
+systemd-creds setup --without-tpm2 --secret-key=/root/credential.secret
 ```
 
 ```bash
-sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
+echo "user" > inexio-user.txt
+echo "password" > inexio-password.txt
+```
+
+```bash
+systemd-creds encrypt --secret-key=/root/credential.secret inexio-user.txt /etc/nixos/secrets/inexio-user.cred
+systemd-creds encrypt --secret-key=/root/credential.secret inexio-password.txt /etc/nixos/secrets/inexio-password.cred
+```
+
+```bash
+rm inexio-user.txt
+rm inexio-password.txt
 ```
 
 ## NixOS Configuration
@@ -59,21 +70,30 @@ sops --encrypt --age age1...xyz secrets.yaml > secrets.yaml
 { config, pkgs, ... }:
 
 {
-  imports = [ <sops-nix/modules/sops> ];
-
-  # Path to private age key
-  sops.privateKeyFile = "/root/.config/sops/age/keys.txt";
-
-  # PPPoE secrets
-  sops.secrets.pppoe-user = { sopsFile = ./secrets.yaml; };
-  sops.secrets.pppoe-password = { sopsFile = ./secrets.yaml; };
-
-  networking.pppoe = {
-    enable = true;
-    interfaces = [ "eth1" ]; # WAN interface
-    userNameFile = config.sops.secrets.pppoe-user.path;
-    passwordFile = config.sops.secrets.pppoe-password.path;
+    ppp = {
+      enable = true;
+      peers.inexio = {
+        config = ''
+          plugin rp-pppoe.so eth1.7
+          user "$(cat /run/credentials/inexio.user)"
+          noauth
+          defaultroute
+          usepeerdns
+          persist
+          hide-password
+          password "$(cat run/credentials/inexio.password)"
+        '';
+      };
+    };
   };
+  systemd.services."inexio".serviceConfig = {
+    LoadCredentialEncrypted = [
+      "user:/etc/nixos/secrets/inexio-user.cred"
+      "password:/etc/nixos/secrets/inexio-password.cred"
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [ ppp rp-pppoe ];
 }
 ```
 
