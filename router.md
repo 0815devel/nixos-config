@@ -86,7 +86,7 @@ rm inexio-password.txt
           usepeerdns
           persist
           hide-password
-          password "$(cat run/credentials/pppd@inexio.password)"
+          password /run/credentials/pppd@inexio.password
         '';
       };
     };
