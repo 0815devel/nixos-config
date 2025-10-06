@@ -54,8 +54,10 @@
   # Network (Bridge & VLAN)
   ########################################
   networking = {
-    hostName = "nixos";
+    hostName = "hypervisor";
     useDHCP = false;
+
+    bridges.br0.interfaces = [ "enp3s0" ]; # Adjust to your physical NIC
 
     interfaces."br0" = {
       ipv4.addresses = [ { address = "10.0.0.2"; prefixLength = 24; } ];
@@ -65,8 +67,6 @@
       id = 7;
       interface = "br0";
     };
-
-    bridges.br0.interfaces = [ "enp3s0" ]; # Adjust to your physical NIC
 
     defaultGateway = "10.0.0.1";
     nameservers = [ "10.0.0.1" ];
