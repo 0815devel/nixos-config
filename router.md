@@ -17,7 +17,7 @@ networking = {
   nameservers = [ "1.1.1.1" ];
 
   # VLAN 7 on eth1
-  vlans.eth1_7 = {
+  vlans.eth1.7 = {
     id = 7;
     interface = "eth1";
   };
@@ -40,7 +40,7 @@ networking = {
     };
 
     # WAN
-    eth1_7 = {
+    eth1.7 = {
       ipv6 = false;
       useDHCP = false; # PPPoE will handle IP
     };
@@ -81,7 +81,7 @@ rm inexio-password.txt
       enable = true;
       peers.inexio = {
         config = ''
-          plugin rp-pppoe.so eth1_7
+          plugin rp-pppoe.so eth1.7
           user "$(cat /run/credentials/pppd@inexio.user)"
           noauth
           defaultroute
@@ -172,7 +172,7 @@ Firewall (nftables)
     flush ruleset  # Clear existing rules
 
     define LAN = "eth0"
-    define WAN = "eth1_7"
+    define WAN = "eth1.7"
 
     ##########################
     # Filter table
@@ -313,4 +313,34 @@ Firewall (nftables)
     };
   };
 }
+```
+
+# ddclient
+
+```nix
+{
+  services.ddclient = {
+    enable = true;
+
+    # Protocol for Cloudflare
+    protocol = "cloudflare";
+
+    # Cloudflare API endpoint
+    server = "api.cloudflare.com/client/v4";
+
+    # Use IP address from network interface eth1.7
+    use = "if", "if=eth1.7";
+
+    # Cloudflare API token login
+    username = "api_token";                  # keep this fixed
+    password = "YOUR_CLOUDFLARE_API_TOKEN";  # token must have DNS:Edit permissions
+
+    # Zone = your main domain in Cloudflare
+    zone = "example.com";
+
+    # DNS records you want to update dynamically
+    domains = [ "home.example.com" ];
+  };
+}
+
 ```
