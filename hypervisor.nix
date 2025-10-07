@@ -1,4 +1,3 @@
-```nix
 { config, pkgs, ... }:
 
 {
@@ -96,8 +95,8 @@
     ovmf = {
       enable = true;          # Enable UEFI firmware for VMs
       packages = [ (pkgs.OVMF.override {
-        secureBoot = false;   # Enable if you want Secure Boot
-        tpmSupport = false;   # TPM support optional
+        secureBoot = true;   # Enable if you want Secure Boot
+        tpmSupport = true;   # TPM support optional
       }).fd ];
     };
   };
@@ -120,4 +119,3 @@
     cpupower
   ];
 }
-```
