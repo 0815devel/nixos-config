@@ -37,23 +37,23 @@
   ########################################
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    permitRootLogin = "no";
+    settings = {
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+    };
   };
 
   ########################################
   # CPU / Power Saving
   ########################################
-  services.cpufreq = {
-    enable = true;
-    governor = "powersave"; # CPU frequency governor set to powersave
-  };
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor = "powersave"; # CPU frequency governor set to powersave
 
   ########################################
   # Network (Bridge & VLAN)
   ########################################
   networking = {
-    hostName = "hypervisor";
+    hostName = "hypervisor.internal";
     useDHCP = false;
 
     bridges.br0.interfaces = [ "enp3s0" ]; # Adjust to your physical NIC
@@ -76,28 +76,17 @@
   ########################################
   virtualisation.libvirtd = {
     enable = true;
-    listenAll = false;        # Remote access via SSH only
-    tls = false;
-    auth = "none";            # Not used with SSH
-    tcpSocket = false;
-    unixSocketGroup = "libvirt";
-    unixSocketMode = "0770";
-    network.enable = false;   # Disable default NAT network
-    virtlockd.enable = true;
-    virtlogd.enable = true;
-    cgroupSupport = true;
-  };
-
-  virtualisation.qemu = {
-    package = pkgs.qemu_kvm;
-    runAsRoot = false;        # VMs run as libvirt-qemu user
-    swtpm.enable = true;
-    ovmf = {
-      enable = true;          # Enable UEFI firmware for VMs
-      packages = [ (pkgs.OVMF.override {
-        secureBoot = true;   # Enable if you want Secure Boot
-        tpmSupport = true;   # TPM support optional
-      }).fd ];
+    qemu = {
+      package = pkgs.qemu_kvm; # VMs run as libvirt-qemu user
+      runAsRoot = false;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true; # Enable UEFI firmware for VMs
+        packages = [(pkgs.OVMF.override {
+          secureBoot = true; # Enable if you want Secure Boot
+          tpmSupport = true; # TPM support optional
+        }).fd];
+      };
     };
   };
 
