@@ -91,6 +91,17 @@
   };
 
   ########################################
+  # NFS Server
+  ########################################
+
+  {
+    services.nfs.server.enable = true;
+    services.nfs.server.exports = ''
+      /export 192.168.1.10(rw,fsid=0,no_subtree_check)
+    '';
+  }
+
+  ########################################
   # Locale / Keyboard / Time
   ########################################
   time.timeZone = "Europe/Berlin";
