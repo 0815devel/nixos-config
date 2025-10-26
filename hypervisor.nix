@@ -98,7 +98,7 @@
     bridges.br-wan.interfaces = [ "enp1s0.7" ];
 
     interfaces."br-lan" = {
-      ipv4.addresses = [ { address = "10.0.0.236"; prefixLength = 24; } ];
+      ipv4.addresses = [ { address = "10.0.0.3"; prefixLength = 24; } ];
     };
 
     interfaces."br-nfs" = {
