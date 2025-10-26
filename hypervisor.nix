@@ -30,7 +30,7 @@
 
     # Enable nested virtualization
     extraModprobeConfig = ''
-    options kvm_intel nested=1
+      options kvm_intel nested=1
     '';
   };
 
