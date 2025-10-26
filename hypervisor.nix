@@ -15,7 +15,7 @@
     supportedFilesystems = [ "zfs" ];
     zfs.extraPools = [ "tank" ];
 
-    # Kernel parameters for power management
+    # Kernel parameters
     kernelParams = [
       "pcie_aspm=powersave" # Enable ASPM in power-saving mode
       "intel_pstate=enable" # Enable dynamic CPU frequency scaling
