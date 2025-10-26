@@ -9,41 +9,47 @@
   ########################################
   # Boot & ZFS
   ########################################
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.forceImportRoot = false;
-  boot.zfs.extraPools = [ "tank" ];
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    supportedFilesystems = [ "zfs" ];
+    zfs.forceImportRoot = false;
+    zfs.extraPools = [ "tank" ];
 
-  # Kernel parameters for power management
-  boot.kernelParams = [
-    "pcie_aspm=powersave" # Enable ASPM in power-saving mode
-    "intel_pstate=enable" # Enable dynamic CPU frequency scaling
-    "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
-    "intel_iommu=on" # Enable IOMMU
-    "iommu=pt" # Performance for IOMMU
-  ];
+    # Kernel parameters for power management
+    kernelParams = [
+      "pcie_aspm=powersave" # Enable ASPM in power-saving mode
+      "intel_pstate=enable" # Enable dynamic CPU frequency scaling
+      "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
+      "intel_iommu=on" # Enable IOMMU
+      "iommu=pt" # Performance for IOMMU
+    ];
 
-  # PCIe passthrough
-  boot.kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
+    # PCIe passthrough
+    kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
 
-  # Enable nested virtualization
-  boot.extraModprobeConfig = ''
+    # Enable nested virtualization
+    extraModprobeConfig = ''
     options kvm_intel nested=1
-  '';
+    '';
+  };
 
   ########################################
   # CPU / Power Saving
   ########################################
-  powerManagement.enable = true;
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "powersave";
+  };
 
   ########################################
   # Services
   ########################################
-  services.zfs.autoScrub.enable = true;
-  services.zfs.trim.enable = true;
-  services.zfs.autoSnapshot.enable = true;
+  services.zfs = {
+    autoScrub.enable = true;
+    trim.enable = true;
+    autoSnapshot.enable = true;
+  };
 
   ########################################
   # Users
