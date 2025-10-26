@@ -86,7 +86,7 @@
     hostId = "4e98920d";
 
     defaultGateway = "10.0.0.1";
-    nameservers = [ "10.0.0.1" ];
+    nameservers = [ "10.0.0.1" "1.1.1.1" ];
 
     vlans."enp1s0.7" = {
       id = 7;
