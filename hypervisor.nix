@@ -12,7 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.pools = [ "tank" ];
+  boot.zfs.extraPools = [ "tank" ];
 
   # Kernel parameters for power management
   boot.kernelParams = [
