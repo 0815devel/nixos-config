@@ -77,7 +77,7 @@
   # Network (Bridge & VLAN) & Firewall
   ########################################
   networking = {
-    hostName = "nixos";
+    hostName = "hypervisor";
     domain = "internal";
     usePredictableInterfaceNames = true;
     useDHCP = false;
