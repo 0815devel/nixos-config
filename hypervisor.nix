@@ -20,14 +20,14 @@
     "pcie_aspm=powersave" # Enable ASPM in power-saving mode
     "intel_pstate=enable" # Enable dynamic CPU frequency scaling
     "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
-    "intel_iommu=on"
-    "iommu=pt"
+    "intel_iommu=on" # Enable IOMMU
+    "iommu=pt" # Performance for IOMMU
   ];
 
   # PCIe passthrough
   boot.kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
 
-  # Enable nested virtualization for Intel
+  # Enable nested virtualization
   boot.extraModprobeConfig = ''
     options kvm_intel nested=1
   '';
@@ -74,7 +74,7 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /export 192.168.1.10(rw,fsid=0,no_subtree_check)
+      /export 192.168.1.10(rw,sync,fsid=0,no_subtree_check)
     '';
   };
 
@@ -84,7 +84,6 @@
   networking = {
     hostName = "hypervisor";
     domain = "internal";
-    usePredictableInterfaceNames = true;
     useDHCP = false;
     hostId = "4e98920d";
 
