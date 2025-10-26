@@ -17,8 +17,11 @@
 
   # Kernel parameters for power management
   boot.kernelParams = [
-    "pcie_aspm=powersave"  # Enable ASPM in power-saving mode
-    "intel_pstate=enable"  # Enable dynamic CPU frequency scaling
+    "pcie_aspm=powersave" # Enable ASPM in power-saving mode
+    "intel_pstate=enable" # Enable dynamic CPU frequency scaling
+    "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
+    "intel_iommu=on"
+    "iommu=pt"
   ];
 
   # PCIe passthrough
@@ -108,6 +111,7 @@
     firewall = {
       enable = true;
       allowPing = true;
+      rejectPackets = true;
 
       allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
@@ -193,6 +197,8 @@
     htop
     zfs
     git
+    pciutils
+    lshw
   ];
 
   # This value determines the NixOS release from which the default
