@@ -13,7 +13,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
-  boot.zfs.devNodes = "/dev/disk/by-label/tank";
   boot.zfs.extraPools = [ "tank" ];
 
   # Kernel parameters for power management
@@ -21,6 +20,9 @@
     "pcie_aspm=powersave"  # Enable ASPM in power-saving mode
     "intel_pstate=enable"  # Enable dynamic CPU frequency scaling
   ];
+
+  # PCIe passthrough
+  boot.kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
 
   # Enable nested virtualization for Intel
   boot.extraModprobeConfig = ''
@@ -36,9 +38,9 @@
   ########################################
   # Services
   ########################################
-
   services.zfs.autoScrub.enable = true;
   services.zfs.trim.enable = true;
+  services.zfs.autoSnapshot.enable = true;
 
   ########################################
   # Users
@@ -69,7 +71,7 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /tank 10.10.0.2(rw,fsid=0,no_subtree_check)
+      /export 192.168.1.10(rw,fsid=0,no_subtree_check)
     '';
   };
 
@@ -169,15 +171,18 @@
   ########################################
   system.autoUpgrade = {
     enable = true;
-    dates = "02:00";
-    randomizedDelaySec = "45min";
+    dates = "weekly";
+    allowReboot = true;
+    operation = "boot"; 
   };
 
-  system.gc = {
+  nix.gc = {
     automatic = true;
-    dates = "05:00";
-    options = "--delete-generations +10";
+    dates = "weekly";
+    options = "--delete-older-than 30d";
   };
+
+  nix.settings.auto-optimise-store = true;
 
   ########################################
   # System Packages
