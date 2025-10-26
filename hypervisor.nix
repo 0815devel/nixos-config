@@ -13,7 +13,6 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     supportedFilesystems = [ "zfs" ];
-    zfs.forceImportRoot = false;
     zfs.extraPools = [ "tank" ];
 
     # Kernel parameters for power management
