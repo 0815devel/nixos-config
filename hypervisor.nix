@@ -12,6 +12,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.devNodes = "/dev/disk/by-label/tank";
   boot.zfs.extraPools = [ "tank" ];
 
   # Kernel parameters for power management
@@ -32,6 +34,13 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   ########################################
+  # Services
+  ########################################
+
+  services.zfs.autoScrub.enable = true;
+  services.zfs.trim.enable = true;
+
+  ########################################
   # Users
   ########################################
   users.users.admin = {
@@ -47,7 +56,7 @@
   ########################################
   services.openssh = {
     enable = true;
-    openFirewall = true;
+    openFirewall = false;
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
@@ -57,38 +66,64 @@
   ########################################
   # NFS Server
   ########################################
-
-  networking.firewall.allowedTCPPorts = [ 2049 ];
-
   services.nfs.server = {
     enable = true;
     exports = ''
-      /export 192.168.1.10(rw,fsid=0,no_subtree_check)
+      /tank 10.10.0.2(rw,fsid=0,no_subtree_check)
     '';
   };
 
   ########################################
-  # Network (Bridge & VLAN)
+  # Network (Bridge & VLAN) & Firewall
   ########################################
   networking = {
-    hostName = "hypervisor";
+    hostName = "nixos";
     domain = "internal";
+    usePredictableInterfaceNames = true;
     useDHCP = false;
     hostId = "4e98920d";
 
-    bridges.br0.interfaces = [ "enp3s0" ];
-
-    interfaces."br0" = {
-      ipv4.addresses = [ { address = "10.0.0.2"; prefixLength = 24; } ];
-    };
-
-    vlans."br0.7" = {
-      id = 7;
-      interface = "br0";
-    };
-
     defaultGateway = "10.0.0.1";
     nameservers = [ "10.0.0.1" ];
+
+    vlans."enp1s0.7" = {
+      id = 7;
+      interface = "enp1s0";
+    };
+
+    bridges.br-lan.interfaces = [ "enp1s0" ];
+    bridges.br-nfs.interfaces = [ ];
+    bridges.br-wan.interfaces = [ "enp1s0.7" ];
+
+    interfaces."br-lan" = {
+      ipv4.addresses = [ { address = "10.0.0.236"; prefixLength = 24; } ];
+    };
+
+    interfaces."br-nfs" = {
+      ipv4.addresses = [ { address = "10.10.0.1"; prefixLength = 24; } ];
+    };
+
+    firewall = {
+      enable = true;
+      allowPing = true;
+
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
+
+      interfaces = {
+        "br-lan" = {
+          allowedTCPPorts = [ 22 ]; # SSH
+        };
+        "br-nfs" = {
+          allowedTCPPorts = [ 2049 ]; # NFS
+          allowedUDPPorts = [ 2049 ];
+        };
+        "br-wan" = {
+          allowedTCPPorts = [ ];
+          allowedUDPPorts = [ ];
+        };
+      };
+    };
   };
 
   ########################################
@@ -127,6 +162,21 @@
     LC_PAPER = "de_DE.UTF-8";
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
+  };
+
+  ########################################
+  # Automatic Updates & Garbage Collection
+  ########################################
+  system.autoUpgrade = {
+    enable = true;
+    dates = "02:00";
+    randomizedDelaySec = "45min";
+  };
+
+  system.gc = {
+    automatic = true;
+    dates = "05:00";
+    options = "--delete-generations +10";
   };
 
   ########################################
