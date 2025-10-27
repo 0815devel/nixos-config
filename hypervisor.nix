@@ -21,7 +21,7 @@
       "intel_pstate=enable" # Enable dynamic CPU frequency scaling
       "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
       "intel_iommu=on" # Enable IOMMU
-      "iommu=pt" # Performance for IOMMU
+      #"iommu=pt" # Performance for IOMMU
     ];
 
     # PCIe passthrough
@@ -142,7 +142,7 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
-      package = pkgs.qemu_kvm; # VMs run as libvirt-qemu user
+      package = pkgs.qemu_kvm;
       runAsRoot = false;
       swtpm.enable = true;
     };
