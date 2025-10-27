@@ -55,7 +55,7 @@
   ########################################
   users.users.admin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirt" ];
+    extraGroups = [ "wheel" "libvirtd" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJOwmCsYLHN1/3eG9Qs1Fo9EkCLt7ir/v7AIpL0nvLZ"
     ];
@@ -145,13 +145,6 @@
       package = pkgs.qemu_kvm; # VMs run as libvirt-qemu user
       runAsRoot = false;
       swtpm.enable = true;
-      ovmf = {
-        enable = true; # Enable UEFI firmware for VMs
-        packages = [(pkgs.OVMF.override {
-          secureBoot = true; # Enable if you want Secure Boot
-          tpmSupport = true; # TPM support optional
-        }).fd];
-      };
     };
   };
 
