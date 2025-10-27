@@ -79,7 +79,7 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /export 192.168.1.10(rw,sync,fsid=0,no_subtree_check)
+      /tank/podman 10.0.1.2(rw,sync,fsid=0,no_subtree_check)
     '';
   };
 
@@ -109,7 +109,7 @@
     };
 
     interfaces."br-nfs" = {
-      ipv4.addresses = [ { address = "10.10.0.1"; prefixLength = 24; } ];
+      ipv4.addresses = [ { address = "10.0.1.1"; prefixLength = 24; } ];
     };
 
     firewall = {
