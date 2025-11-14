@@ -52,10 +52,16 @@
   };
 
   ########################################
-  # Users
+  # Users and Groups
   ########################################
+  users.groups.admin = {
+    gid = 1000;
+  };
+
   users.users.admin = {
+    uid = 1000;
     isNormalUser = true;
+    group = "admin";
     extraGroups = [ "wheel" "libvirtd" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJOwmCsYLHN1/3eG9Qs1Fo9EkCLt7ir/v7AIpL0nvLZ"
@@ -80,7 +86,8 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /tank/podman 10.0.1.2(rw,sync,fsid=0,no_subtree_check)
+      /tank/podman 10.0.1.2(rw,sync,no_subtree_check,no_root_squash)
+      /tank/media 10.0.1.2(ro,sync,no_subtree_check,no_root_squash)
     '';
   };
 
@@ -96,14 +103,14 @@
     defaultGateway = "10.0.0.1";
     nameservers = [ "10.0.0.1" "1.1.1.1" ];
 
-    vlans."enp1s0.7" = {
+    vlans."enp2s0.7" = {
       id = 7;
-      interface = "enp1s0";
+      interface = "enp2s0";
     };
 
-    bridges.br-lan.interfaces = [ "enp1s0" ];
+    bridges.br-lan.interfaces = [ "enp2s0" ];
     bridges.br-nfs.interfaces = [ ];
-    bridges.br-wan.interfaces = [ "enp1s0.7" ];
+    bridges.br-wan.interfaces = [ "enp2s0.7" ];
 
     interfaces."br-lan" = {
       ipv4.addresses = [ { address = "10.0.0.3"; prefixLength = 24; } ];
