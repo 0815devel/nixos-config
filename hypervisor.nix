@@ -22,6 +22,7 @@
       "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
       "intel_iommu=on" # Enable IOMMU
       #"iommu=pt" # Performance for IOMMU
+      #"vfio-pci.ids=1002:67b0,1002:aac8" # IDs of PCIe devices to passthrough
     ];
 
     # PCIe passthrough
