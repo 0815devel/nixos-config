@@ -86,6 +86,7 @@
   services.nfs.server = {
     enable = true;
     exports = ''
+      /tank 10.0.0.127(rw,sync,no_subtree_check)
       /tank/podman 10.0.1.2(rw,sync,no_subtree_check,no_root_squash)
       /tank/media 10.0.1.2(ro,sync,no_subtree_check,no_root_squash)
     '';
@@ -103,14 +104,14 @@
     defaultGateway = "10.0.0.1";
     nameservers = [ "10.0.0.1" "1.1.1.1" ];
 
-    vlans."enp2s0.7" = {
+    vlans."enp3s0.7" = {
       id = 7;
-      interface = "enp2s0";
+      interface = "enp3s0";
     };
 
-    bridges.br-lan.interfaces = [ "enp2s0" ];
+    bridges.br-lan.interfaces = [ "enp3s0" "enp2s0f0" "enp2s0f1" "enp2s0f2" "enp2s0f3" ];
     bridges.br-nfs.interfaces = [ ];
-    bridges.br-wan.interfaces = [ "enp2s0.7" ];
+    bridges.br-wan.interfaces = [ "enp3s0.7" ];
 
     interfaces."br-lan" = {
       ipv4.addresses = [ { address = "10.0.0.3"; prefixLength = 24; } ];
@@ -130,11 +131,12 @@
 
       interfaces = {
         "br-lan" = {
-          allowedTCPPorts = [ 22 ]; # SSH
+          allowedTCPPorts = [ 22 2049 ]; # SSH and NFS
+          allowedUDPPorts = [ 2049 ]; # NFS
         };
         "br-nfs" = {
           allowedTCPPorts = [ 2049 ]; # NFS
-          allowedUDPPorts = [ 2049 ];
+          allowedUDPPorts = [ 2049 ]; # NFS
         };
         "br-wan" = {
           allowedTCPPorts = [ ];
