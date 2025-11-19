@@ -165,11 +165,15 @@
       };
       "br-wan" = {
         matchConfig.Name = "br-wan";
-        linkConfig.Unmanaged = true;
+        linkConfig.ActivationPolicy = "up";
+        networkConfig = { 
+          ConfigureWithoutCarrier = true;
+        };
       };
       "br-nfs" = {
         matchConfig.Name = "br-nfs";
         address = [ "10.0.1.1/24" ];
+        linkConfig.ActivationPolicy = "up";
         networkConfig = { 
           ConfigureWithoutCarrier = true;
         };
