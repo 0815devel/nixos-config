@@ -39,7 +39,7 @@
   ########################################
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = "ondemand";
   };
 
   ########################################
@@ -95,31 +95,93 @@
   ########################################
   # Network (Bridge & VLAN) & Firewall
   ########################################
+  systemd.network = {
+    enable = true;
+    netdevs = {
+      "br-lan" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br-lan";
+         };
+       };
+      "br-wan" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br-wan";
+         };
+       };
+      "br-nfs" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br-nfs";
+         };
+       };
+      "lan-onboard-vlan7" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "lan-onboard.7";
+        };
+        vlanConfig.Id = 7;
+      };
+    };
+    networks = {
+      "lan-onboard" = {
+        matchConfig.MACAddress = "9c:6b:00:39:c9:ce";
+        networkConfig.Bridge = "br-lan";
+        linkConfig.RequiredForOnline = "enslaved";
+        vlan = [ "lan-onboard.7" ];
+      };
+      "lan-nic0" = {
+        matchConfig.MACAddress = "a0:36:9f:83:e8:10";
+        networkConfig.Bridge = "br-lan";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+      "lan-nic1" = {
+        matchConfig.MACAddress = "a0:36:9f:83:e8:11";
+        networkConfig.Bridge = "br-lan";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+      "lan-nic2" = {
+        matchConfig.MACAddress = "a0:36:9f:83:e8:12";
+        networkConfig.Bridge = "br-lan";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+      "lan-nic3" = {
+        matchConfig.MACAddress = "a0:36:9f:83:e8:13";
+        networkConfig.Bridge = "br-lan";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+      "lan-onboard-vlan7" = {
+        matchConfig.Name = "lan-onboard.7";
+        networkConfig.Bridge = "br-wan";
+        linkConfig.RequiredForOnline = "carrier";
+      };
+      "br-lan" = {
+        matchConfig.Name = "br-lan";
+        address = [ "10.0.0.3/24" ];
+        dns = [ "10.0.0.1" "1.1.1.1" ];
+        domains = [ "internal" ];
+        gateway = [ "10.0.0.1" ];
+      };
+      "br-wan" = {
+        matchConfig.Name = "br-wan";
+        linkConfig.Unmanaged = true;
+      };
+      "br-nfs" = {
+        matchConfig.Name = "br-nfs";
+        address = [ "10.0.1.1/24" ];
+        networkConfig = { 
+          ConfigureWithoutCarrier = true;
+        };
+      };
+    };
+  };
+
   networking = {
     hostName = "hypervisor";
     domain = "internal";
     useDHCP = false;
     hostId = "4e98920d";
-
-    defaultGateway = "10.0.0.1";
-    nameservers = [ "10.0.0.1" "1.1.1.1" ];
-
-    vlans."enp3s0.7" = {
-      id = 7;
-      interface = "enp3s0";
-    };
-
-    bridges.br-lan.interfaces = [ "enp3s0" "enp2s0f0" "enp2s0f1" "enp2s0f2" "enp2s0f3" ];
-    bridges.br-nfs.interfaces = [ ];
-    bridges.br-wan.interfaces = [ "enp3s0.7" ];
-
-    interfaces."br-lan" = {
-      ipv4.addresses = [ { address = "10.0.0.3"; prefixLength = 24; } ];
-    };
-
-    interfaces."br-nfs" = {
-      ipv4.addresses = [ { address = "10.0.1.1"; prefixLength = 24; } ];
-    };
 
     firewall = {
       enable = true;
