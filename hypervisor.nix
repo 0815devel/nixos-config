@@ -166,7 +166,7 @@
       "br-wan" = {
         matchConfig.Name = "br-wan";
         linkConfig.Unmanaged = true;
-        linkConfig.ActivationPolicy = "up";
+        linkConfig.ActivationPolicy = "always-up";
         networkConfig = { 
           ConfigureWithoutCarrier = true;
         };
