@@ -1,33 +1,33 @@
 #!/usr/bin/env bash
 
-# Änderungen anzeigen
+# Show changes
 git status
 
 echo
-echo "→ Prüfe, ob Änderungen vorhanden sind…"
+echo "→ Checking for changes…"
 
-# Prüfen, ob nichts geändert wurde (auch keine untracked files)
+# Check if nothing has changed (including no untracked files)
 if git diff-index --quiet HEAD -- && [ -z "$(git ls-files --others --exclude-standard)" ]; then
-    echo "✓ Keine Änderungen gefunden. Nichts zu committen oder zu pushen."
+    echo "✓ No changes found. Nothing to commit or push."
     exit 0
 fi
 
-# Commit-Nachricht abfragen
-read -p "Commit-Nachricht: " msg
+# Ask for commit message
+read -p "Commit message: " msg
 
-# Falls Nachricht leer: abbrechen
+# If message is empty: abort
 if [ -z "$msg" ]; then
-    echo "❌ Keine Commit-Nachricht eingegeben. Abbruch."
+    echo "❌ No commit message entered. Aborting."
     exit 1
 fi
 
-# Hinzufügen aller Änderungen
+# Add all changes
 git add .
 
-# Commit erstellen
+# Create commit
 git commit -m "$msg"
 
-# Pushen
+# Push
 git push
 
-echo "✓ Erfolgreich gepusht."
+echo "✓ Successfully pushed."
