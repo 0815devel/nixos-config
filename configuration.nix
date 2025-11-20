@@ -249,8 +249,8 @@
   system.autoUpgrade = {
     enable = true;
     dates = "weekly";
-    allowReboot = true;
-    operation = "boot"; 
+    allowReboot = false;
+    operation = "switch"; 
   };
 
   nix.gc = {
@@ -259,7 +259,7 @@
     options = "--delete-older-than 30d";
   };
 
-  nix.settings.auto-optimise-store = true;
+  #nix.settings.auto-optimise-store = true;
 
   ########################################
   # System Packages

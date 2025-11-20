@@ -1,5 +1,9 @@
 # nixos-config
 Repo for my personal NixOS config
 
-- hypervisor.nix
-- router.md
+- hypervisor
+	- `configuration.nix`
+- router
+	- `router.md`
+- services
+	- `services.md`
