@@ -39,10 +39,10 @@
   ########################################
   # CPU / Power Saving
   ########################################
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "ondemand";
-  };
+  #powerManagement = {
+  #  enable = true;
+  #  cpuFreqGovernor = "ondemand";
+  #};
 
   ########################################
   # Services
