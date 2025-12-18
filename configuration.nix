@@ -118,10 +118,10 @@
           Name = "br-nfs";
          };
        };
-      "lan-onboard-vlan7" = {
+      "lan-nic0-vlan7" = {
         netdevConfig = {
           Kind = "vlan";
-          Name = "lan-onboard.7";
+          Name = "lan-nic0.7";
         };
         vlanConfig.Id = 7;
       };
@@ -131,12 +131,12 @@
         matchConfig.MACAddress = "9c:6b:00:39:c9:ce";
         networkConfig.Bridge = "br-lan";
         linkConfig.RequiredForOnline = "enslaved";
-        vlan = [ "lan-onboard.7" ];
       };
       "lan-nic0" = {
         matchConfig.MACAddress = "a0:36:9f:83:e8:10";
         networkConfig.Bridge = "br-lan";
         linkConfig.RequiredForOnline = "enslaved";
+        vlan = [ "lan-nic0.7" ];
       };
       "lan-nic1" = {
         matchConfig.MACAddress = "a0:36:9f:83:e8:11";
@@ -153,8 +153,8 @@
         networkConfig.Bridge = "br-lan";
         linkConfig.RequiredForOnline = "enslaved";
       };
-      "lan-onboard-vlan7" = {
-        matchConfig.Name = "lan-onboard.7";
+      "lan-nic0.7" = {
+        matchConfig.Name = "lan-nic0.7";
         networkConfig.Bridge = "br-wan";
         linkConfig.RequiredForOnline = "carrier";
       };
@@ -274,6 +274,7 @@
     git
     pciutils
     lshw
+    ethtool
   ];
 
   # This value determines the NixOS release from which the default
