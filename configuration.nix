@@ -56,11 +56,11 @@
   ########################################
   # Users and Groups
   ########################################
-  users.groups.admin = {
+  users.groups."admin" = {
     gid = 1000;
   };
 
-  users.users.admin = {
+  users.users."admin" = {
     uid = 1000;
     isNormalUser = true;
     group = "admin";
