@@ -2,7 +2,7 @@
 Repo for my personal NixOS config
 
 - hypervisor
-	- `configuration.nix`
+	- `hypervisor.nix`
 - router
 	- `router.md`
 - services
