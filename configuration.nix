@@ -253,6 +253,13 @@
     dates = "weekly";
     allowReboot = false;
     operation = "switch"; 
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--no-write-lock-file"
+      "-L"
+    ];
   };
 
   nix.gc = {
