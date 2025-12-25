@@ -253,11 +253,11 @@
     dates = "weekly";
     allowReboot = false;
     operation = "switch"; 
-    flake = inputs.self.outPath;
+    flake = "/etc/nixos";
     flags = [
       "--update-input"
       "nixpkgs"
-      "--no-write-lock-file"
+      "--commit-lock-file"
       "-L"
     ];
   };
