@@ -246,7 +246,7 @@
   };
 
   ########################################
-  # Automatic Updates & Garbage Collection
+  # Automatic Updates & Nix
   ########################################
   system.autoUpgrade = {
     enable = true;
@@ -262,6 +262,8 @@
   };
 
   #nix.settings.auto-optimise-store = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   ########################################
   # System Packages
