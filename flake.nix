@@ -6,7 +6,7 @@
     nixosConfigurations.hypervisor = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./hypervisor.nix
+        ./hypervisor/hypervisor.nix
       ];
     };
   };
