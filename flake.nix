@@ -2,12 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.hypervisor = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hypervisor/hypervisor.nix
-      ];
+      specialArgs = { inherit inputs; };
+      modules = [ ./hypervisor/hypervisor.nix ];
     };
   };
 }

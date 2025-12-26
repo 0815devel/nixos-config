@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -86,7 +86,7 @@
     dates = "weekly";
     allowReboot = false;
     operation = "switch"; 
-    flake = "/etc/nixos/";
+    flake = inputs.self.outPath;
     flags = [
       "--update-input"
       "nixpkgs"
