@@ -1,9 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   ########################################
-  # Network (Bridge & VLAN) & Firewall
+  # Network (Bridge & VLAN)
   ########################################
+  networking = {
+    hostName = "hypervisor";
+    domain = "internal";
+    useDHCP = false;
+  };
+
   systemd.network = {
     enable = true;
     netdevs = {
@@ -85,37 +91,6 @@
         linkConfig.ActivationPolicy = "up";
         networkConfig = { 
           ConfigureWithoutCarrier = true;
-        };
-      };
-    };
-  };
-
-  networking = {
-    hostName = "hypervisor";
-    domain = "internal";
-    useDHCP = false;
-    hostId = "4e98920d";
-
-    firewall = {
-      enable = true;
-      allowPing = true;
-      rejectPackets = true;
-
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
-
-      interfaces = {
-        "br-lan" = {
-          allowedTCPPorts = [ 22 2049 ]; # SSH and NFS
-          allowedUDPPorts = [ 2049 ]; # NFS
-        };
-        "br-nfs" = {
-          allowedTCPPorts = [ 2049 ]; # NFS
-          allowedUDPPorts = [ 2049 ]; # NFS
-        };
-        "br-wan" = {
-          allowedTCPPorts = [ ];
-          allowedUDPPorts = [ ];
         };
       };
     };

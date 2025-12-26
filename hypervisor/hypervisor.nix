@@ -4,31 +4,32 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./zfs.nix
       ./users.nix
+      ./locale.nix
       ./packages.nix
       ./network.nix
+      ./firewall.nix
       ./ssh.nix
       ./nfs.nix
       ./libvirt.nix
     ];
 
   ########################################
-  # Boot & ZFS
+  # Boot
+  ########################################
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+
+  ########################################
+  # IOMMU & Nested
   ########################################
   boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    supportedFilesystems = [ "zfs" ];
-    zfs.extraPools = [ "tank" ];
 
-    # Kernel parameters
     kernelParams = [
-      "pcie_aspm=powersave" # Enable ASPM in power-saving mode
-      "intel_pstate=enable" # Enable dynamic CPU frequency scaling
-      "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
-      "intel_iommu=on" # Enable IOMMU
+      #"intel_iommu=on" # Enable IOMMU
       #"iommu=pt" # Performance for IOMMU
       #"vfio-pci.ids=1002:67b0,1002:aac8" # IDs of PCIe devices to passthrough
     ];
@@ -50,33 +51,10 @@
   #  cpuFreqGovernor = "ondemand";
   #};
 
-  ########################################
-  # Services
-  ########################################
-  services.zfs = {
-    autoScrub.enable = true;
-    trim.enable = true;
-    autoSnapshot.enable = true;
-  };
-
-  ########################################
-  # Locale / Keyboard / Time
-  ########################################
-  time.timeZone = "Europe/Berlin";
-  i18n.defaultLocale = "de_DE.UTF-8";
-  console.keyMap = "de";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
-  };
+  boot.kernelParams = [
+    "pcie_aspm=powersave" # Enable ASPM in power-saving mode
+    "intel_pstate=enable" # Enable dynamic CPU frequency scaling
+  ];
 
   ########################################
   # Automatic Updates & Nix
@@ -106,9 +84,10 @@
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
 
-  nix.settings.auto-optimise-store = true;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = { 
+    auto-optimise-store = true;
+    experimental-features = [ "nix-command" "flakes" ];
+  };
 
   system.configurationRevision = inputs.self.rev or "dirty";
 
