@@ -1,8 +1,8 @@
 # todo
 
-- [] Jellyfin
-- [] Minio
-- [] Navidrome
-- [] Nextcloud
-- [] Guacamole
-- [] Immich
+- [ ] Jellyfin
+- [ ] Minio
+- [ ] Navidrome
+- [ ] Nextcloud
+- [ ] Guacamole
+- [ ] Immich
