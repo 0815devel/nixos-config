@@ -3,12 +3,6 @@ Repo for my personal NixOS config
 
 - hypervisor
 
-	All config files for my hypervisor
+- [router.md](router.md)
 
-- router
-
-	todo `router.md`
-
-- services
-
-	todo `services.md`
+- [services.md](services.md)
