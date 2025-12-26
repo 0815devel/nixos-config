@@ -86,7 +86,7 @@
     dates = "weekly";
     allowReboot = false;
     operation = "switch"; 
-    flake = "/etc/nixos";
+    flake = "/etc/nixos/flake.nix";
     flags = [
       "--update-input"
       "nixpkgs"
