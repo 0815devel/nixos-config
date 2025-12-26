@@ -34,7 +34,7 @@
     ];
 
     # PCIe passthrough
-    kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
+    #kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ];
 
     # Enable nested virtualization
     extraModprobeConfig = ''
@@ -101,7 +101,12 @@
     options = "--delete-older-than 30d";
   };
 
-  #nix.settings.auto-optimise-store = true;
+  nix = {
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  };
+
+  nix.settings.auto-optimise-store = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
