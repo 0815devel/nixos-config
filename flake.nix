@@ -10,7 +10,7 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./hypervisor/hypervisor.nix
-        microvm.nixosModules.microvm
+        microvm.nixosModules.host
       ];
     };
   };
