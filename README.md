@@ -2,8 +2,8 @@
 Repo for my personal NixOS config
 
 - hypervisor
-	- `hypervisor.nix`
+	All config files for my hypervisor
 - router
-	- `router.md`
+	todo `router.md`
 - services
-	- `services.md`
+	todo `services.md`
