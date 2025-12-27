@@ -6,3 +6,4 @@
 - [ ] Nextcloud
 - [ ] Guacamole
 - [ ] Immich
+- [ ] Caddy - Reverse Proxy
