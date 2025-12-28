@@ -9,9 +9,16 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        ./hypervisor/hypervisor.nix
+        ./host/host.nix
         microvm.nixosModules.host
       ];
     };
+    nixosConfigurations.test = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            microvm.nixosModules.microvm
+            ./microvm/test.nix
+          ];
+        };
   };
 }

@@ -1,7 +1,7 @@
 # nixos-config
 Repo for my personal NixOS config
 
-- hypervisor
+- host
 
 - [router.md](router.md)
 

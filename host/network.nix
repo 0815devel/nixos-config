@@ -5,7 +5,7 @@
   # Network (Bridge & VLAN)
   ########################################
   networking = {
-    hostName = "hypervisor";
+    hostName = "host";
     domain = "internal";
     useDHCP = false;
   };
@@ -81,7 +81,7 @@
       "br-wan" = {
         matchConfig.Name = "br-wan";
         linkConfig.ActivationPolicy = "always-up";
-        networkConfig = { 
+        networkConfig = {
           ConfigureWithoutCarrier = true;
         };
       };
@@ -89,7 +89,7 @@
         matchConfig.Name = "br-nfs";
         address = [ "10.0.1.1/24" ];
         linkConfig.ActivationPolicy = "up";
-        networkConfig = { 
+        networkConfig = {
           ConfigureWithoutCarrier = true;
         };
       };

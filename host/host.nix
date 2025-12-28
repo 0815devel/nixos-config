@@ -13,6 +13,7 @@
       ./ssh.nix
       ./nfs.nix
       ./libvirt.nix
+      ./network-microvm.nix
     ];
 
   ########################################
@@ -43,8 +44,8 @@
     enable = true;
     dates = "weekly";
     allowReboot = false;
-    operation = "switch"; 
-    flake = inputs.self.outPath;
+    operation = "switch";
+    flake = "/etc/nixos";
     flags = [
       "--update-input"
       "nixpkgs"
@@ -64,7 +65,7 @@
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
 
-  nix.settings = { 
+  nix.settings = {
     auto-optimise-store = true;
     experimental-features = [ "nix-command" "flakes" ];
   };
