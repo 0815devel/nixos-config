@@ -5,12 +5,8 @@
     [
       ./hardware-configuration.nix
       ./zfs.nix
-      ./users.nix
-      ./locale.nix
-      ./packages.nix
       ./network.nix
       ./firewall.nix
-      ./ssh.nix
       ./nfs.nix
       ./libvirt.nix
       ./network-microvm.nix

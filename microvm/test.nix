@@ -15,15 +15,16 @@
     ];
 
     shares = [{
+      proto = "virtiofs";
+      tag = "ro-store";
       source = "/nix/store";
       mountPoint = "/nix/.ro-store";
-      tag = "ro-store";
-      proto = "virtiofs";
     }];
   };
 
   networking = {
     hostName = "test";
+    useDHCP = false;
     firewall.allowedTCPPorts = [ 22 80 443 ];
   };
 
@@ -40,30 +41,9 @@
     };
   };
 
-  services.httpd.enable = true;
-
-  users.groups."admin" = {
-    gid = 1000;
-  };
-
-  users.users."admin" = {
-    uid = 1000;
-    isNormalUser = true;
-    group = "admin";
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIJOwmCsYLHN1/3eG9Qs1Fo9EkCLt7ir/v7AIpL0nvLZ"
-    ];
-  };
-
-  services.openssh = {
-    enable = true;
-    openFirewall = false;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
-  };
+  users.users.root.hashedPassword = "!";
 
   system.stateVersion = "25.05";
+
+  services.httpd.enable = true;
 }
