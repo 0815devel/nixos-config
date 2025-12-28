@@ -28,6 +28,7 @@
       system = "x86_64-linux";
       modules = [
         microvm.nixosModules.microvm
+        ./common/default.nix
         ./microvm/test.nix
       ];
     };
