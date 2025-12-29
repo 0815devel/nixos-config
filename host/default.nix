@@ -9,7 +9,9 @@
       ./firewall.nix
       ./nfs.nix
       ./libvirt.nix
-      ./network-microvm.nix
+      ./microvm-network.nix
+      ./microvm-updater.nix
+      ./microvm-machines.nix
     ];
 
   ########################################

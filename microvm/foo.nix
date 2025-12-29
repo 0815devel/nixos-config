@@ -9,8 +9,8 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-lan-test";
-        mac = "02:00:00:00:00:09";
+        id = "vm-lan-foo";
+        mac = "02:00:00:00:00:10";
       }
     ];
 
@@ -23,7 +23,7 @@
   };
 
   networking = {
-    hostName = "test";
+    hostName = "foo";
     useDHCP = false;
     firewall.allowedTCPPorts = [ 22 80 443 ];
   };
@@ -33,7 +33,7 @@
     networks."lan" = {
       matchConfig.Type = "ether";
       networkConfig = {
-        Address = [ "10.0.0.99/24" ];
+        Address = [ "10.0.0.98/24" ];
         Gateway = "10.0.0.1";
         DNS = [ "10.0.0.1" ];
         DHCP = "no";

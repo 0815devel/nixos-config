@@ -1,8 +1,8 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   ########################################
-  # Network for MicroVM
+  # Network
   ########################################
   systemd.network.networks."vm-lan" = {
     matchConfig.Name = [ "vm-lan-*" ];
