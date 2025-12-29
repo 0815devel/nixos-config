@@ -9,7 +9,7 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-test";
+        id = "vm-lan-test";
         mac = "02:00:00:00:00:09";
       }
     ];
