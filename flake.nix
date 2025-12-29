@@ -7,7 +7,7 @@
     };
   };
   outputs = { self, nixpkgs, microvm, ... }@inputs: {
-    nixosConfigurations.hypervisor = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.host = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
