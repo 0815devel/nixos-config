@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  mac = "02:00:00:00:00:01";
+in
 {
   microvm = {
     hypervisor = "qemu";
@@ -9,8 +12,8 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-lan-test";
-        mac = "93:2C:41:6A:4D:CD";
+        id = "vm-lan-bar";
+        mac = mac;
       }
     ];
 
@@ -31,8 +34,7 @@
   systemd.network = {
     enable = true;
     networks."lan" = {
-      #matchConfig.MACAddress = "93:2C:41:6A:4D:CD";
-      matchConfig.type = "ether";
+      matchConfig.MACAddress = mac;
       networkConfig = {
         Address = [ "10.0.0.99/24" ];
         Gateway = "10.0.0.1";
@@ -43,8 +45,15 @@
   };
 
   users.users.root.hashedPassword = "!";
-
   system.stateVersion = "25.05";
 
-  services.httpd.enable = true;
+  services.nginx = {
+    enable = true;
+    virtualHosts.localhost = {
+      locations."/" = {
+        return = "200 \"<html><body>It's bar: It works</body></html>\"";
+        extraConfig = "default_type text/html;";
+      };
+    };
+  };
 }
