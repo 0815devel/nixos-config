@@ -4,13 +4,13 @@
   ########################################
   # VMs
   ########################################
-  microvm.vms.test = {
+  microvm.vms.foo = {
     flake = self;
     updateFlake = "git+file:///etc/nixos";
     autostart = true;
     restartIfChanged = true;
   };
-  microvm.vms.foo = {
+  microvm.vms.bar = {
     flake = self;
     updateFlake = "git+file:///etc/nixos";
     autostart = true;
