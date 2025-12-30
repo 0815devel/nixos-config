@@ -1,7 +1,7 @@
 { config, pkgs, microvm, ... }:
 
 let
-  vms = [ "test" "foo" ];
+  vms = [ "foo" "bar" ];
 in
 {
   ########################################
