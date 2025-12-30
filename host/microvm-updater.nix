@@ -1,24 +1,17 @@
 { config, pkgs, microvm, ... }:
 
+let
+  vms = [ "test" "foo" ];
+in
 {
   ########################################
   # Updater
   ########################################
-  systemd.timers."update-microvm" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "weekly";
-      Persistent = true;
-    };
-  };
-
-  systemd.services."update-microvm" = {
-    script = ''
-      ${microvm.packages.${pkgs.stdenv.hostPlatform.system}.microvm}/bin/microvm -R -u test foo
-    '';
+  systemd.services.microvm-updater = {
     serviceConfig = {
       Type = "oneshot";
-      User = "root";
+      ExecStart = "${microvm.packages.${pkgs.stdenv.hostPlatform.system}.microvm}/bin/microvm -R -u ${builtins.concatStringsSep " " vms}";
     };
   };
+  systemd.services.nixos-upgrade.onSuccess = [ "microvm-updater.service" ];
 }

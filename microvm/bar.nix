@@ -10,7 +10,7 @@
       {
         type = "tap";
         id = "vm-lan-test";
-        mac = "02:00:00:00:00:09";
+        mac = "93:2C:41:6A:4D:CD";
       }
     ];
 
@@ -23,7 +23,7 @@
   };
 
   networking = {
-    hostName = "test";
+    hostName = "bar";
     useDHCP = false;
     firewall.allowedTCPPorts = [ 22 80 443 ];
   };
@@ -31,7 +31,8 @@
   systemd.network = {
     enable = true;
     networks."lan" = {
-      matchConfig.Type = "ether";
+      #matchConfig.MACAddress = "93:2C:41:6A:4D:CD";
+      matchConfig.type = "ether";
       networkConfig = {
         Address = [ "10.0.0.99/24" ];
         Gateway = "10.0.0.1";

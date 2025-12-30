@@ -16,20 +16,20 @@
         microvm.nixosModules.host
       ];
     };
-    nixosConfigurations.test = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        microvm.nixosModules.microvm
-        ./common/default.nix
-        ./microvm/test.nix
-      ];
-    };
     nixosConfigurations.foo = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         microvm.nixosModules.microvm
         ./common/default.nix
         ./microvm/foo.nix
+      ];
+    };
+    nixosConfigurations.bar = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        microvm.nixosModules.microvm
+        ./common/default.nix
+        ./microvm/bar.nix
       ];
     };
   };

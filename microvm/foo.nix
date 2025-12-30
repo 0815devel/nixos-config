@@ -10,7 +10,7 @@
       {
         type = "tap";
         id = "vm-lan-foo";
-        mac = "02:00:00:00:00:10";
+        mac = "39:03:05:5C:63:1E";
       }
     ];
 
@@ -31,7 +31,8 @@
   systemd.network = {
     enable = true;
     networks."lan" = {
-      matchConfig.Type = "ether";
+      #matchConfig.MACAddress = "39:03:05:5C:63:1E";
+      matchConfig.type = "ether";
       networkConfig = {
         Address = [ "10.0.0.98/24" ];
         Gateway = "10.0.0.1";
@@ -45,5 +46,5 @@
 
   system.stateVersion = "25.05";
 
-  services.httpd.enable = true;
+  services.nginx.enable = true;
 }
