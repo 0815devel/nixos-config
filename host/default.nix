@@ -9,9 +9,6 @@
       ./firewall.nix
       ./nfs.nix
       ./libvirt.nix
-      ./microvm-network.nix
-      ./microvm-updater.nix
-      ./microvm-machines.nix
     ];
 
   ########################################
@@ -67,6 +64,8 @@
     auto-optimise-store = true;
     experimental-features = [ "nix-command" "flakes" ];
   };
+
+  nixpkgs.config.allowUnfree = true;
 
   system.configurationRevision = inputs.self.rev or "dirty";
 

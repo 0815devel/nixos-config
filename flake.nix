@@ -9,27 +9,11 @@
   outputs = { self, nixpkgs, microvm, ... }@inputs: {
     nixosConfigurations.host = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs; inherit microvm; inherit self; };
+      specialArgs = { inherit inputs; inherit microvm; };
       modules = [
         ./common/default.nix
         ./host/default.nix
-        microvm.nixosModules.host
-      ];
-    };
-    nixosConfigurations.foo = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        microvm.nixosModules.microvm
-        ./common/default.nix
-        ./microvm/foo.nix
-      ];
-    };
-    nixosConfigurations.bar = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        microvm.nixosModules.microvm
-        ./common/default.nix
-        ./microvm/bar.nix
+        ./microvm/default.nix
       ];
     };
   };
