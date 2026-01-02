@@ -5,7 +5,7 @@
   # System Packages
   ########################################
   environment.systemPackages = with pkgs; [
-    vim
+    neovim
     htop
     zfs
     git
