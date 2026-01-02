@@ -3,7 +3,7 @@
 {
   imports = [
     microvm.nixosModules.host
-    ./microvm-network.nix
+    ./network.nix
   ];
   microvm.vms.foo.config = {
     imports = [
