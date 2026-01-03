@@ -3,7 +3,7 @@
 {
   microvm = {
     hypervisor = "qemu";
-    mem = 512;
+    mem = 1024;
     vcpu = 1;
 
     shares = [{
@@ -15,11 +15,17 @@
 
     interfaces = [{
       type = "tap";
-      id = "vm-lan-foo";
+      id = "vm-lan-jellyfin";
+      mac = "02:00:00:00:00:01";
+    }
+    {
+      type = "tap";
+      id = "vm-nfs-jellyfin";
       mac = "02:00:00:00:00:02";
     }];
   };
   imports = [
     ./config.nix
+    ../../common/default.nix
   ];
 }

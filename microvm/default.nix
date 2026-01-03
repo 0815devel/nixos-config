@@ -5,16 +5,6 @@
     microvm.nixosModules.host
     ./network.nix
   ];
-  microvm.vms.foo.config = {
-    imports = [
-      ./foo/default.nix
-      ../common/default.nix
-    ];
-  };
-  microvm.vms.bar.config = {
-    imports = [
-      ./bar/default.nix
-      ../common/default.nix
-    ];
-  };
+  microvm.vms.jellyfin.config.imports = [ ./jellyfin/default.nix ];
+  microvm.vms.minio.config.imports = [ ./minio/default.nix ];
 }

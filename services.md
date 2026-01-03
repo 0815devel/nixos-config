@@ -1,37 +1,3 @@
-# Jellyfin
-
-```nix
-environment.systemPackages = with pkgs; [
-  jellyfin
-  jellyfin-web
-  jellyfin-ffmpeg
-];
-services.jellyfin = {
-  enable = true;
-  openFirewall = true;
-  dataDir = "/var/lib/jellyfin";
-  cacheDir = "/var/cache/jellyfin";
-  configDir = "\${cfg.dataDir}/config"
-  logDir = "\${cfg.dataDir}/log"
-};
-```
-
-# Minio
-
-```nix
-services.minio = {
-  enable = true;
-  accessKey = "admin";
-  secretKey = "password";
-  browser = true;
-  configDir = "/var/lib/minio/config";
-  dataDir = [ "/var/lib/minio/data" ]
-  consoleAddress = ":9001";
-  listenAddress = ":9000";
-  region = "eu-west-1";
-};
-```
-
 # Navidrome
 
 ```nix
