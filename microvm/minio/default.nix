@@ -11,6 +11,13 @@
       mountPoint = "/nix/.ro-store";
       tag = "ro-store";
       proto = "virtiofs";
+    }
+    {
+      source = "/run/secrets/rendered/minio";
+      mountPoint = "/etc/minio-root-credentials";
+      tag = "secret";
+      proto = "virtiofs";
+      readOnly = true;
     }];
 
     interfaces = [{

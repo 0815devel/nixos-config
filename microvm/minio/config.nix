@@ -39,6 +39,7 @@
 
   services.minio = {
     enable = true;
+    rootCredentialsFile = "/etc/minio-root-credentials/env";
   };
 
   users.users.root.hashedPassword = "!";
