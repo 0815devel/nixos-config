@@ -3,10 +3,8 @@
 ```nix
 services.navidrome = {
   enable = true;
-  openFirewall = true;
   settings = {
-    Address = "127.0.0.1";
-    Port = 4533;
+    MusicFolder = "/music";
   }
 };
 ```
@@ -39,7 +37,7 @@ services = {
     enable = true;
     host = "127.0.0.1";
     port = 4822;
-    userMappingXml = ./guacamole/user-mapping.xml;
+    #userMappingXml = ./guacamole/user-mapping.xml;
   };
   guacamole-client = {
     enable = true;
