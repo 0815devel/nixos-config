@@ -13,7 +13,7 @@
       proto = "virtiofs";
     }
     {
-      source = "/run/secrets/rendered/minio";
+      source = "/run/secrets/minio";
       mountPoint = "/etc/minio-root-credentials";
       tag = "secret";
       proto = "virtiofs";

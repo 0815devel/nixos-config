@@ -43,6 +43,5 @@
   };
 
   users.users.root.hashedPassword = "!";
-  users.users.admin.password = "password";
   system.stateVersion = "25.05";
 }
