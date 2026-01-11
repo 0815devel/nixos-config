@@ -25,10 +25,6 @@
     useDHCP = false;
     nftables.enable = true;
     firewall.enable = false;
-    extraHosts = ''
-      10.0.0.2 server.internal server
-      10.0.0.3 host.internal host
-    '';
   };
 
   systemd.network = {
@@ -53,14 +49,14 @@
       };
   };
   networks = {
-    "10-lan" = {
+    "lan" = {
       linkConfig.RequiredForOnline = "yes";
       matchConfig.Name = "lan";
       address = [ "10.0.0.1/24" ];
       dns = [ "127.0.0.1" "1.1.1.1" ];
       domains = [ "internal" ];
     };
-    "20-wan" = {
+    "wan" = {
       matchConfig.Name = "wan";
       linkConfig.Unmanaged = "yes";
       linkConfig.RequiredForOnline = "no";
@@ -117,19 +113,31 @@
     enable = true;
     alwaysKeepRunning = true;
     settings = {
-      interface = lan
-      bind-interfaces = true
-      domain = internal
-
-      dhcp-range=10.0.0.127,10.0.0.254,24h
-      dhcp-option=3,10.0.0.1
-      dhcp-option=6,10.0.0.1
-  
-      listen-address=127.0.0.1,10.0.0.1
-      cache-size=10000
-  
-      no-resolv
-      dhcp-authoritative
+      interface = "lan";
+      bind-interfaces = true;
+      listen-address = [ "127.0.0.1" "10.0.0.1" ];
+      
+      server = [ "1.1.1.1" ];
+      no-resolv = true;
+      cache-size = 10000;
+    
+      dhcp-range = [ "10.0.0.127,10.0.0.254,255.255.255.0,24h" ];
+      dhcp-authoritative = true;
+        
+      dhcp-option = [
+        "option:router,10.0.0.1"
+        "option:dns-server,10.0.0.1"
+      ];
+    
+      domain = "internal";
+      expand-hosts = true;
+      local = "/internal/";
+      domain-needed = true;
+    
+      dhcp-host = [
+        "00:11:22:33:44:55,10.0.0.10,pcname"
+        "AA:BB:CC:DD:EE:FF,10.0.0.11,server"
+      ];
     };
   };
 }
