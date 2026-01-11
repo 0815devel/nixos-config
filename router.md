@@ -243,7 +243,7 @@
     enable = true;
     interval = 300;
     ssl = true;
-    usev4 = "if", "if=wan";
+    usev4 = "if, if=wan";
     protocol = "cloudflare";
     zone = "example.com";
     passwordFile = "/run/secrets/ddclient-password";
