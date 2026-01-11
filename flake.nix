@@ -11,7 +11,7 @@
     };
   };
   outputs = { self, nixpkgs, microvm, sops-nix, ... }@inputs: {
-    nixosConfigurations.host = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs microvm sops-nix; };
       modules = [

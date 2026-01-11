@@ -7,5 +7,6 @@
       ./locale.nix
       ./packages.nix
       ./ssh.nix
+      ./hosts.nix
     ];
 }

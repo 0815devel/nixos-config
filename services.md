@@ -1,14 +1,3 @@
-# Navidrome
-
-```nix
-services.navidrome = {
-  enable = true;
-  settings = {
-    MusicFolder = "/music";
-  }
-};
-```
-
 # Nextcloud
 
 ```nix

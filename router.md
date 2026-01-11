@@ -1,47 +1,69 @@
-# todo
+# Boot
 
-- systemd-networkd
-	- Policy-Based Routing
+```nix
+{ config, lib, pkgs, ... }:
 
-# Interfaces
+{
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.forwarding" = true;
+    "net.ipv6.conf.all.forwarding" = false;
+    "net.ipv4.conf.all.arp_filter" = 1;
+    "net.ipv4.conf.default.arp_filter" = 1;
+  };
+}
+```
+
+# Interfaces and Networking
 
 ```nix
 { config, pkgs, ... }:
 
 {
-networking = {
-  hostName = "router.internal";
-
-  # Global DNS
-  nameservers = [ "1.1.1.1" ];
-
-  # VLAN 7 on eth1
-  vlans.eth1.7 = {
-    id = 7;
-    interface = "eth1";
+  networking = {
+    hostName = "router";
+    domain = "internal";
+    useDHCP = false;
+    nftables.enable = true;
+    firewall.enable = false;
+    extraHosts = ''
+      10.0.0.2 server.internal server
+      10.0.0.3 host.internal host
+    '';
   };
 
-  # Interfaces
-  interfaces = {
-    # LAN
-    eth0 = {
-      macAddress = "00:11:22:33:44:55";
-      ipAddress = "10.0.0.1";
-      prefixLength = 24;
-      ipv6 = false;
+  systemd.network = {
+    enable = true;
+    wait-online.enable = false;
+    links = {
+      "lan" = {
+        matchConfig = {
+          MACAddress = "aa:aa:aa:aa:aa:00";
+        };
+        linkConfig = {
+          Name = "lan";
+        };
+      };
+      "wan" = {
+        matchConfig = {
+          MACAddress = "aa:aa:aa:aa:aa:03";
+        };
+        linkConfig = {
+          Name = "wan";
+        };
+      };
+  };
+  networks = {
+    "10-lan" = {
+      linkConfig.RequiredForOnline = "yes";
+      matchConfig.Name = "lan";
+      address = [ "10.0.0.1/24" ];
+      dns = [ "127.0.0.1" "1.1.1.1" ];
+      domains = [ "internal" ];
     };
-
-    # WAN physical
-    eth1 = {
-      macAddress = "66:77:88:99:AA:BB";
-      ipv6 = false;
-      useDHCP = false;
-    };
-
-    # WAN
-    eth1.7 = {
-      ipv6 = false;
-      useDHCP = false; # PPPoE will handle IP
+    "20-wan" = {
+      matchConfig.Name = "wan";
+      linkConfig.Unmanaged = "yes";
+      linkConfig.RequiredForOnline = "no";
     };
   };
 }
@@ -49,57 +71,39 @@ networking = {
 
 # PPPoE
 
-## Private/Public Key
-
-```bash
-systemd-creds setup --without-tpm2 --secret-key=/root/credential.secret
-```
-
-```bash
-echo "user" > inexio-user.txt
-echo "password" > inexio-password.txt
-```
-
-```bash
-systemd-creds encrypt --secret-key=/root/credential.secret inexio-user.txt /etc/nixos/secrets/inexio-user.cred
-systemd-creds encrypt --secret-key=/root/credential.secret inexio-password.txt /etc/nixos/secrets/inexio-password.cred
-```
-
-```bash
-rm inexio-user.txt
-rm inexio-password.txt
-```
-
-## NixOS Configuration
-
 ```nix
 { config, pkgs, ... }:
 
 {
-    ppp = {
+  services.pppd = {
+    enable = true;
+    peers."inexio" = {
+      autostart = true;
       enable = true;
-      peers.inexio = {
-        config = ''
-          plugin rp-pppoe.so eth1.7
-          user "$(cat /run/credentials/pppd@inexio.user)"
-          noauth
-          defaultroute
-          usepeerdns
-          persist
-          hide-password
-          password /run/credentials/pppd@inexio.password
-        '';
-      };
+      config = ''
+        plugin rp-pppoe.so wan
+        name "<USERNAME>"
+        noipdefault
+        hide-password
+        lcp-echo-interval 20
+        lcp-echo-failure 3
+        noauth
+        persist
+        maxfail 0
+        holdoff 30
+        mtu 1492
+        mru 1492
+        noaccomp
+        noproxyarp
+        default-asyncmap
+        noipv6
+        nodefaultroute
+        noreplacedefaultroute
+        usepeerdns
+        ifname pppoe0
+      '';
     };
-
-  systemd.services."pppd@inexio".serviceConfig = {
-    LoadCredentialEncrypted = [
-      "user:/etc/nixos/secrets/inexio-user.cred"
-      "password:/etc/nixos/secrets/inexio-password.cred"
-    ];
   };
-
-  environment.systemPackages = with pkgs; [ ppp rp-pppoe ];
 }
 ```
 
@@ -109,69 +113,39 @@ rm inexio-password.txt
 { config, pkgs, ... }:
 
 {
-  networking.dnsmasq.enable = true;
+  service.dnsmasq = {
+    enable = true;
+    alwaysKeepRunning = true;
+    settings = {
+      interface = lan
+      bind-interfaces = true
+      domain = internal
 
-  networking.dnsmasq.extraConfig = ''
-    # Bind dnsmasq to LAN interface
-    interface=eth0
-    bind-interfaces
-
-    # DHCP range
-    dhcp-range=10.0.0.127,10.0.0.254,24h
-
-    # DHCP options
-    dhcp-option=3,10.0.0.1       # Default gateway for clients
-    dhcp-option=6,1.1.1.1        # DNS server for clients
-    dhcp-option=15,internal      # Domain name
-
-    # Listen only on LAN IP
-    listen-address=10.0.0.1
-
-    no-resolv
-    dhcp-authoritative
-  '';
-}
-```
-
-# SSH
-
-```nix
-{ config, pkgs, ... }:
-
-{
-  services.openssh.enable = true;
-
-  # Allow password login for convenience
-  services.openssh.passwordAuthentication = true;
-  services.openssh.permitRootLogin = "yes";
-  services.openssh.challengeResponseAuthentication = false;
-
-  users.users.root = {
-    openssh.authorizedKeys.keys = [
-      # Public key for root login
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBEXAMPLEKEYHERE benutzer@client"
-    ];
+      dhcp-range=10.0.0.127,10.0.0.254,24h
+      dhcp-option=3,10.0.0.1
+      dhcp-option=6,10.0.0.1
+  
+      listen-address=127.0.0.1,10.0.0.1
+      cache-size=10000
+  
+      no-resolv
+      dhcp-authoritative
+    };
   };
-
-  services.openssh.port = 22;  # Listen port
 }
 ```
 
-Firewall (nftables)
+# Firewall
 
 ```nix
 { config, pkgs, ... }:
 
 {
-  networking.firewall.enable = false;  # Disable legacy firewall
-  networking.nftables.enable = true;   # Enable nftables
-  networking.firewall.ipv4Forward = true; # Enable IP forwarding for routing
-
-  networking.nftables.extraRules = ''
+  networking.nftables.ruleset = ''
     flush ruleset  # Clear existing rules
 
-    define LAN = "eth0"
-    define WAN = "eth1.7"
+    define LAN = "lan"
+    define WAN = "wan"
 
     ##########################
     # Filter table
@@ -228,87 +202,26 @@ Firewall (nftables)
 { config, pkgs, ... }:
 
 {
-  networking.wireguard.enable = true;
-
-  networking.wireguard.interfaces = {
-    wg0 = {
-      privateKey = "PRIVATE_KEY";        # Server private key
-      listenPort = 51820;                # Listening port
-      addresses = [ "10.10.0.1/24" ];   # VPN subnet for server
-
-      peers = [
-        {
-          publicKey = "PUBLIC_KEY";          # Client public key
-          allowedIPs = [ "10.10.0.2/32" ];   # Client IP in VPN
-          endpoint = "client.example.com:51820"; # Optional
-        }
-      ];
-    };
-  };
-}
-```
-
-# Caddy
-
-```nix
-{ config, pkgs, ... }:
-
-{
-  services.caddy.enable = true;
-  services.caddy.package = pkgs.caddy;  # use default Caddy package
-
-  # Optional: run as root if binding to ports < 1024
-  services.caddy.user = "caddy";
-
-  services.caddy.config = ''
-    # Example: Reverse proxy from WAN to internal service
-    router.internal {
-        reverse_proxy 10.0.0.100:8080
-    }
-
-    # Optional TLS (automatic)
-    # router.internal {
-    #     tls your-email@example.com
-    #     reverse_proxy 10.0.0.100:8080
-    # }
-  '';
-}
-```
-
-# Fail2Ban
-
-```nix
-{ config, pkgs, ... }:
-
-{
-  services.fail2ban = {
+  networking.wireguard = {
     enable = true;
-
-    bantime = "1h";        # Ban duration
-    findtime = "10m";      # Observation window
-    maxretry = 5;          # Retries before ban
-
-    ignoreIP = [ "127.0.0.1/8" "10.0.0.0/24" ]; # Trusted IP ranges
-
-    jails = {
-      caddy-http = ''
-        enabled = true
-        port    = http,https
-        filter  = caddy-http
-        logpath = /var/log/caddy/access.log
-        maxretry = 10
-        findtime = 10m
-        bantime  = 1h
-      '';
-    };
-
-    # Custom filter for Caddy
-    filters = {
-      "caddy-http" = ''
-        [Definition]
-        failregex = <HOST> -.*"(GET|POST).*HTTP.*" (404|401|403)
-        ignoreregex =
-      '';
+    interfaces = {
+      "wg0" = {
+        privateKeyFile = "/etc/wireguard/private.key";
+        listenPort = 51820;
+        ips = [ "10.10.0.1/24" ];
+        peers = {
+          "a" = {
+            presharedKeyFile = "/etc/wireguard/preshared.key";
+            publicKey = "PUBLIC_KEY";
+            allowedIPs = [ "10.10.0.2/32" ];
+          };
+          "b" = {
+            presharedKeyFile = "/etc/wireguard/preshared.key";
+            publicKey = "PUBLIC_KEY";
+            allowedIPs = [ "10.10.0.3/32" ];
+          };
+        };
+      };
     };
   };
 }
@@ -320,26 +233,13 @@ Firewall (nftables)
 {
   services.ddclient = {
     enable = true;
-
-    # Protocol for Cloudflare
+    interval = 300;
+    ssl = true;
+    usev4 = "if", "if=wan";
     protocol = "cloudflare";
-
-    # Cloudflare API endpoint
-    server = "api.cloudflare.com/client/v4";
-
-    # Use IP address from network interface eth1.7
-    use = "if", "if=eth1.7";
-
-    # Cloudflare API token login
-    username = "api_token";                  # keep this fixed
-    password = "YOUR_CLOUDFLARE_API_TOKEN";  # token must have DNS:Edit permissions
-
-    # Zone = your main domain in Cloudflare
     zone = "example.com";
-
-    # DNS records you want to update dynamically
-    domains = [ "home.example.com" ];
+    passwordFile = "/run/secrets/ddclient-password";
+    domains = [ "example.com" ];
   };
 }
-
 ```
