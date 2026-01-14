@@ -1,8 +1,6 @@
 # Boot
 
 ```nix
-{ config, lib, pkgs, ... }:
-
 {
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true;
@@ -16,8 +14,6 @@
 # Interfaces and Networking
 
 ```nix
-{ config, pkgs, ... }:
-
 {
   networking = {
     hostName = "router";
@@ -68,8 +64,6 @@
 # PPPoE
 
 ```nix
-{ config, pkgs, ... }:
-
 {
   services.pppd = {
     enable = true;
@@ -105,8 +99,6 @@
 # dnsmasq
 
 ```nix
-{ config, pkgs, ... }:
-
 {
   service.dnsmasq = {
     enable = true;
@@ -145,8 +137,6 @@
 # Firewall
 
 ```nix
-{ config, pkgs, ... }:
-
 {
   networking.nftables.ruleset = ''
     flush ruleset  # Clear existing rules
@@ -161,6 +151,7 @@
 
       # OUTPUT chain - handle outcoming traffic
       chain output {
+        type filter hook output priority 0;
         # Default accept
         policy accept;
       }
@@ -225,10 +216,10 @@
         type nat hook prerouting priority 0;
 
         # WAN port 80 -> LAN host 80
-        tcp dport 80 iifname $WAN dnat to 10.0.0.2:80
+        tcp dport 80 iifname $WAN dnat to 10.0.0.2:80;
 
         # WAN port 443 -> LAN host 443       
-        tcp dport 443 iifname $WAN dnat to 10.0.0.2:443     
+        tcp dport 443 iifname $WAN dnat to 10.0.0.2:443;     
       }
 
       # POSTROUTING - masquerade LAN -> WAN
@@ -246,8 +237,6 @@
 # WireGuard
 
 ```nix
-{ config, pkgs, ... }:
-
 {
   networking.wireguard = {
     enable = true;
@@ -289,4 +278,41 @@
     domains = [ "example.com" ];
   };
 }
+```
+
+# CrowdSec
+
+## Router
+```nix
+services.crowdsec = {
+  enable = true;
+  settings = {
+    api.server = {
+      listen_addr = "10.0.0.1";
+      port = 8080;
+    };
+    parsers.whitelist = {
+      reason = "Exclude local network and trustworthy IPs";
+      ip = [ "127.0.0.1" ];
+      cidr = [ "10.0.0.0/24" "10.10.0.0/24" ];
+  };
+  };
+};
+
+services.crowdsec-firewall-bouncer = {
+  enable = true;
+  api_url = "http://10.0.0.1:8080";
+  api_key = "key";
+};
+```
+
+## Caddy
+```nix
+services.crowdsec = {
+  enable = true;
+  settings = {
+    api.client.urls = [ "http://10.0.0.1:8080" ];
+    acquisition_files = [ "/var/log/caddy/access.log" ];
+  };
+};
 ```
