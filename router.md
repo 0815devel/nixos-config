@@ -95,7 +95,6 @@
         noipv6
         nodefaultroute
         noreplacedefaultroute
-        usepeerdns
         ifname pppoe0
       '';
     };
@@ -153,33 +152,66 @@
     flush ruleset  # Clear existing rules
 
     define LAN = "lan"
-    define WAN = "wan"
+    define WAN = "pppoe0"
 
     ##########################
     # Filter table
     ##########################
     table inet filter {
 
+      # OUTPUT chain - handle outcoming traffic
+      chain output {
+        # Default accept
+        policy accept;
+      }
+
       # INPUT chain - handle incoming traffic
       chain input {
         type filter hook input priority 0;
-        policy drop;                       # Default drop
 
-        iif lo accept;                     # Allow loopback
-        ct state established,related accept; # Allow established connections
+        # Default drop
+        policy drop;                           
 
-        iif $LAN accept;                   # Allow all traffic from LAN
-        iif $WAN tcp dport 22 accept;      # Allow SSH from WAN if needed
+        # Allow loopback
+        iifname lo accept;
+
+        # Allow established connections    
+        ct state established,related accept;
+
+        # Allow Ping
+        icmp type echo-request accept;
+
+        # MSS Clamping                                                  
+        icmp type { destination-unreachable, time-exceeded, parameter-problem } accept;
+
+        # Allow all traffic from LAN
+        iifname $LAN accept;
+
+        # Allow Wireguard from WAN                                            
+        iifname $WAN udp dport 51820 accept;   
       }
 
       # FORWARD chain - handle routed traffic
       chain forward {
         type filter hook forward priority 0;
-        policy drop;                       # Default drop
 
-        iif $LAN oif $WAN accept;          # Allow LAN -> WAN
-        iif $WAN oif $LAN ct state established,related accept; # Allow WAN -> LAN responses
-        iif $LAN oif $LAN accept;          # Allow LAN internal traffic
+        # Default drop
+        policy drop;
+
+        # MSS Clamping                                             
+        tcp flags syn tcp option maxseg size set rt mtu                 
+
+        # Allow LAN -> WAN
+        iifname $LAN oifname $WAN accept;
+
+        # Allow WAN -> LAN responses                       
+        iifname $WAN oifname $LAN ct state established,related accept;
+
+        # Allow LAN internal traffic
+        iifname $LAN oifname $LAN accept;
+
+        # Allow DNAT
+        iifname $WAN ip daddr 10.0.0.2 tcp dport { 80, 443 } accept;      
       }
     }
 
@@ -191,13 +223,20 @@
       # PREROUTING - port forwarding from WAN
       chain prerouting {
         type nat hook prerouting priority 0;
-        tcp dport 2222 iif $WAN dnat to 10.0.0.100:22  # WAN port 2222 -> LAN host 22
+
+        # WAN port 80 -> LAN host 80
+        tcp dport 80 iifname $WAN dnat to 10.0.0.2:80
+
+        # WAN port 443 -> LAN host 443       
+        tcp dport 443 iifname $WAN dnat to 10.0.0.2:443     
       }
 
       # POSTROUTING - masquerade LAN -> WAN
       chain postrouting {
         type nat hook postrouting priority 100;
-        oifname $WAN masquerade;  # Masquerade outgoing WAN traffic
+
+        # Masquerade outgoing WAN traffic
+        oifname $WAN masquerade;                            
       }
     }
   '';
@@ -243,7 +282,7 @@
     enable = true;
     interval = 300;
     ssl = true;
-    usev4 = "if, if=wan";
+    usev4 = "if, if=pppoe0";
     protocol = "cloudflare";
     zone = "example.com";
     passwordFile = "/run/secrets/ddclient-password";
