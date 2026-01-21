@@ -17,28 +17,6 @@ services.nextcloud = {
   }
 };
 ```
-
-# Guacamole
-
-```nix
-services = {
-  guacamole-server = {
-    enable = true;
-    host = "127.0.0.1";
-    port = 4822;
-    #userMappingXml = ./guacamole/user-mapping.xml;
-  };
-  guacamole-client = {
-    enable = true;
-    enableWebserver = true;
-    settings = {
-      guacd-port = 4822;
-      guacd-hostname = "127.0.0.1";
-    };
-  };
-};
-```
-
 # Immich
 
 ```nix

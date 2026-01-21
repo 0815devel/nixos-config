@@ -14,5 +14,6 @@
       10.0.0.20 jellyfin.internal jellyfin
       10.0.0.21 minio.internal minio
       10.0.0.22 navidrome.internal navidrome
+      10.0.0.23 guacamole.internal guacamole
     '';
 }

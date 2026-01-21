@@ -25,6 +25,9 @@
       # Navidrome
       /tank/services/navidrome 10.0.1.22(rw,sync,no_subtree_check,no_root_squash)
       /tank/media/Musik 10.0.1.22(ro,sync,no_subtree_check,no_root_squash)
+
+      # Guacamole
+      /tank/services/guacamole 10.0.1.23(rw,sync,no_subtree_check,no_root_squash)
     '';
   };
 }
