@@ -17,17 +17,6 @@ services.nextcloud = {
   }
 };
 ```
-# Immich
-
-```nix
-services.immich = {
-  enable = true;
-  openFirewall = true;
-  port = 2283;
-  host = "127.0.0.1";
-  mediaLocation = "/var/lib/immich/media";
-};
-```
 
 # Caddy - Reverse Proxy
 ```nix

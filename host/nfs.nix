@@ -28,6 +28,9 @@
 
       # Guacamole
       /tank/services/guacamole 10.0.1.23(rw,sync,no_subtree_check,no_root_squash)
+
+      # Immich
+      /tank/services/immich 10.0.1.24(rw,sync,no_subtree_check,no_root_squash)
     '';
   };
 }
