@@ -3,7 +3,7 @@
 {
   microvm = {
     hypervisor = "qemu";
-    mem = 1024;
+    mem = 3072;
     vcpu = 1;
 
     shares = [{
