@@ -16,7 +16,7 @@
       specialArgs = { inherit inputs microvm sops-nix; };
       modules = [
         ./common/default.nix
-        ./host/default.nix
+        ./profiles/host/default.nix
         ./microvm/default.nix
         ./secrets/default.nix
       ];

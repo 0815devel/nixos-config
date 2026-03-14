@@ -14,6 +14,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
-    age.keyFile = "/root/.config/sops/age/keys.txt";
+    age.keyFile = "/tank/configuration/sops/age/keys.txt";
   };
 }

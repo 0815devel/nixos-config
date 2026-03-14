@@ -9,6 +9,7 @@
       ./firewall.nix
       ./nfs.nix
       ./libvirt.nix
+      ./packages.nix
     ];
 
   ########################################
