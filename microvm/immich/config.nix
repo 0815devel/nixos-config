@@ -48,6 +48,5 @@
     mediaLocation = "/var/lib/immich/media";
   };
 
-  users.users.root.hashedPassword = "!";
   system.stateVersion = "25.05";
 }

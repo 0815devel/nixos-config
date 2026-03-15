@@ -54,6 +54,5 @@
     group = "admin";
   };
 
-  users.users.root.hashedPassword = "!";
   system.stateVersion = "25.05";
 }

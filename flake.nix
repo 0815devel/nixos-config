@@ -15,8 +15,9 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs microvm sops-nix; };
       modules = [
-        ./common/default.nix
-        ./profiles/host/default.nix
+        ./roles/base/default.nix
+        ./roles/server/default.nix
+        ./hosts/host/default.nix
         ./microvm/default.nix
         ./secrets/default.nix
       ];
