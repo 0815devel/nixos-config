@@ -26,8 +26,8 @@
   };
   imports = [
     ./config.nix
-    ../../roles/base/default.nix
-    ../../roles/server/default.nix
-    ../../roles/microvm/default.nix
+    ../../roles/base
+    ../../roles/server
+    ../../roles/microvm
   ];
 }

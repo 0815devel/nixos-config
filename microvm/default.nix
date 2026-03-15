@@ -6,9 +6,9 @@
     ./network.nix
   ];
 
-  microvm.vms.jellyfin.config.imports = [ ./jellyfin/default.nix ];
-  microvm.vms.minio.config.imports = [ ./minio/default.nix ];
-  microvm.vms.navidrome.config.imports = [ ./navidrome/default.nix ];
-  microvm.vms.guacamole.config.imports = [ ./guacamole/default.nix ];
-  microvm.vms.immich.config.imports = [ ./immich/default.nix ];
+  microvm.vms.jellyfin.config.imports = [ ./jellyfin ];
+  microvm.vms.minio.config.imports = [ ./minio ];
+  microvm.vms.navidrome.config.imports = [ ./navidrome ];
+  microvm.vms.guacamole.config.imports = [ ./guacamole ];
+  microvm.vms.immich.config.imports = [ ./immich ];
 }

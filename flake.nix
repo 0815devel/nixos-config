@@ -15,11 +15,11 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs microvm sops-nix; };
       modules = [
-        ./roles/base/default.nix
-        ./roles/server/default.nix
-        ./hosts/host/default.nix
-        ./microvm/default.nix
-        ./secrets/default.nix
+        ./roles/base
+        ./roles/server
+        ./hosts/host
+        ./microvm
+        ./secrets
       ];
     };
   };

@@ -38,11 +38,11 @@
       enable = true;
       host = "127.0.0.1";
       port = 4822;
-      userMappingXml = "/etc/guacamole/user-mapping.xml";
     };
     guacamole-client = {
       enable = true;
       enableWebserver = true;
+      userMappingXml = "/etc/guacamole/user-mapping.xml";
       settings = {
         guacd-port = 4822;
         guacd-hostname = "127.0.0.1";
