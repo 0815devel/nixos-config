@@ -33,8 +33,8 @@
   };
   imports = [
     ./config.nix
-    ../../roles/base
-    ../../roles/headless
-    ../../roles/microvm
+    ../../profiles/base
+    ../../profiles/headless
+    ../../profiles/microvm
   ];
 }

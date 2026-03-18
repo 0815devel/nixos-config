@@ -10,7 +10,7 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 ├── flake.lock # Flake lockfile
 ├── hosts/ # Physical machines and laptops
 ├── microvm/ # MicroVM machines with services
-├── roles/ # Shared roles for hosts and services
+├── profiles/ # Shared profiles for hosts
 ├── secrets/ # Encrypted secrets (managed with SOPS)
 ```
 
@@ -43,13 +43,14 @@ The `microvm/` directory contains services running in MicroVMs:
   - `minio/`
   - `navidrome/`
 
-### Roles
+### Profiles
 
 Shared configurations for different host types:
 
-- `roles/base/` – Base configuration (locale, hosts)
-- `roles/server/` – Server-specific roles (SSH, users)
-- `roles/microvm/` – MicroVM-specific roles
+- `profiles/base/` – Base configuration (locale, hosts)
+- `profiles/server/` – Server-specific roles (SSH, users)
+- `profiles/microvm/` – MicroVM-specific roles
+- `profiles/nix` - Nix configuration
 
 ### Secrets
 

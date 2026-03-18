@@ -10,6 +10,11 @@
       ./nfs.nix
       ./libvirt.nix
       ./packages.nix
+      ../../profiles/base
+      ../../profiles/headless
+      ../../profiles/nix
+      ../../microvm
+      ../../secrets
     ];
 
   ########################################
