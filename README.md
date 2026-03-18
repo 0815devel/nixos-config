@@ -10,7 +10,7 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 ├── flake.lock # Flake lockfile
 ├── hosts/ # Physical machines and laptops
 ├── microvm/ # MicroVM machines with services
-├── profiles/ # Shared profiles for hosts
+├── profiles/ # Shared profiles for hosts and MicroVMs
 ├── secrets/ # Encrypted secrets (managed with SOPS)
 ```
 
