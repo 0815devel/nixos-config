@@ -18,7 +18,7 @@
   {
     nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit inputs microvm sops-nix; };
+      specialArgs = { inherit pkgs microvm sops-nix; };
       modules = [
         ./roles/base
         ./roles/server
