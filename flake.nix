@@ -13,12 +13,11 @@
   outputs = { self, nixpkgs, microvm, sops-nix, ... }@inputs:
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
   in
   {
     nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit pkgs microvm sops-nix; };
+      specialArgs = { inherit inputs microvm sops-nix; };
       modules = [
         ./roles/base
         ./roles/server
