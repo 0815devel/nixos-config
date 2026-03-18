@@ -27,7 +27,7 @@
   imports = [
     ./config.nix
     ../../roles/base
-    ../../roles/server
+    ../../roles/headless
     ../../roles/microvm
   ];
 }

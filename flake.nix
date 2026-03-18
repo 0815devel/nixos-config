@@ -20,7 +20,7 @@
       specialArgs = { inherit inputs microvm sops-nix; };
       modules = [
         ./roles/base
-        ./roles/server
+        ./roles/headless
         ./roles/nix
         ./hosts/host
         ./microvm
