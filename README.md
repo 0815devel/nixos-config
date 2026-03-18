@@ -50,7 +50,7 @@ Shared configurations for different host types:
 - `profiles/base/` – Base configuration (locale, hosts)
 - `profiles/server/` – Server-specific roles (SSH, users)
 - `profiles/microvm/` – MicroVM-specific roles
-- `profiles/nix` - Nix configuration
+- `profiles/nix/` - Nix configuration
 
 ### Secrets
 
