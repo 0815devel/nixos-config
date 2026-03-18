@@ -48,7 +48,7 @@ The `microvm/` directory contains services running in MicroVMs:
 Shared configurations for different host types:
 
 - `profiles/base/` – Base configuration (locale, hosts)
-- `profiles/server/` – Server-specific roles (SSH, users)
+- `profiles/headless/` – Server-specific roles (SSH, users)
 - `profiles/microvm/` – MicroVM-specific roles
 - `profiles/nix/` - Nix configuration
 
