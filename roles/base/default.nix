@@ -5,6 +5,5 @@
     [
       ./locale.nix
       ./hosts.nix
-      ./configuration.nix
     ];
 }

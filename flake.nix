@@ -21,6 +21,7 @@
       modules = [
         ./roles/base
         ./roles/server
+        ./roles/nix
         ./hosts/host
         ./microvm
         ./secrets
