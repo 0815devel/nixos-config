@@ -10,9 +10,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, microvm, sops-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, microvm, sops-nix, ... }@inputs:
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+  in
+  {
     nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       specialArgs = { inherit inputs microvm sops-nix; };
       modules = [
         ./roles/base

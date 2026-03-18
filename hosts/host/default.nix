@@ -61,13 +61,6 @@
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
 
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = [ "nix-command" "flakes" ];
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
   system.configurationRevision = inputs.self.rev or "dirty";
 
   # This value determines the NixOS release from which the default
