@@ -36,7 +36,6 @@
         matchConfig.MACAddress = "a0:36:9f:83:e8:10";
         networkConfig.Bridge = "br-lan";
         linkConfig.RequiredForOnline = "enslaved";
-        vlan = [ "lan-nic0.7" ];
       };
       "lan-nic1" = {
         matchConfig.MACAddress = "a0:36:9f:83:e8:11";
