@@ -21,10 +21,6 @@
         allowedTCPPorts = [ 2049 ]; # NFS
         allowedUDPPorts = [ 2049 ]; # NFS
       };
-      "br-wan" = {
-        allowedTCPPorts = [ ];
-        allowedUDPPorts = [ ];
-      };
     };
   };
 }
