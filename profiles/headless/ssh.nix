@@ -1,9 +1,6 @@
 { config, pkgs, inputs, ... }:
 
 {
-  ########################################
-  # SSH Server
-  ########################################
   services.openssh = {
     enable = true;
     openFirewall = false;

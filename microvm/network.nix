@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ########################################
-  # Network
-  ########################################
   systemd.network.networks."vm-lan" = {
     matchConfig.Name = [ "vm-lan-*" ];
     networkConfig.Bridge = "br-lan";
