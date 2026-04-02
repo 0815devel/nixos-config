@@ -17,17 +17,11 @@
       ../../secrets
     ];
 
-  ########################################
-  # Boot
-  ########################################
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
-  ########################################
-  # CPU / Power Saving
-  ########################################
   #powerManagement = {
   #  enable = true;
   #  cpuFreqGovernor = "ondemand";
@@ -38,9 +32,6 @@
     "intel_pstate=enable" # Enable dynamic CPU frequency scaling
   ];
 
-  ########################################
-  # Automatic Updates & Nix
-  ########################################
   system.autoUpgrade = {
     enable = true;
     dates = "weekly";

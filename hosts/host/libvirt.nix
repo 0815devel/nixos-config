@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ########################################
-  # Libvirt / QEMU
-  ########################################
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
@@ -13,9 +10,6 @@
     };
   };
 
-  ########################################
-  # IOMMU & Nested
-  ########################################
   boot = {
     #kernelParams = [
       #"intel_iommu=on" # Enable IOMMU

@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ########################################
-  # ZFS
-  ########################################
   boot = {
     supportedFilesystems = [ "zfs" ];
     zfs.extraPools = [ "tank" ];

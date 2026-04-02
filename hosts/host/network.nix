@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ########################################
-  # Network (Bridge & VLAN)
-  ########################################
   networking = {
     hostName = "host";
     domain = "internal";

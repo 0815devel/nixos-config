@@ -1,9 +1,6 @@
 { config, pkgs, inputs, ... }:
 
 {
-  ########################################
-  # System Packages
-  ########################################
   environment.systemPackages = with pkgs; [
     neovim
     htop
