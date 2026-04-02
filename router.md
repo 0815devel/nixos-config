@@ -35,12 +35,12 @@
           Name = "lan";
         };
       };
-      "wan" = {
+      "modem" = {
         matchConfig = {
           MACAddress = "aa:aa:aa:aa:aa:03";
         };
         linkConfig = {
-          Name = "wan";
+          Name = "modem";
         };
       };
   };
@@ -52,8 +52,8 @@
       dns = [ "127.0.0.1" "1.1.1.1" ];
       domains = [ "internal" ];
     };
-    "wan" = {
-      matchConfig.Name = "wan";
+    "modem" = {
+      matchConfig.Name = "modem";
       linkConfig.Unmanaged = "yes";
       linkConfig.RequiredForOnline = "no";
     };
@@ -71,7 +71,7 @@
       autostart = true;
       enable = true;
       config = ''
-        plugin rp-pppoe.so wan
+        plugin rp-pppoe.so modem
         name "<USERNAME>"
         noipdefault
         hide-password
@@ -278,41 +278,4 @@
     domains = [ "example.com" ];
   };
 }
-```
-
-# CrowdSec
-
-## Router
-```nix
-services.crowdsec = {
-  enable = true;
-  settings = {
-    api.server = {
-      listen_addr = "10.0.0.1";
-      port = 8080;
-    };
-    parsers.whitelist = {
-      reason = "Exclude local network and trustworthy IPs";
-      ip = [ "127.0.0.1" ];
-      cidr = [ "10.0.0.0/24" "10.10.0.0/24" ];
-  };
-  };
-};
-
-services.crowdsec-firewall-bouncer = {
-  enable = true;
-  api_url = "http://10.0.0.1:8080";
-  api_key = "key";
-};
-```
-
-## Caddy
-```nix
-services.crowdsec = {
-  enable = true;
-  settings = {
-    api.client.urls = [ "http://10.0.0.1:8080" ];
-    acquisition_files = [ "/var/log/caddy/access.log" ];
-  };
-};
 ```

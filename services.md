@@ -48,13 +48,3 @@ services.caddy = {
   '';
 };
 ```
-
-# Backup Databases
-
-```nix
-services.postgresqlBackup = {
-  enable = true;
-  databases = [ "nextcloud" "immich" ];
-  location = "/var/backup/postgresql";
-};
-```
