@@ -10,7 +10,7 @@ services.nextcloud = {
   maxUploadSize = "10G";
   config = {
     adminpassFile = "/etc/nextcloud-admin-pass";
-    dbtype = "pgsql";
+    dbtype = "mysql";
   };
   settings = {
     trustedDomains = [ "nextcloud.test.xyz" ];

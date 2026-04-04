@@ -1,9 +1,6 @@
 { config, pkgs, sops-nix, ... }:
 
 {
-  ########################################
-  # Secrets
-  ########################################
   imports = [
     sops-nix.nixosModules.sops
     ./minio.nix
