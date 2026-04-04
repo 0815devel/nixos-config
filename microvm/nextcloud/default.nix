@@ -15,12 +15,12 @@
 
     interfaces = [{
       type = "tap";
-      id = "vm-lan-guac";
+      id = "vm-lan-nc";
       mac = "02:00:00:00:00:07";
     }
     {
       type = "tap";
-      id = "vm-nfs-guac";
+      id = "vm-nfs-nc";
       mac = "02:00:00:00:00:08";
     }];
   };

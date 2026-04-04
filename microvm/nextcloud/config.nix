@@ -1,15 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  fileSystems."/etc/guacamole" = {
-    device = "10.0.1.1:/tank/services/guacamole/data";
-    fsType = "nfs";
-   };
-
   networking = {
-    hostName = "guacamole";
+    hostName = "nextcloud";
     useDHCP = false;
-    firewall.allowedTCPPorts = [ 22 8080 ];
+    firewall.allowedTCPPorts = [ 22 80 ];
   };
 
   systemd.network = {
@@ -29,23 +24,6 @@
       networkConfig = {
         Address = [ "10.0.1.23/24" ];
         DHCP = "no";
-      };
-    };
-  };
-
-  services = {
-    guacamole-server = {
-      enable = true;
-      host = "127.0.0.1";
-      port = 4822;
-    };
-    guacamole-client = {
-      enable = true;
-      enableWebserver = true;
-      userMappingXml = "/etc/guacamole/user-mapping.xml";
-      settings = {
-        guacd-port = 4822;
-        guacd-hostname = "127.0.0.1";
       };
     };
   };
