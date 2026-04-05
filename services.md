@@ -14,7 +14,7 @@ services.nextcloud = {
   };
   settings = {
     trustedDomains = [ "nextcloud.test.xyz" ];
-  }
+  };
 };
 ```
 
