@@ -4,7 +4,7 @@
   networking.extraHosts =
     ''
       10.0.0.1 router.internal router
-      10.0.0.2 server.internal server
+      10.0.0.2 reverse_proxy.internal reverse_proxy
       10.0.0.3 host.internal host
 
       10.0.0.10 switch.internal switch

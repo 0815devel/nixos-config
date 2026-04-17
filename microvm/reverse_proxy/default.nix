@@ -15,13 +15,8 @@
 
     interfaces = [{
       type = "tap";
-      id = "vm-lan-nc";
+      id = "vm-lan-rp";
       mac = "02:00:00:00:00:07";
-    }
-    {
-      type = "tap";
-      id = "vm-nfs-nc";
-      mac = "02:00:00:00:00:08";
     }];
   };
   imports = [

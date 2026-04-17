@@ -11,7 +11,7 @@
     jellyfin.config.imports = [ ./jellyfin ];
     minio.config.imports = [ ./minio ];
     navidrome.config.imports = [ ./navidrome ];
-    #nextcloud.config.imports = [ ./nextcloud ];
+    reverse_proxy.config.imports = [ ./reverse_proxy ];
   };
 
 }
