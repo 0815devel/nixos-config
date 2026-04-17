@@ -56,7 +56,7 @@
             header_up X-Forwarded-Proto {scheme}
         }
       '';
-
+    };
   };
 
   system.stateVersion = "25.05";
