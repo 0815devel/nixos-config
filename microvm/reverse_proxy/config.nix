@@ -26,7 +26,7 @@
     virtualHosts = {
 
       "nextcloud.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.2:88 {
+        reverse_proxy http://10.0.0.23:88 {
             header_up X-Real-IP {remote_host}
             header_up X-Forwarded-For {remote_host}
             header_up X-Forwarded-Proto {scheme}
