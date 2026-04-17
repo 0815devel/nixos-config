@@ -37,11 +37,11 @@ The `microvm/` directory contains services running in MicroVMs:
 - `default.nix` – Managing all MicroVMs
 - `network.nix` – Networking setup
 - Each service has its own subdirectory with `default.nix` and `config.nix`:
-  - `guacamole/`
   - `immich/`
   - `jellyfin/`
   - `minio/`
   - `navidrome/`
+  - `reverse_proxy/`
 
 ### Profiles
 
@@ -60,8 +60,3 @@ Secrets are stored under `secrets/` and encrypted with [SOPS](https://github.com
 - `minio.nix` – Encryption for `minio`
 - `.sops.yaml` – SOPS configuration
 - `secrets.yaml` – The actual keys
-
-### Documentation
-
-- [router.md](router.md) – Router configuration
-- [services.md](services.md) – Services configuration
