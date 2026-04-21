@@ -39,8 +39,7 @@
     operation = "switch";
     flake = "/etc/nixos";
     flags = [
-      "--update-input"
-      "nixpkgs"
+      "--recreate-lock-file"
       "--commit-lock-file"
       "-L"
     ];
