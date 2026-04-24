@@ -19,7 +19,7 @@
     nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = { inherit inputs microvm sops-nix; };
-      modules = [ ./hosts/host ];
+      modules = [ ./machines/host ];
     };
   };
 }

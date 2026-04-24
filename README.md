@@ -8,7 +8,7 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 .
 ├── flake.nix # Main flake definition
 ├── flake.lock # Flake lockfile
-├── hosts/ # Physical machines and laptops
+├── machines/ # Physical machines and laptops
 ├── microvm/ # MicroVM machines with services
 ├── profiles/ # Shared profiles for hosts and MicroVMs
 ├── secrets/ # Encrypted secrets (managed with SOPS)
@@ -17,9 +17,9 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 
 ### Hosts
 
-Each host has its own directory under `hosts/`:
+Each machine has its own directory under `machines/`:
 
-- **host/** – The hypervisor
+- **machines/** – The hypervisor
   - `default.nix` – Main NixOS configuration
   - `firewall.nix` – Firewall rules
   - `hardware-configuration.nix` – Auto-generated hardware config
@@ -29,6 +29,7 @@ Each host has its own directory under `hosts/`:
   - `packages.nix` – Installed packages
   - `zfs.nix` – ZFS configuration
 - **laptop/** – Laptop-specific configuration (coming soon)
+- **tvpc/** – TVPC-specific configuration (coming soon)
 
 ### MicroVMs
 
