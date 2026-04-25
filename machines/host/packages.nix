@@ -9,5 +9,7 @@
     pciutils
     lshw
     ethtool
+    nixd
+    nil
   ];
 }
