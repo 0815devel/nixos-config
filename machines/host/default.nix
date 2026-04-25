@@ -22,10 +22,10 @@
     efi.canTouchEfiVariables = true;
   };
 
-  #powerManagement = {
-  #  enable = true;
-  #  cpuFreqGovernor = "ondemand";
-  #};
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "ondemand";
+  };
 
   boot.kernelParams = [
     "pcie_aspm=powersave" # Enable ASPM in power-saving mode
