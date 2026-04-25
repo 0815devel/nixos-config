@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+
+  users.users."admin".extraGroups = [ "libvirtd" ];
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
