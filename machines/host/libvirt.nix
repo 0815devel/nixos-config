@@ -23,7 +23,7 @@
     #kernelModules = [ "vfio" "vfio_pci" "vfio_iommu_type1" ]; # VFIO modules for PCIe Passthrough
 
     extraModprobeConfig = ''
-      options kvm_intel nested=1 # Neasted virtualization
+      options kvm_intel nested=1
     '';
   };
 }
