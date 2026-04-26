@@ -13,6 +13,10 @@
       device = "10.0.1.1:/tank/services/immich/db";
       fsType = "nfs";
      };
+    fileSystems."/media" = {
+      device = "10.0.1.1:/tank/photos";
+      fsType = "nfs";
+    };
 
   networking = {
     hostName = "immich";
