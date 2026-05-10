@@ -4,6 +4,7 @@
   boot = {
     supportedFilesystems = [ "zfs" ];
     zfs.extraPools = [ "tank" ];
+    zfs.forceImportRoot = false;
 
     kernelParams = [
       "zfs.zfs_arc_max=4294967296" # ARC 4GiB max
