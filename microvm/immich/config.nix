@@ -1,27 +1,30 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   fileSystems."/var/lib/immich" = {
     device = "10.0.1.1:/tank/services/immich/data";
     fsType = "nfs";
-   };
-   fileSystems."/var/cache/immich" = {
-     device = "10.0.1.1:/tank/services/immich/cache";
-     fsType = "nfs";
-    };
-    fileSystems."/var/lib/postgresql" = {
-      device = "10.0.1.1:/tank/services/immich/db";
-      fsType = "nfs";
-     };
-    fileSystems."/media" = {
-      device = "10.0.1.1:/tank/photos";
-      fsType = "nfs";
-    };
+  };
+  fileSystems."/var/cache/immich" = {
+    device = "10.0.1.1:/tank/services/immich/cache";
+    fsType = "nfs";
+  };
+  fileSystems."/var/lib/postgresql" = {
+    device = "10.0.1.1:/tank/services/immich/db";
+    fsType = "nfs";
+  };
+  fileSystems."/media" = {
+    device = "10.0.1.1:/tank/photos";
+    fsType = "nfs";
+  };
 
   networking = {
     hostName = "immich";
     useDHCP = false;
-    firewall.allowedTCPPorts = [ 22 2283 ];
+    firewall.allowedTCPPorts = [
+      22
+      2283
+    ];
   };
 
   systemd.network = {

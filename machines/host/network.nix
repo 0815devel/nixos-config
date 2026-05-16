@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   networking = {
@@ -14,14 +14,14 @@
         netdevConfig = {
           Kind = "bridge";
           Name = "br-lan";
-         };
-       };
+        };
+      };
       "br-nfs" = {
         netdevConfig = {
           Kind = "bridge";
           Name = "br-nfs";
-         };
-       };
+        };
+      };
     };
     networks = {
       "lan-onboard" = {
@@ -52,7 +52,10 @@
       "br-lan" = {
         matchConfig.Name = "br-lan";
         address = [ "10.0.0.3/24" ];
-        dns = [ "10.0.0.1" "1.1.1.1" ];
+        dns = [
+          "10.0.0.1"
+          "1.1.1.1"
+        ];
         domains = [ "internal" ];
         gateway = [ "10.0.0.1" ];
       };

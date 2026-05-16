@@ -1,20 +1,23 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   fileSystems."/var/lib/navidrome" = {
-      device = "10.0.1.1:/tank/services/navidrome/data";
-      fsType = "nfs";
-    };
+    device = "10.0.1.1:/tank/services/navidrome/data";
+    fsType = "nfs";
+  };
 
   fileSystems."/music" = {
-      device = "10.0.1.1:/tank/media/Musik";
-      fsType = "nfs";
-    };
+    device = "10.0.1.1:/tank/media/Musik";
+    fsType = "nfs";
+  };
 
   networking = {
     hostName = "navidrome";
     useDHCP = false;
-    firewall.allowedTCPPorts = [ 22 4533 ];
+    firewall.allowedTCPPorts = [
+      22
+      4533
+    ];
   };
 
   systemd.network = {

@@ -1,25 +1,28 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   fileSystems."/var/lib/jellyfin" = {
-      device = "10.0.1.1:/tank/services/jellyfin/config";
-      fsType = "nfs";
-    };
+    device = "10.0.1.1:/tank/services/jellyfin/config";
+    fsType = "nfs";
+  };
 
-    fileSystems."/var/cache/jellyfin" = {
-      device = "10.0.1.1:/tank/services/jellyfin/cache";
-      fsType = "nfs";
-    };
+  fileSystems."/var/cache/jellyfin" = {
+    device = "10.0.1.1:/tank/services/jellyfin/cache";
+    fsType = "nfs";
+  };
 
-    fileSystems."/media" = {
-      device = "10.0.1.1:/tank/media";
-      fsType = "nfs";
-    };
+  fileSystems."/media" = {
+    device = "10.0.1.1:/tank/media";
+    fsType = "nfs";
+  };
 
   networking = {
     hostName = "jellyfin";
     useDHCP = false;
-    firewall.allowedTCPPorts = [ 22 8096 ];
+    firewall.allowedTCPPorts = [
+      22
+      8096
+    ];
   };
 
   systemd.network = {

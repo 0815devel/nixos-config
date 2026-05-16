@@ -11,7 +11,6 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 ├── machines/ # Physical machines and laptops
 ├── microvm/ # MicroVM machines with services
 ├── profiles/ # Shared profiles for hosts and MicroVMs
-├── secrets/ # Encrypted secrets (managed with SOPS)
 ```
 
 
@@ -40,7 +39,6 @@ The `microvm/` directory contains services running in MicroVMs:
 - Each service has its own subdirectory with `default.nix` and `config.nix`:
   - `immich/`
   - `jellyfin/`
-  - `minio/`
   - `navidrome/`
   - `reverse_proxy/`
 
@@ -52,12 +50,3 @@ Shared configurations for different host types:
 - `profiles/headless/` – Server-specific roles (SSH, users)
 - `profiles/microvm/` – MicroVM-specific roles
 - `profiles/nix/` - Nix configuration
-
-### Secrets
-
-Secrets are stored under `secrets/` and encrypted with [SOPS](https://github.com/getsops/sops):
-
-- `default.nix` – Initialization
-- `minio.nix` – Encryption for `minio`
-- `.sops.yaml` – SOPS configuration
-- `secrets.yaml` – The actual keys

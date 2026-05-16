@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 
 {
   imports = [
@@ -18,7 +13,6 @@
     ../../profiles/headless
     ../../profiles/nix
     ../../microvm
-    ../../secrets
   ];
 
   boot.loader = {

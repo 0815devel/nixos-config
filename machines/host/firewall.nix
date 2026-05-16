@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   networking.firewall = {
@@ -11,7 +11,10 @@
 
     interfaces = {
       "br-lan" = {
-        allowedTCPPorts = [ 22 2049 ]; # SSH and NFS
+        allowedTCPPorts = [
+          22
+          2049
+        ]; # SSH and NFS
         allowedUDPPorts = [ 2049 ]; # NFS
       };
       "br-nfs" = {
