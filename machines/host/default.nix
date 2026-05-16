@@ -1,21 +1,25 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./zfs.nix
-      ./network.nix
-      ./firewall.nix
-      ./nfs.nix
-      ./libvirt.nix
-      ./packages.nix
-      ../../profiles/base
-      ../../profiles/headless
-      ../../profiles/nix
-      ../../microvm
-      ../../secrets
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./zfs.nix
+    ./network.nix
+    ./firewall.nix
+    ./nfs.nix
+    ./libvirt.nix
+    ./packages.nix
+    ../../profiles/base
+    ../../profiles/headless
+    ../../profiles/nix
+    ../../microvm
+    ../../secrets
+  ];
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -55,8 +59,6 @@
     registry.nixpkgs.flake = inputs.nixpkgs;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
-
-  programs.nix-ld.enable = true;
 
   system.configurationRevision = inputs.self.rev or "dirty";
 
