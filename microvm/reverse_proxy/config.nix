@@ -4,7 +4,11 @@
   networking = {
     hostName = "reverse_proxy";
     useDHCP = false;
-    firewall.allowedTCPPorts = [ 22 80 443 ];
+    firewall.allowedTCPPorts = [
+      22
+      80
+      443
+    ];
   };
 
   systemd.network = {
@@ -35,22 +39,6 @@
 
       "navidrome.lboos.xyz".extraConfig = ''
         reverse_proxy http://10.0.0.22:4533 {
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-        }
-      '';
-
-      "s3.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.21:9000 {
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-        }
-      '';
-
-      "minio.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.21:9001 {
             header_up X-Real-IP {remote_host}
             header_up X-Forwarded-For {remote_host}
             header_up X-Forwarded-Proto {scheme}
