@@ -11,7 +11,6 @@
       self,
       nixpkgs,
       microvm,
-      sops-nix,
       ...
     }@inputs:
     let
@@ -20,7 +19,7 @@
     {
       nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs microvm sops-nix; };
+        specialArgs = { inherit inputs microvm; };
         modules = [ ./machines/host ];
       };
     };

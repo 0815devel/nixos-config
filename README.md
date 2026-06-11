@@ -27,8 +27,6 @@ Each machine has its own directory under `machines/`:
   - `nfs.nix` – NFS setup
   - `packages.nix` – Installed packages
   - `zfs.nix` – ZFS configuration
-- **laptop/** – Laptop-specific configuration (coming soon)
-- **tvpc/** – TVPC-specific configuration (coming soon)
 
 ### MicroVMs
 
