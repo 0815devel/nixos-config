@@ -3,6 +3,7 @@
 {
   imports = [
     sops-nix.nixosModules.sops
+    ./minio.nix
   ];
 
   users.users.microvm.extraGroups = [ "keys" ];
