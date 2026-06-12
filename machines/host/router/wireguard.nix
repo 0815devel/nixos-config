@@ -1,26 +1,41 @@
 { ... }:
 
 {
-  networking.wireguard = {
+  systemd.network = {
     enable = true;
-    interfaces = {
+    netdevs = {
       "wg0" = {
-        privateKeyFile = "/etc/wireguard/private.key";
-        listenPort = 51820;
-        ips = [ "10.10.0.1/24" ];
-        peers = [
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "wg0";
+        };
+        wireguardConfig = {
+          PrivateKeyFile = "/etc/wireguard/private.key";
+          ListenPort = 51820;
+        };
+        wireguardPeers = [
           {
-            presharedKeyFile = "/etc/wireguard/preshared.key";
-            publicKey = "bAE6GcTNdino1PHClucHOA4j4sD2SwD6ihSSmqRt2DE=";
-            allowedIPs = [ "10.10.0.2/32" ];
+            PublicKey = "bAE6GcTNdino1PHClucHOA4j4sD2SwD6ihSSmqRt2DE=";
+            PresharedKeyFile = "/etc/wireguard/preshared.key";
+            AllowedIPs = [ "10.10.0.2/32" ];
           }
           {
-            presharedKeyFile = "/etc/wireguard/preshared.key";
-            publicKey = "cwZAgoL+h/oZs9h6M+5nFuTS8kw0av0/E5lVF76S7ww=";
-            allowedIPs = [ "10.10.0.3/32" ];
+            PublicKey = "cwZAgoL+h/oZs9h6M+5nFuTS8kw0av0/E5lVF76S7ww=";
+            PresharedKeyFile = "/etc/wireguard/preshared.key";
+            AllowedIPs = [ "10.10.0.3/32" ];
           }
         ];
       };
     };
+    networks = {
+      "wg0" = {
+        matchConfig.Name = "wg0";
+        address = [ "10.10.0.1/24" ];
+        networkConfig = {
+          ConfigureWithoutCarrier = true;
+        };
+      };
+    };
   };
+
 }
