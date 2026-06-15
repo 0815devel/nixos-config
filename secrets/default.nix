@@ -11,9 +11,9 @@
     age.keyFile = "/tank/configuration/sops/age/keys.txt";
   };
 
-  sops.secrets."wireguard/if/privat" = { };
-  sops.secrets."wireguard/a/psk" = { };
-  sops.secrets."wireguard/b/psk" = { };
+  sops.secrets."wireguard/interface/privat" = { };
+  sops.secrets."wireguard/peerA/psk" = { };
+  sops.secrets."wireguard/peerB/psk" = { };
   sops.secrets."wireguard/netherlands/privat" = { };
   sops.secrets."dyndns/cloudflare" = { };
   sops.secrets."pppoe/chap" = { };
