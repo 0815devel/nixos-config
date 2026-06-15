@@ -1,12 +1,16 @@
-{ config, pkgs, sops-nix, ... }:
+{ sops-nix, ... }:
 
 {
   imports = [
     sops-nix.nixosModules.sops
-    ./minio.nix
   ];
 
-  users.users.microvm.extraGroups = [ "keys" ];
+  sops.secrets."wireguard/if" = { };
+  sops.secrets."wireguard/a" = { };
+  sops.secrets."wireguard/b" = { };
+  sops.secrets."wireguard/netherlands" = { };
+  sops.secrets."dyndns/cloudflare" = { };
+  sops.secrets."pppoe/chap" = { };
 
   sops = {
     defaultSopsFile = ./secrets.yaml;

@@ -2,10 +2,6 @@
 
 {
 
-  system.activationScripts.pppoeSecret.text = ''
-    install -D -m 600 /tank/secrets/key /etc/ppp/chap-secrets;
-  '';
-
   services.pppd = {
     enable = true;
     peers."inexio" = {
