@@ -8,7 +8,7 @@
     usev4 = "if, if=pppoe0";
     protocol = "cloudflare";
     zone = "lboos.xyz";
-    passwordFile = "/run/secrets/ddclient-password";
+    passwordFile = "/run/secrets/dyndns/cloudflare";
     domains = [ "lboos.xyz" ];
   };
 }

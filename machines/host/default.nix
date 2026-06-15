@@ -13,6 +13,7 @@
     ../../profiles/headless
     ../../profiles/nix
     ../../microvm
+    ../../secrets
   ];
 
   boot.loader = {
