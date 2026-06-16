@@ -8,7 +8,7 @@
     usev4 = "if, if=pppoe0";
     protocol = "cloudflare";
     zone = "lboos.xyz";
-    passwordFile = "/run/secrets/dyndns/cloudflare";
+    passwordFile = config.sops.secrets."dyndns/cloudflare".path;
     domains = [ "lboos.xyz" ];
   };
 }
