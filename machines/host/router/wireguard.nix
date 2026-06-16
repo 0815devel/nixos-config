@@ -10,18 +10,18 @@
           Name = "wg0";
         };
         wireguardConfig = {
-          PrivateKeyFile = "/run/secrets/wireguard/interace/privat";
+          PrivateKeyFile = config.sops.secrets."wireguard/interface/privat".path;
           ListenPort = 51820;
         };
         wireguardPeers = [
           {
             PublicKey = "bAE6GcTNdino1PHClucHOA4j4sD2SwD6ihSSmqRt2DE=";
-            PresharedKeyFile = "/run/secrets/wireguard/peerA/psk";
+            PresharedKeyFile = config.sops.secrets."wireguard/peerA/psk".path;
             AllowedIPs = [ "10.10.0.2/32" ];
           }
           {
             PublicKey = "cwZAgoL+h/oZs9h6M+5nFuTS8kw0av0/E5lVF76S7ww=";
-            PresharedKeyFile = "/run/secrets/wireguard/peerB/psk";
+            PresharedKeyFile = config.sops.secrets."wireguard/peerB/psk".path;
             AllowedIPs = [ "10.10.0.3/32" ];
           }
         ];
