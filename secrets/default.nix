@@ -15,6 +15,8 @@
   sops.secrets."wireguard/peerA/psk" = { };
   sops.secrets."wireguard/peerB/psk" = { };
   sops.secrets."wireguard/netherlands/privat" = { };
-  sops.secrets."dyndns/cloudflare" = { };
-  sops.secrets."pppoe/chap" = { };
+  sops.secrets."dyndns/cloudflare" = {};
+  sops.secrets."pppoe/chap" = {
+    path = "/etc/ppp/chap-secrets";
+  };
 }
