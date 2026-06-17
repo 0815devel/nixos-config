@@ -4,7 +4,6 @@
   networking.nftables.tables."filter" = {
     family = "inet";
     content = ''
-      flush ruleset
 
       define LAN = "lan"
       define WAN = "pppoe0"
