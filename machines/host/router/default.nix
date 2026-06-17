@@ -4,8 +4,8 @@
   imports = [
     ./pppoe.nix
     ./dnsmasq.nix
-    ./firewall.nix
     ./ddclient.nix
+    ./firewall
   ];
 
   boot.kernel.sysctl = {
