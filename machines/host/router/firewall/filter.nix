@@ -4,7 +4,6 @@
   networking.nftables.tables."filter" = {
     family = "inet";
     content = ''
-
       define LAN = "lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
