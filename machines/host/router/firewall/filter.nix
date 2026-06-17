@@ -2,14 +2,14 @@
 
 {
   networking.nftables.tables."filter" = {
-    family = "inet";
+    family = "ip";
     content = ''
       define LAN = "lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
       define WIREGUARD = "wg0"
 
-      table inet filter {
+      table ip filter {
 
         chain output {
           type filter hook output priority 0;
