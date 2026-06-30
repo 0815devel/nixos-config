@@ -44,6 +44,15 @@
             header_up X-Forwarded-Proto {scheme}
         }
       '';
+
+      "immich.lboos.xyz".extraConfig = ''
+        reverse_proxy http://10.0.0.24:2283 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+
+        }
+      '';
     };
   };
 
