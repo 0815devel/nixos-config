@@ -7,6 +7,9 @@
       # Transfer
       /tank/transfer *(rw,sync,no_subtree_check,no_root_squash)
 
+      # Emulator
+      /tank/emulator 10.0.0.136(rw,sync,no_subtree_check)
+
       # Laptop
       /tank 10.0.0.127(rw,sync,no_subtree_check)
 
