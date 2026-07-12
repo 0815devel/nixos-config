@@ -4,6 +4,9 @@
   services.nfs.server = {
     enable = true;
     exports = ''
+      # Transfer
+      /tank/transfer *(rw,sync,no_subtree_check,no_root_squash)
+
       # Laptop
       /tank 10.0.0.127(rw,sync,no_subtree_check)
 
