@@ -7,7 +7,8 @@
       define LAN = "lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
-      define WIREGUARD = "wg0"
+      define HOME = "wg0"
+      define NETHERLANDS = "wg1"
 
       table ip nat {
 
@@ -25,7 +26,8 @@
 
           iifname $LAN oifname $WAN masquerade;
           iifname $LAN oifname $MODEM masquerade;
-          iifname $WIREGUARD oifname $WAN masquerade;
+          iifname $HOME oifname $WAN masquerade;
+          iifname $NETHERLANDS oifname $WAN masquerade;
         }
       }
     '';

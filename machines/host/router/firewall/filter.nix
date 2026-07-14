@@ -7,7 +7,8 @@
       define LAN = "lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
-      define WIREGUARD = "wg0"
+      define HOME = "wg0"
+      define NETHERLANDS = "wg1"
 
       table ip filter {
 
@@ -42,6 +43,9 @@
           iifname $LAN oifname $LAN accept;
 
           iifname $WAN ip daddr 10.0.0.2 tcp dport { 80, 443 } accept;
+
+          iifname $HOME oifname $WAN accept;
+          iifname $NETHERLANDS oifname $WAN accept;
         }
       }
     '';

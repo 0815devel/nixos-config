@@ -1,10 +1,10 @@
-{ ... }:
+{ config, ... }:
 
 {
   systemd.network = {
     enable = true;
     netdevs = {
-      "wg0" = {
+      "HOME" = {
         netdevConfig = {
           Kind = "wireguard";
           Name = "wg0";
@@ -26,11 +26,34 @@
           }
         ];
       };
+      "NETHERLAND" = {
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "wg1";
+        };
+        wireguardConfig = {
+          PrivateKeyFile = config.sops.secrets."netherlands/privat".path;
+        };
+        wireguardPeers = [
+          {
+            PublicKey = "UrQiI9ISdPPzd4ARw1NHOPKKvKvxUhjwRjaI0JpJFgM=";
+            AllowedIPs = [ "0.0.0.0/0" ];
+            Endpoint = "193.32.249.66:51820";
+          }
+        ];
+      };
     };
     networks = {
-      "wg0" = {
+      "HOME" = {
         matchConfig.Name = "wg0";
         address = [ "10.10.0.1/24" ];
+        networkConfig = {
+          ConfigureWithoutCarrier = true;
+        };
+      };
+      "NETHERLANDS" = {
+        matchConfig.Name = "wg1";
+        address = [ "10.72.190.93/32" ];
         networkConfig = {
           ConfigureWithoutCarrier = true;
         };
