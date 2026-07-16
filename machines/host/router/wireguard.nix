@@ -33,6 +33,7 @@
         };
         wireguardConfig = {
           PrivateKeyFile = config.sops.secrets."netherlands/privat".path;
+          RouteTable = 51820;
         };
         wireguardPeers = [
           {
