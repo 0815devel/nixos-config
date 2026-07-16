@@ -62,6 +62,13 @@
           "1.1.1.1"
         ];
         domains = [ "internal" ];
+        routingPolicyRules = [
+          {
+            From = "10.0.0.131/32";
+            Table = 51820;
+            Priority = 100;
+          }
+        ];
       };
       "modem" = {
         matchConfig.Name = "br-lan";
