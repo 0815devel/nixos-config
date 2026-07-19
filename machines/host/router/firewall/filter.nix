@@ -46,7 +46,27 @@
 
           iifname $HOME oifname $WAN accept;
           iifname $NETHERLANDS oifname $WAN accept;
-        }
+        
+
+      iifname "vm-nfs-jellyfin" ip saddr 10.0.1.20 tcp dport 2049 accept
+      iifname "vm-nfs-jellyfin" ip saddr 10.0.1.20 udp dport 2049 accept
+
+      iifname "vm-nfs-music" ip saddr 10.0.1.22 tcp dport 2049 accept
+      iifname "vm-nfs-music" ip saddr 10.0.1.22 udp dport 2049 accept
+
+      iifname "vm-nfs-immich" ip saddr 10.0.1.24 tcp dport 2049 accept
+      iifname "vm-nfs-immich" ip saddr 10.0.1.24 udp dport 2049 accept
+
+      iifname "vm-nfs-jellyfin" drop
+      iifname "vm-nfs-music" drop
+      iifname "vm-nfs-immich" drop
+
+
+
+
+
+
+}
       }
     '';
   };
