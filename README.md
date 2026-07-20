@@ -19,7 +19,7 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 
 Each machine has its own directory under `machines/`:
 
-- **machines/** – The hypervisor
+- **machines/host** – The hypervisor
   - `default.nix` – Main NixOS configuration
   - `firewall.nix` – Firewall rules
   - `hardware-configuration.nix` – Auto-generated hardware config
