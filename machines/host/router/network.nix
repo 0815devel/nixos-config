@@ -5,8 +5,6 @@
     hostName = "router";
     domain = "internal";
     useDHCP = false;
-    nftables.enable = true;
-    firewall.enable = false;
   };
 
   systemd.network = {
@@ -17,6 +15,12 @@
         netdevConfig = {
           Kind = "bridge";
           Name = "br-lan";
+        };
+      };
+      "br-nfs" = {
+        netdevConfig = {
+          Kind = "bridge";
+          Name = "br-nfs";
         };
       };
       "vlan7" = {
@@ -74,6 +78,14 @@
         matchConfig.Name = "br-lan";
         vlan = [ "vlan7" ];
         address = [ "10.10.0.1/24" ];
+      };
+      "nfs" = {
+        matchConfig.Name = "br-nfs";
+        address = [ "10.0.1.1/24" ];
+        linkConfig.ActivationPolicy = "up";
+        networkConfig = {
+          ConfigureWithoutCarrier = true;
+        };
       };
     };
   };
