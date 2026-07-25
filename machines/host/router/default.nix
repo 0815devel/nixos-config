@@ -8,6 +8,12 @@
     ./firewall
   ];
 
+  networking = {
+    hostName = "router";
+    domain = "internal";
+    useDHCP = false;
+  };
+
   nftables.enable = true;
   firewall.enable = false;
 
