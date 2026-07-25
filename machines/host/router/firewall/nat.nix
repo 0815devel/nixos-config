@@ -7,8 +7,8 @@
       define LAN = "br-lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
-      define HOME = "wg0"
-      define NETHERLANDS = "wg1"
+      define HOME = "wg-home"
+      define NETHERLANDS = "wg-ndl"
 
       chain prerouting {
         type nat hook prerouting priority 0;
