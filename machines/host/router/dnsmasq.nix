@@ -5,13 +5,11 @@
     enable = true;
     alwaysKeepRunning = true;
     settings = {
-      bind-interfaces = true;
-
-      except-interface = [
-        "modem"
-        "pppoe0"
-        "br-nfs"
+      interface = [
+        "lo"
+        "br-lan"
       ];
+      bind-interfaces = true;
 
       server = [ "1.1.1.1" ];
       no-resolv = true;
