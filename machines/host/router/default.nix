@@ -5,6 +5,8 @@
     ./pppoe.nix
     ./dnsmasq.nix
     ./ddclient.nix
+    ./wireguard.nix
+    ./network.nix
     ./firewall
   ];
 
