@@ -8,6 +8,9 @@
     ./firewall
   ];
 
+  nftables.enable = true;
+  firewall.enable = false;
+
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = "1";
     "net.ipv6.conf.all.forwarding" = "0";
