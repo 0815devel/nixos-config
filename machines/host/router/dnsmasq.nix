@@ -5,7 +5,7 @@
     enable = true;
     alwaysKeepRunning = true;
     settings = {
-      interface = "lan";
+      interface = "br-lan";
       bind-interfaces = true;
       listen-address = [
         "127.0.0.1"
