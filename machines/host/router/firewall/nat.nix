@@ -4,7 +4,7 @@
   networking.nftables.tables."nat" = {
     family = "ip";
     content = ''
-      define LAN = "lan"
+      define LAN = "br-lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
       define HOME = "wg0"
