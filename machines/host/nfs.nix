@@ -5,17 +5,13 @@
     enable = true;
     exports = ''
       # Transfer
-      /tank/transfer *(rw,sync,no_subtree_check,no_root_squash)
+      /tank/transfer *(rw,sync,no_subtree_check,all_squash)
 
       # Emulator
       /tank/emulator 10.0.0.136(rw,sync,no_subtree_check)
 
       # Laptop
       /tank 10.0.0.127(rw,sync,no_subtree_check)
-
-      # Server
-      /tank/podman 10.0.1.2(rw,sync,no_subtree_check,no_root_squash)
-      /tank/media 10.0.1.2(ro,sync,no_subtree_check,no_root_squash)
 
       # Jellyfin
       /tank/services/jellyfin 10.0.1.20(rw,sync,no_subtree_check,no_root_squash)
