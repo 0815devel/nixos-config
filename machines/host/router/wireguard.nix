@@ -7,7 +7,7 @@
       "HOME" = {
         netdevConfig = {
           Kind = "wireguard";
-          Name = "wg0";
+          Name = "wg-home";
         };
         wireguardConfig = {
           PrivateKeyFile = config.sops.secrets."wireguard/interface/privat".path;
@@ -29,7 +29,7 @@
       "NETHERLAND" = {
         netdevConfig = {
           Kind = "wireguard";
-          Name = "wg1";
+          Name = "wg-nld";
         };
         wireguardConfig = {
           PrivateKeyFile = config.sops.secrets."netherlands/privat".path;
@@ -46,14 +46,14 @@
     };
     networks = {
       "HOME" = {
-        matchConfig.Name = "wg0";
+        matchConfig.Name = "wg-home";
         address = [ "10.10.0.1/24" ];
         networkConfig = {
           ConfigureWithoutCarrier = true;
         };
       };
       "NETHERLANDS" = {
-        matchConfig.Name = "wg1";
+        matchConfig.Name = "wg-nld";
         address = [ "10.72.190.93/32" ];
         networkConfig = {
           ConfigureWithoutCarrier = true;
