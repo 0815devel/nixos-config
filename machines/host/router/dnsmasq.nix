@@ -5,11 +5,12 @@
     enable = true;
     alwaysKeepRunning = true;
     settings = {
-      interface = "br-lan";
       bind-interfaces = true;
-      listen-address = [
-        "127.0.0.1"
-        "10.0.0.1"
+
+      except-interface = [
+        "modem"
+        "pppoe0"
+        "br-nfs"
       ];
 
       server = [ "1.1.1.1" ];
