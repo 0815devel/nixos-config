@@ -29,6 +29,10 @@
       local = "/internal/";
       domain-needed = true;
 
+      bogus-priv = true;
+      stop-dns-rebind = true;
+      rebind-localhost-ok = true;
+
       dhcp-host = [
         "9a:8f:be:c4:e6:92,10.0.0.127,laptop"
         "44:5c:e9:5e:7c:10,10.0.0.131,samsung"
