@@ -4,11 +4,11 @@
   networking.nftables.tables."filter" = {
     family = "ip";
     content = ''
-      define LAN = "lan"
+      define LAN = "br-lan"
       define WAN = "pppoe0"
       define MODEM = "modem"
-      define HOME = "wg0"
-      define NETHERLANDS = "wg1"
+      define HOME = "wg-home"
+      define NETHERLANDS = "wg-ndl"
       define JELLYFIN = "vm-nfs-jellyfin"
       define NAVIDROME = "vm-nfs-music"
       define IMMICH = "vm-nfs-immich"

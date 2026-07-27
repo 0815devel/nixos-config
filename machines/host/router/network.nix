@@ -1,12 +1,6 @@
 { ... }:
 
 {
-  networking = {
-    hostName = "router";
-    domain = "internal";
-    useDHCP = false;
-  };
-
   systemd.network = {
     enable = true;
     wait-online.enable = false;

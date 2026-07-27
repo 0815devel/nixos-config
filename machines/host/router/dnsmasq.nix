@@ -5,12 +5,11 @@
     enable = true;
     alwaysKeepRunning = true;
     settings = {
-      interface = "lan";
-      bind-interfaces = true;
-      listen-address = [
-        "127.0.0.1"
-        "10.0.0.1"
+      interface = [
+        "lo"
+        "br-lan"
       ];
+      bind-interfaces = true;
 
       server = [ "1.1.1.1" ];
       no-resolv = true;
@@ -28,6 +27,10 @@
       expand-hosts = true;
       local = "/internal/";
       domain-needed = true;
+
+      bogus-priv = true;
+      stop-dns-rebind = true;
+      rebind-localhost-ok = true;
 
       dhcp-host = [
         "9a:8f:be:c4:e6:92,10.0.0.127,laptop"
