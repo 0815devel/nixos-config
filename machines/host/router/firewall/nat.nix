@@ -22,9 +22,9 @@
       chain postrouting {
         type nat hook postrouting priority 100;
 
-        iifname $LAN oifname $WAN masquerade;
-        iifname $LAN oifname $MODEM masquerade;
-        iifname $HOME oifname $WAN masquerade;
+        iifname $LAN ip saddr 10.0.0.0/24 oifname $WAN masquerade;
+        iifname $LAN ip saddr 10.0.0.0/24 oifname $MODEM masquerade;
+        iifname $HOME ip saddr 10.0.10.0/24 oifname $WAN masquerade;
         iifname $NETHERLANDS oifname $WAN masquerade;
       }
     '';
