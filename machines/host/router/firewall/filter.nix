@@ -48,7 +48,7 @@
         tcp flags syn tcp option maxseg size set rt mtu
 
         iifname $LAN ip saddr 10.0.0.0/24 oifname $WAN accept;
-        
+
         iifname $LAN ip saddr 10.0.0.0/24 oifname $LAN ip daddr 10.0.0.0/24 accept;
 
         iifname $WAN ip daddr 10.0.0.2 tcp dport { 80, 443 } accept;
