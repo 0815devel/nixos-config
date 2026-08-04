@@ -2,10 +2,8 @@
 
 {
   imports = [
-    ./dnsmasq.nix
-    ./ddclient.nix
-    ./services
     ./network
+    ./services
     ./firewall
   ];
 
