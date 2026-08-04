@@ -2,10 +2,9 @@
 
 {
   imports = [
-    ./pppoe.nix
     ./dnsmasq.nix
     ./ddclient.nix
-    ./wireguard.nix
+    ./services
     ./network
     ./firewall
   ];
