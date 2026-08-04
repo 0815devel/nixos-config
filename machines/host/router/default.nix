@@ -2,11 +2,8 @@
 
 {
   imports = [
-    ./pppoe.nix
-    ./dnsmasq.nix
-    ./ddclient.nix
-    ./wireguard.nix
-    ./network.nix
+    ./network
+    ./services
     ./firewall
   ];
 
@@ -15,9 +12,6 @@
     domain = "internal";
     useDHCP = false;
   };
-
-  nftables.enable = true;
-  firewall.enable = false;
 
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = "1";
