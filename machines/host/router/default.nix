@@ -6,7 +6,7 @@
     ./dnsmasq.nix
     ./ddclient.nix
     ./wireguard.nix
-    ./network.nix
+    ./network
     ./firewall
   ];
 
