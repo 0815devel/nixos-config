@@ -5,6 +5,7 @@
     ./netdevs.nix
     ./interfaces.nix
     ./networks.nix
+    ./wireguard.nix
   ];
 
   systemd.network = {
