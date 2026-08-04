@@ -6,10 +6,10 @@
 | LAN           |    - | 10.10.10.0/24   | br-lan      |
 | Guest         |   20 | 10.10.20.0/24   | br-guest    |
 | IoT           |   30 | 10.10.30.0/24   | br-iot      |
-| Storage       |   40 | 10.10.40.0/24   | br-nfs      |
-| DMZ           |   50 | 10.10.50.0/24   | br-dmz      |
-| Services      |   60 | 10.10.60.0/24   | br-services |
-| Backup        |   70 | 10.10.70.0/24   | br-backup   |
+| Storage       |    - | 10.10.40.0/24   | br-nfs      |
+| DMZ           |    - | 10.10.50.0/24   | br-dmz      |
+| Services      |    - | 10.10.60.0/24   | br-services |
+| Backup        |    - | 10.10.70.0/24   | br-backup   |
 | Home VPN	    |    - | 10.10.80.0/24   | wg-home     |
 | NL VPN	      |    - | 10.72.190.93/32 | wg-nld      |
 
