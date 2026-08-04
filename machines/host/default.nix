@@ -4,11 +4,9 @@
   imports = [
     ./hardware-configuration.nix
     ./zfs.nix
-    ./network.nix
-    ./firewall.nix
-    ./nfs.nix
-    ./libvirt.nix
     ./packages.nix
+    ./lagacy
+    ./services
     ../../profiles/base
     ../../profiles/headless
     ../../profiles/nix

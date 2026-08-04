@@ -5,9 +5,10 @@
     ./filter.nix
     ./nat.nix
   ];
-}
 
-networking = {
-  nftables.enable = true;
-  firewall.enable = false;
-};
+  networking = {
+    nftables.enable = true;
+    firewall.enable = false;
+  };
+
+}
