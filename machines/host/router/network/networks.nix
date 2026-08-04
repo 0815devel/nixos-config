@@ -32,6 +32,14 @@
       address = [
         "10.10.30.1/24"
       ];
+
+      routingPolicyRules = [
+        {
+          From = "10.10.30.0/24";
+          Table = 51820;
+          Priority = 100;
+        }
+      ];
     };
 
 
