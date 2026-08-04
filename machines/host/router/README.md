@@ -10,8 +10,8 @@
 | DMZ           |   50 | 10.10.50.0/24   | br-dmz      |
 | Services      |   60 | 10.10.60.0/24   | br-services |
 | Backup        |   70 | 10.10.70.0/24   | br-backup   |
-| Home VPN	    |    - | 10.10.80.0/24    | wg-home     |
-| NL VPN	      |    - | 10.72.190.93/32 | wg-nld	IoT  |
+| Home VPN	    |    - | 10.10.80.0/24   | wg-home     |
+| NL VPN	      |    - | 10.72.190.93/32 | wg-nld      |
 
 > The hypervisor terminates all VLANs and exposes them internally as Linux bridges. Virtual machines and containers are attached to the appropriate bridge rather than directly to a VLAN.
 
