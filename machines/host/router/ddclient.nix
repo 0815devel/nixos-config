@@ -5,10 +5,17 @@
     enable = true;
     interval = 300;
     ssl = true;
-    usev4 = "if, if=pppoe0";
+
+    usev4 = "web, web=checkip.amazonaws.com";
+
     protocol = "cloudflare";
     zone = "lboos.xyz";
-    passwordFile = config.sops.secrets."dyndns/cloudflare".path;
-    domains = [ "lboos.xyz" ];
+
+    passwordFile =
+      config.sops.secrets."dyndns/cloudflare".path;
+
+    domains = [
+      "lboos.xyz"
+    ];
   };
 }
