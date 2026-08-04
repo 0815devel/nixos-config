@@ -56,6 +56,5 @@ Shared configurations for different host types:
 Secrets are stored under `secrets/` and encrypted with [SOPS](https://github.com/getsops/sops):
 
 - `default.nix` – Initialization
-- `minio.nix` – Encryption for `minio`
 - `.sops.yaml` – SOPS configuration
 - `secrets.yaml` – The actual keys
