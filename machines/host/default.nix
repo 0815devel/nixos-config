@@ -7,6 +7,8 @@
     ./packages.nix
     ./lagacy
     ./services
+    #./firewall
+    #./network
     ../../profiles/base
     ../../profiles/headless
     ../../profiles/nix
