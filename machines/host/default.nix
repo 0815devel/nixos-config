@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ./zfs.nix
     ./packages.nix
-    ./lagacy
+    ./legacy
     ./services
     #./firewall
     #./network

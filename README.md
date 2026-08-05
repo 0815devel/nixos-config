@@ -8,7 +8,7 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 .
 ├── flake.nix # Main flake definition
 ├── flake.lock # Flake lockfile
-├── machines/ # Physical machines and laptops
+├── machines/ # Physical machines
 ├── microvm/ # MicroVM machines with services
 ├── profiles/ # Shared profiles for hosts and MicroVMs
 ├── secrets/ # Encrypted secrets (managed with SOPS)
@@ -19,13 +19,23 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 
 Each machine has its own directory under `machines/`:
 
-- **machines/host** – The hypervisor
+- **machines/host** – The hypervisor and router
   - `default.nix` – Main NixOS configuration
-  - `firewall.nix` – Firewall rules
+  - `firewall` – Firewall rules (nftables)
+    - `filter.nix` - Filter rules
+    - `nat.nix` - NAT rules
+  - `network` – Network configuration
+    - `default.nix` - Host and domain name; sysctl forwarding
+    - `interfaces.nix` - Interface and VLAN configuration
+    - `netdevs.nix` - Virtual interfaces
+    - `networks.nix` - IP addresses and routing table
+    - `wireguard.nix` - VPN configuration
+  - `services` - Configuration of the services
+    - `dnsmasq.nix` - DHCP and DNS server
+    - `ddclient.nix` - DynDNS client
+    - `nfs.nix` - Configuration of NFS exports
+    - `libvirt.nix` - Legacy virtualization
   - `hardware-configuration.nix` – Auto-generated hardware config
-  - `libvirt.nix` – Libvirt for legacy VMs
-  - `network.nix` – Network configuration
-  - `nfs.nix` – NFS setup
   - `packages.nix` – Installed packages
   - `zfs.nix` – ZFS configuration
 
@@ -36,10 +46,10 @@ The `microvm/` directory contains services running in MicroVMs:
 - `default.nix` – Managing all MicroVMs
 - `network.nix` – Networking setup
 - Each service has its own subdirectory with `default.nix` and `config.nix`:
+  - `reverse_proxy/`
   - `immich/`
   - `jellyfin/`
   - `navidrome/`
-  - `reverse_proxy/`
 
 ### Profiles
 
