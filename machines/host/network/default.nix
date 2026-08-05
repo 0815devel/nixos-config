@@ -9,7 +9,7 @@
   ];
 
   networking = {
-    hostName = "router";
+    hostName = "host";
     domain = "internal";
     useDHCP = false;
   };

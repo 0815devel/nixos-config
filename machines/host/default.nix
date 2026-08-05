@@ -31,6 +31,8 @@
     "intel_pstate=enable" # Enable dynamic CPU frequency scaling
   ];
 
+  hardware.cpu.intel.updateMicrocode = true;
+
   system.autoUpgrade = {
     enable = true;
     dates = "weekly";
