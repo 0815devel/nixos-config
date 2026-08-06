@@ -12,6 +12,7 @@
         "br-lan"
         "br-guest"
         "br-iot"
+        "wg-home"
       ];
 
       bind-interfaces = true;
