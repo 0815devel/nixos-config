@@ -2,6 +2,7 @@
 
 {
   systemd.network.netdevs = {
+
     "vlan-edge" = {
       netdevConfig = {
         Kind = "vlan";
@@ -9,6 +10,7 @@
       };
       vlanConfig.Id = 7;
     };
+
 
     "vlan-guest" = {
       netdevConfig = {
@@ -18,6 +20,7 @@
       vlanConfig.Id = 20;
     };
 
+
     "vlan-iot" = {
       netdevConfig = {
         Kind = "vlan";
@@ -25,9 +28,11 @@
       };
       vlanConfig.Id = 30;
     };
+
   };
 
   systemd.network.networks = {
+
     "lan-vlans" = {
       matchConfig.Name = "br-lan";
 
@@ -38,11 +43,13 @@
       ];
     };
 
+
     "edge-vlan" = {
       matchConfig.Name = "vlan-edge";
       networkConfig.Bridge = "br-edge";
       linkConfig.RequiredForOnline = "enslaved";
     };
+
 
     "guest-vlan" = {
       matchConfig.Name = "vlan-guest";
@@ -50,10 +57,12 @@
       linkConfig.RequiredForOnline = "enslaved";
     };
 
+
     "iot-vlan" = {
       matchConfig.Name = "vlan-iot";
       networkConfig.Bridge = "br-iot";
       linkConfig.RequiredForOnline = "enslaved";
     };
+
   };
 }
