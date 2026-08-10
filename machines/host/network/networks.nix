@@ -8,6 +8,12 @@
       address = [
         "10.10.10.1/24"
       ];
+
+      networkConfig.VLAN = [
+        "vlan-edge"
+        "vlan-guest"
+        "vlan-iot"
+      ];
     };
 
 
