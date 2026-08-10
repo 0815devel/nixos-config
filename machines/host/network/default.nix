@@ -4,6 +4,7 @@
   imports = [
     ./netdevs.nix
     ./interfaces.nix
+    ./vlan.nix
     ./networks.nix
     ./wireguard.nix
   ];
