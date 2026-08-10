@@ -40,7 +40,7 @@
 
         iifname $IOT ip saddr 10.10.30.0/24 oifname $NETHERLANDS masquerade;
 
-        iifname $HOME ip saddr 10.10.0.0/24 oifname $EDGE masquerade;
+        iifname $HOME ip saddr 10.10.80.0/24 oifname $EDGE masquerade;
       }
     '';
   };
