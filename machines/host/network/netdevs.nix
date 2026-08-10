@@ -3,6 +3,13 @@
 {
   systemd.network.netdevs = {
 
+    "br-edge" = {
+      netdevConfig = {
+        Kind = "bridge";
+        Name = "br-edge";
+      };
+    };
+
     "br-guest" = {
       netdevConfig = {
         Kind = "bridge";
@@ -44,7 +51,6 @@
         Name = "br-backup";
       };
     };
-
 
     "vlan-edge" = {
       netdevConfig = {
