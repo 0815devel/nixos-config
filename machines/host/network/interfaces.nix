@@ -57,5 +57,15 @@
       networkConfig.Bridge = "br-iot";
       linkConfig.RequiredForOnline = "enslaved";
     };
+
+    "lan-vlans" = {
+      matchConfig.Name = "br-lan";
+      networkConfig.VLAN = [
+        "vlan-edge"
+        "vlan-guest"
+        "vlan-iot"
+      ];
+    };
+
   };
 }
