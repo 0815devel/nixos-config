@@ -37,26 +37,5 @@
       linkConfig.RequiredForOnline = "enslaved";
     };
 
-
-    "edge-vlan" = {
-      matchConfig.Name = "vlan-edge";
-      networkConfig.Bridge = "br-edge";
-      linkConfig.RequiredForOnline = "enslaved";
-    };
-
-
-    "guest-vlan" = {
-      matchConfig.Name = "vlan-guest";
-      networkConfig.Bridge = "br-guest";
-      linkConfig.RequiredForOnline = "enslaved";
-    };
-
-
-    "iot-vlan" = {
-      matchConfig.Name = "vlan-iot";
-      networkConfig.Bridge = "br-iot";
-      linkConfig.RequiredForOnline = "enslaved";
-    };
-
   };
 }
