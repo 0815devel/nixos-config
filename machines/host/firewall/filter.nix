@@ -48,12 +48,18 @@
           accept;
 
         iifname $HOME \
-          ip saddr 10.10.0.0/24 \
+          ip saddr 10.10.80.0/24 \
           accept;
 
         iifname $EDGE \
           udp dport 51820 \
           accept;
+
+        udp dport 53 accept
+        tcp dport 53 accept
+        udp dport 67 accept
+        udp dport 68 accept
+
       }
 
       chain forward {
@@ -68,22 +74,16 @@
 
         iifname $GUEST \
           ip saddr 10.10.20.0/24 \
-          oifname $EDGE \
+          oifname { $EDGE, $DMZ } \
           accept;
 
         iifname $IOT \
           ip saddr 10.10.30.0/24 \
-          oifname $NETHERLANDS \
+          oifname { $NETHERLANDS, $DMZ } \
           accept;
 
         iifname $HOME \
           ip saddr 10.10.0.0/24 \
-          oifname $EDGE \
-          accept;
-
-        iifname $HOME \
-          ip saddr 10.10.0.0/24 \
-          oifname $LAN \
           accept;
 
         iifname $EDGE \
