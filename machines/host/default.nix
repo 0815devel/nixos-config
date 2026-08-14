@@ -57,6 +57,8 @@
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
 
+  programs.nix-ld.enable = true;
+
   system.configurationRevision = inputs.self.rev or "dirty";
 
   # This value determines the NixOS release from which the default
