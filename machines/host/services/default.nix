@@ -3,7 +3,7 @@
 {
   imports = [
     #./dnsmasq.nix
-    #./ddclient.nix
+    ./ddclient.nix
     ./libvirt.nix
     ./nfs.nix
   ];
