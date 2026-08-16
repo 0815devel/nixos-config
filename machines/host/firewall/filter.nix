@@ -51,9 +51,7 @@
           ip saddr 10.10.80.0/24 \
           accept;
 
-        iifname $EDGE \
-          udp dport 51820 \
-          accept;
+        udp dport 51820 accept;
 
         udp dport 53 accept
         tcp dport 53 accept
@@ -79,7 +77,7 @@
 
         iifname $IOT \
           ip saddr 10.10.30.0/24 \
-          oifname { $NETHERLANDS, $DMZ } \
+          oifname { $NETHERLANDS, $DMZ, $IOT } \
           accept;
 
         iifname $HOME \
@@ -95,7 +93,7 @@
         iifname $DMZ \
           ip saddr 10.10.50.0/24 \
           oifname $SERVICES \
-          tcp dport { 80, 443 } \
+          tcp dport { 88, 4533, 2283 } \
           accept;
 
         iifname $JELLYFIN \
