@@ -4,11 +4,6 @@
   networking = {
     hostName = "reverse_proxy";
     useDHCP = false;
-    firewall.allowedTCPPorts = [
-      22
-      80
-      443
-    ];
   };
 
   systemd.network = {
@@ -27,6 +22,9 @@
 
   services.caddy = {
     enable = true;
+    openFirewall = true;
+    httpPort = 80;
+    httpsPort = 443;
     virtualHosts = {
 
       "nextcloud.lboos.xyz".extraConfig = ''

@@ -14,10 +14,6 @@
   networking = {
     hostName = "navidrome";
     useDHCP = false;
-    firewall.allowedTCPPorts = [
-      22
-      4533
-    ];
   };
 
   systemd.network = {
@@ -43,6 +39,7 @@
 
   services.navidrome = {
     enable = true;
+    openFirewall = true;
     user = "admin";
     group = "admin";
     settings = {

@@ -19,10 +19,6 @@
   networking = {
     hostName = "jellyfin";
     useDHCP = false;
-    firewall.allowedTCPPorts = [
-      22
-      8096
-    ];
   };
 
   systemd.network = {
@@ -53,6 +49,7 @@
   ];
   services.jellyfin = {
     enable = true;
+    openFirewall = true;
     user = "admin";
     group = "admin";
   };

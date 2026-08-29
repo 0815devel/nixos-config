@@ -21,10 +21,6 @@
   networking = {
     hostName = "immich";
     useDHCP = false;
-    firewall.allowedTCPPorts = [
-      22
-      2283
-    ];
   };
 
   systemd.network = {
@@ -50,6 +46,7 @@
 
   services.immich = {
     enable = true;
+    openFirewall = true;
     port = 2283;
     host = "0.0.0.0";
     mediaLocation = "/var/lib/immich/media";
