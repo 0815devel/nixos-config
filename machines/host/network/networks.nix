@@ -19,6 +19,9 @@
       gateway = [
         "172.16.255.2"
       ];
+      cakeConfig = { 
+        Bandwidth = "13.5M"; 
+      };
     };
 
 
