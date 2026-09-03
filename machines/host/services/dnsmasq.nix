@@ -47,24 +47,24 @@
       ];
 
 
-      domain = "internal";
+      domain = "home.lboos.xyz";
+
       expand-hosts = true;
 
       local = [
-        "/internal/"
+        "/home.lboos.xyz/"
       ];
-
-      domain-needed = true;
-
-
-      bogus-priv = true;
-      stop-dns-rebind = true;
-      rebind-localhost-ok = true;
-
 
       address = [
         "/lboos.xyz/10.10.50.1"
+        "/home.lboos.xyz/"
       ];
+
+      domain-needed = true;
+      bogus-priv = true;
+
+      stop-dns-rebind = true;
+      rebind-localhost-ok = true;
     };
   };
 }
