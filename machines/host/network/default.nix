@@ -11,7 +11,7 @@
 
   networking = {
     hostName = "host";
-    domain = "internal";
+    domain = "home.lboos.xyz";
     useDHCP = false;
   };
 
