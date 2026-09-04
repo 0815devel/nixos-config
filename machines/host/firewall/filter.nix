@@ -14,7 +14,6 @@
       define STORAGE = "br-nfs"
       define DMZ = "br-dmz"
       define SERVICES = "br-services"
-      define BACKUP = "br-backup"
 
       define HOME = "wg-home"
       define NETHERLANDS = "wg-nld"
@@ -48,7 +47,7 @@
           accept;
 
         iifname $HOME \
-          ip saddr 10.10.80.0/24 \
+          ip saddr 10.10.70.0/24 \
           accept;
 
         udp dport 51820 accept;
@@ -96,31 +95,25 @@
           tcp dport { 88, 4533, 2283 } \
           accept;
 
-        iifname $JELLYFIN \
-          ip saddr 10.10.60.20 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
-          tcp dport 2049 \
-          accept;
-
         iifname $NAVIDROME \
-          ip saddr 10.10.60.22 \
+          ip saddr 10.10.40.11 \
           oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
+          ip daddr 10.10.40.1 \
           tcp dport 2049 \
           accept;
 
         iifname $IMMICH \
-          ip saddr 10.10.60.24 \
+          ip saddr 10.10.60.12 \
           oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
+          ip daddr 10.10.40.1 \
           tcp dport 2049 \
           accept;
 
-        iifname $BACKUP \
-          ip saddr 10.10.70.0/24 \
+        iifname $JELLYFIN \
+          ip saddr 10.10.40.13 \
           oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
           accept;
       }
     '';

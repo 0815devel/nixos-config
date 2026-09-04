@@ -2,12 +2,12 @@
 
 {
   fileSystems."/var/lib/navidrome" = {
-    device = "10.0.1.1:/tank/services/navidrome/data";
+    device = "10.10.40.1:/tank/services/navidrome/data";
     fsType = "nfs";
   };
 
   fileSystems."/music" = {
-    device = "10.0.1.1:/tank/media/Musik";
+    device = "10.10.40.1:/tank/media/Musik";
     fsType = "nfs";
   };
 
@@ -19,19 +19,19 @@
   systemd.network = {
     enable = true;
     wait-online.enable = true;
-    networks."lan" = {
+    networks."svc" = {
       matchConfig.MACAddress = "02:00:00:00:00:05";
       networkConfig = {
-        Address = [ "10.0.0.22/24" ];
-        Gateway = "10.0.0.1";
-        DNS = [ "10.0.0.1" ];
+        Address = [ "10.10.60.11/24" ];
+        Gateway = "10.10.60.1";
+        DNS = [ "10.10.60.1" ];
         DHCP = "no";
       };
     };
     networks."nfs" = {
       matchConfig.MACAddress = "02:00:00:00:00:06";
       networkConfig = {
-        Address = [ "10.0.1.22/24" ];
+        Address = [ "10.10.40.11/24" ];
         DHCP = "no";
       };
     };

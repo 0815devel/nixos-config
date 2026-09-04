@@ -45,12 +45,5 @@
       };
     };
 
-    "br-backup" = {
-      netdevConfig = {
-        Kind = "bridge";
-        Name = "br-backup";
-      };
-    };
-
   };
 }

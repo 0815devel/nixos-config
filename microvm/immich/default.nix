@@ -18,7 +18,7 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-lan-immich";
+        id = "vm-svc-immich";
         mac = "02:00:00:00:00:09";
       }
       {

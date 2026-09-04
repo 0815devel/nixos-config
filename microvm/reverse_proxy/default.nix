@@ -18,8 +18,13 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-lan-rp";
+        id = "vm-dmz-rp";
         mac = "02:00:00:00:00:07";
+      }
+      {
+        type = "tap";
+        id = "vm-svc-rp";
+        mac = "02:00:00:00:00:08";
       }
     ];
   };

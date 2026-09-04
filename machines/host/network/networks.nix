@@ -75,13 +75,5 @@
       networkConfig.ConfigureWithoutCarrier = true;
     };
 
-
-    "backup" = {
-      matchConfig.Name = "br-backup";
-      address = [
-        "10.10.70.1/24"
-      ];
-      networkConfig.ConfigureWithoutCarrier = true;
-    };
   };
 }

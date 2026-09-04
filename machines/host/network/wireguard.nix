@@ -25,7 +25,7 @@
             config.sops.secrets."wireguard/peerA/psk".path;
 
           AllowedIPs = [
-            "10.10.80.2/32"
+            "10.10.70.2/32"
           ];
         }
 
@@ -37,7 +37,7 @@
             config.sops.secrets."wireguard/peerB/psk".path;
 
           AllowedIPs = [
-            "10.10.80.3/32"
+            "10.10.70.3/32"
           ];
         }
       ];
@@ -82,7 +82,7 @@
       matchConfig.Name = "wg-home";
 
       address = [
-        "10.10.80.1/24"
+        "10.10.70.1/24"
       ];
 
       networkConfig = {
