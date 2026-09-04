@@ -13,7 +13,6 @@
       matchConfig.MACAddress = "02:00:00:00:00:07";
       networkConfig = {
         Address = [ "10.10.50.2/24" ];
-        Gateway = "10.10.50.1";
         DHCP = "no";
       };
     };
