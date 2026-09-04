@@ -52,7 +52,7 @@
 
       wireguardConfig = {
         PrivateKeyFile =
-          config.sops.secrets."netherlands/privat".path;
+          config.sops.secrets."wireguard/netherlands/privat".path;
 
         RouteTable = 51820;
       };
