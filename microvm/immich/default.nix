@@ -32,7 +32,6 @@
   imports = [
     ./config.nix
     ../../profiles/base
-    ../../profiles/headless
     ../../profiles/microvm
   ];
 }

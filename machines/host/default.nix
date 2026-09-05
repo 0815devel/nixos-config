@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./zfs.nix
+    ./users.nix
     ./packages.nix
     #./legacy
     ./services
