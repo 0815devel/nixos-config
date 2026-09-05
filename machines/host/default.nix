@@ -11,7 +11,6 @@
     ./firewall
     ./network
     ../../profiles/base
-    ../../profiles/headless
     ../../profiles/nix
     ../../microvm
     ../../secrets
