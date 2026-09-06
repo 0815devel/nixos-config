@@ -5,7 +5,7 @@
     hypervisor = "qemu";
     mem = 3072;
     vcpu = 1;
-    registerWithMachined = true;
+    vsock.cid = 13;
 
     shares = [
       {
