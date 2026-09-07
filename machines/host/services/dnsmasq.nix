@@ -56,8 +56,7 @@
       ];
 
       address = [
-        "/lboos.xyz/10.10.50.1"
-        "/home.lboos.xyz/"
+        "/lboos.xyz/10.10.50.2"
       ];
 
       domain-needed = true;
