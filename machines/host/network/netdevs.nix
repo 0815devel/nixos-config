@@ -3,6 +3,13 @@
 {
   systemd.network.netdevs = {
 
+    "br-lan" = {
+      netdevConfig = {
+        Kind = "bridge";
+        Name = "br-lan";
+      };
+    };
+
     "br-edge" = {
       netdevConfig = {
         Kind = "bridge";

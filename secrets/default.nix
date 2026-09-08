@@ -11,9 +11,25 @@
     age.keyFile = "/tank/configuration/sops/age/keys.txt";
   };
 
-  sops.secrets."wireguard/interface/privat" = { };
-  sops.secrets."wireguard/peerA/psk" = { };
-  sops.secrets."wireguard/peerB/psk" = { };
-  sops.secrets."wireguard/netherlands/privat" = { };
+  sops.secrets."wireguard/interface/privat" = {
+    mode = "0640";
+    owner = "systemd-network";
+    group = "systemd-network";
+  };
+  sops.secrets."wireguard/peerA/psk" = {
+    mode = "0640";
+    owner = "systemd-network";
+    group = "systemd-network";
+  };
+  sops.secrets."wireguard/peerB/psk" = {
+    mode = "0640";
+    owner = "systemd-network";
+    group = "systemd-network";
+  };
+  sops.secrets."wireguard/netherlands/privat" = {
+    mode = "0640";
+    owner = "systemd-network";
+    group = "systemd-network";
+  };
   sops.secrets."dyndns/cloudflare" = { };
 }

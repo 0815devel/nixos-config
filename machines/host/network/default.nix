@@ -13,6 +13,10 @@
     hostName = "host";
     domain = "home.lboos.xyz";
     useDHCP = false;
+    nameservers = [
+      "127.0.0.1"
+      "1.1.1.1"
+    ];
   };
 
   boot.kernel.sysctl = {

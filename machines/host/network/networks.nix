@@ -8,6 +8,11 @@
       address = [
         "10.10.10.1/24"
       ];
+      vlan = [
+        "vlan-edge"
+        "vlan-guest"
+        "vlan-iot"
+      ];
     };
 
 
