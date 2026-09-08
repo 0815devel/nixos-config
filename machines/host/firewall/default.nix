@@ -4,6 +4,7 @@
   imports = [
     ./filter.nix
     ./nat.nix
+    ./bridge.nix
   ];
 
   networking = {

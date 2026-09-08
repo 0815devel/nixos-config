@@ -12,6 +12,7 @@
         "br-lan"
         "br-guest"
         "br-iot"
+        "br-dmz"
         "wg-home"
       ];
 

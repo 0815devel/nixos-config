@@ -18,10 +18,6 @@
       define HOME = "wg-home"
       define NETHERLANDS = "wg-nld"
 
-      define JELLYFIN = "vm-nfs-jellyfin"
-      define NAVIDROME = "vm-nfs-music"
-      define IMMICH = "vm-nfs-immich"
-
       chain output {
         type filter hook output priority 0;
         policy accept;
@@ -48,6 +44,24 @@
 
         iifname $HOME \
           ip saddr 10.10.70.0/24 \
+          accept;
+
+        meta mark 0x111 \
+          ip saddr 10.10.40.11 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
+          accept;
+
+        meta mark 0x112 \
+          ip saddr 10.10.40.12 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
+          accept;
+
+        meta mark 0x113 \
+          ip saddr 10.10.40.13 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
           accept;
 
         udp dport 51820 accept;
@@ -85,35 +99,20 @@
 
         iifname $EDGE \
           oifname $DMZ \
-          ip daddr 10.10.50.0/24 \
+          ip daddr 10.10.50.2 \
           tcp dport { 80, 443 } \
           accept;
 
         iifname $DMZ \
-          ip saddr 10.10.50.0/24 \
+          ip saddr 10.10.50.2 \
           oifname $SERVICES \
-          tcp dport { 88, 4533, 2283 } \
+          ip daddr { 10.10.60.11, 10.10.60.12 } \
+          tcp dport { 4533, 2283 } \
           accept;
 
-        iifname $NAVIDROME \
-          ip saddr 10.10.40.11 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.1 \
-          tcp dport 2049 \
-          accept;
-
-        iifname $IMMICH \
-          ip saddr 10.10.60.12 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.1 \
-          tcp dport 2049 \
-          accept;
-
-        iifname $JELLYFIN \
-          ip saddr 10.10.40.13 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.1 \
-          tcp dport 2049 \
+        iifname $DMZ \
+          ip saddr 10.10.50.2 \
+          oifname $EDGE \
           accept;
       }
     '';
