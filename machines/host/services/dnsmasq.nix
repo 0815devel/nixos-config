@@ -55,8 +55,8 @@
       ];
 
       address = [
-        "/lboos.xyz/10.10.50.2"
-        "/wireguard.lboos.xyz/10.10.10.1"
+        "/lboos.xyz/10.10.50.10"
+        "/wireguard.lboos.xyz/10.10.50.1"
       ];
 
       domain-needed = true;
