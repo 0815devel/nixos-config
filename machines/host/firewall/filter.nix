@@ -97,21 +97,26 @@
           ip saddr 10.10.0.0/24 \
           accept;
 
+        iifname $SERVICES \
+          ip saddr 10.10.40.0/24 \
+          oifname $EDGE \
+          accept;
+
         iifname $EDGE \
           oifname $DMZ \
-          ip daddr 10.10.50.2 \
+          ip daddr 10.10.50.10 \
           tcp dport { 80, 443 } \
           accept;
 
         iifname $DMZ \
-          ip saddr 10.10.50.2 \
+          ip saddr 10.10.50.10 \
           oifname $SERVICES \
           ip daddr { 10.10.60.11, 10.10.60.12 } \
           tcp dport { 4533, 2283 } \
           accept;
 
         iifname $DMZ \
-          ip saddr 10.10.50.2 \
+          ip saddr 10.10.50.10 \
           oifname $EDGE \
           accept;
       }

@@ -12,9 +12,9 @@
     networks."dmz" = {
       matchConfig.MACAddress = "02:00:00:00:00:07";
       networkConfig = {
-        Address = [ "10.10.50.2/24" ];
+        Address = [ "10.10.50.10/24" ];
         Gateway = "10.10.50.1";
-        DNS = [ "10.10.50.1" ];
+        DNS = [ "1.1.1.1" ];
         DHCP = "no";
       };
     };

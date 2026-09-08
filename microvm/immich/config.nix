@@ -31,7 +31,7 @@
       networkConfig = {
         Address = [ "10.10.60.12/24" ];
         Gateway = "10.10.60.1";
-        DNS = [ "10.10.60.1" ];
+        DNS = [ "1.1.1.1" ];
         DHCP = "no";
       };
     };
