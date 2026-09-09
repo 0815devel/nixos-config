@@ -26,6 +26,11 @@
         id = "vm-svc-rp";
         mac = "02:00:00:00:00:08";
       }
+      {
+        type = "tap";
+        id = "vm-nfs-rp";
+        mac = "02:00:00:00:00:03";
+      }
     ];
   };
   imports = [

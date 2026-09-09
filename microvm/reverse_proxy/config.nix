@@ -1,6 +1,11 @@
 { ... }:
 
 {
+  fileSystems."/var/lib/caddy" = {
+    device = "10.10.40.1:/tank/services/caddy/data";
+    fsType = "nfs";
+  };
+
   networking = {
     hostName = "reverse_proxy";
     useDHCP = false;
@@ -22,6 +27,13 @@
       matchConfig.MACAddress = "02:00:00:00:00:08";
       networkConfig = {
         Address = [ "10.10.60.10/24" ];
+        DHCP = "no";
+      };
+    };
+    networks."nfs" = {
+      matchConfig.MACAddress = "02:00:00:00:00:03";
+      networkConfig = {
+        Address = [ "10.10.40.10/24" ];
         DHCP = "no";
       };
     };

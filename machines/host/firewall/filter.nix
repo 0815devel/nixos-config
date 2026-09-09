@@ -46,6 +46,12 @@
           ip saddr 10.10.70.0/24 \
           accept;
 
+        meta mark 0x110 \
+          ip saddr 10.10.40.10 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
+          accept;
+
         meta mark 0x111 \
           ip saddr 10.10.40.11 \
           ip daddr 10.10.40.1 \
