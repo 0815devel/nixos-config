@@ -27,8 +27,8 @@
     httpsPort = 443;
     virtualHosts = {
 
-      "nextcloud.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.23:88 {
+      "test.lboos.xyz".extraConfig = ''
+        reverse_proxy http://10.0.0.22:4533 {
             header_up X-Real-IP {remote_host}
             header_up X-Forwarded-For {remote_host}
             header_up X-Forwarded-Proto {scheme}
