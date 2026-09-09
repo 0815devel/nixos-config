@@ -22,6 +22,8 @@ Each machine has its own directory under `machines/`:
 - **machines/host/** – The hypervisor and router
   - `default.nix` – Main NixOS configuration
   - `firewall/` – Firewall rules (nftables)
+    - `default.nix` - Main firewall config
+    - `bridge.nix` - Marking NFS clients
     - `filter.nix` - Filter rules
     - `nat.nix` - NAT rules
   - `network/` – Network configuration
@@ -29,13 +31,17 @@ Each machine has its own directory under `machines/`:
     - `interfaces.nix` - Interface and VLAN configuration
     - `netdevs.nix` - Virtual interfaces
     - `networks.nix` - IP addresses and routing table
+    - `vlan.nix` - VLAN definitions
     - `wireguard.nix` - VPN configuration
   - `services/` - Configuration of the services
-    - `dnsmasq.nix` - DHCP and DNS server
+    - `default.nix` - Selecting the services
     - `ddclient.nix` - DynDNS client
+    - `dnsmasq.nix` - DHCP and DNS server
     - `nfs.nix` - Configuration of NFS exports
+    - `ssh.nix` - SSH service
     - `libvirt.nix` - Legacy virtualization
   - `hardware-configuration.nix` – Auto-generated hardware config
+  - `users.nix` - User configurations
   - `packages.nix` – Installed packages
   - `zfs.nix` – ZFS configuration
 
@@ -56,10 +62,8 @@ The `microvm/` directory contains services running in MicroVMs:
 Shared configurations for different host types:
 
 - `profiles/base/` – Base configuration (locale, hosts)
-- `profiles/headless/` – Server-specific roles (SSH, users)
 - `profiles/microvm/` – MicroVM-specific roles
 - `profiles/nix/` - Nix configuration
-
 
 ### Secrets
 
