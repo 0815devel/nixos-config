@@ -7,6 +7,9 @@
       # Transfer
       /tank/transfer *(rw,sync,no_subtree_check,all_squash)
 
+      # Reverse Proxy
+      /tank/services/reverse_proxy 10.10.40.10(rw,sync,no_subtree_check,no_root_squash)
+
       # Navidrome
       /tank/services/navidrome 10.10.40.11(rw,sync,no_subtree_check,no_root_squash)
       /tank/media/Musik 10.10.40.11(ro,sync,no_subtree_check,no_root_squash)
