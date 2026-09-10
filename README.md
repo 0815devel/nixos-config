@@ -35,6 +35,7 @@ Each machine has its own directory under `machines/`:
     - `wireguard.nix` - VPN configuration
   - `services/` - Configuration of the services
     - `default.nix` - Selecting the services
+    - `avahi.nix` - mDNS reflection
     - `ddclient.nix` - DynDNS client
     - `dnsmasq.nix` - DHCP and DNS server
     - `nfs.nix` - Configuration of NFS exports
