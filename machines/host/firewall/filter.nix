@@ -70,9 +70,7 @@
           tcp dport 2049 \
           accept;
 
-        iifname $DMZ \
-          udp dport 51820 /
-          accept;
+        udp dport 51820 accept;
 
         udp dport 53 accept
         tcp dport 53 accept
