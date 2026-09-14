@@ -60,14 +60,14 @@
       wireguardPeers = [
         {
           PublicKey =
-            "UrQiI9ISdPPzd4ARw1NHOPKKvKvxUhjwRjaI0JpJFgM=";
+            "hf+klJbIyUoGUaFHgac9W+yriwb9uvSnafDfnmEW9Hc=";
 
           AllowedIPs = [
             "0.0.0.0/0"
           ];
 
           Endpoint =
-            "193.32.249.66:51820";
+            "193.32.249.73:51820";
 
           PersistentKeepalive = 25;
         }
