@@ -7,5 +7,6 @@
     ./ddclient.nix
     ./libvirt.nix
     ./nfs.nix
+    ./avahi.nix
   ];
 }
