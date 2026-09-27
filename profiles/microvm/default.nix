@@ -1,5 +1,10 @@
 { ... }:
 
 {
-  users.users.root.hashedPassword = "!";
+  imports = [
+    ./users.nix
+    ./ssh.nix
+  ];
+
+  microvm.registerWithMachined = true;
 }

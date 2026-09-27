@@ -14,14 +14,9 @@
       define STORAGE = "br-nfs"
       define DMZ = "br-dmz"
       define SERVICES = "br-services"
-      define BACKUP = "br-backup"
 
       define HOME = "wg-home"
       define NETHERLANDS = "wg-nld"
-
-      define JELLYFIN = "vm-nfs-jellyfin"
-      define NAVIDROME = "vm-nfs-music"
-      define IMMICH = "vm-nfs-immich"
 
       chain output {
         type filter hook output priority 0;
@@ -48,7 +43,31 @@
           accept;
 
         iifname $HOME \
-          ip saddr 10.10.80.0/24 \
+          ip saddr 10.10.70.0/24 \
+          accept;
+
+        meta mark 0x110 \
+          ip saddr 10.10.40.10 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
+          accept;
+
+        meta mark 0x111 \
+          ip saddr 10.10.40.11 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
+          accept;
+
+        meta mark 0x112 \
+          ip saddr 10.10.40.12 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
+          accept;
+
+        meta mark 0x113 \
+          ip saddr 10.10.40.13 \
+          ip daddr 10.10.40.1 \
+          tcp dport 2049 \
           accept;
 
         udp dport 51820 accept;
@@ -84,43 +103,27 @@
           ip saddr 10.10.0.0/24 \
           accept;
 
+        iifname $SERVICES \
+          ip saddr 10.10.40.0/24 \
+          oifname $EDGE \
+          accept;
+
         iifname $EDGE \
           oifname $DMZ \
-          ip daddr 10.10.50.0/24 \
+          ip daddr 10.10.50.10 \
           tcp dport { 80, 443 } \
           accept;
 
         iifname $DMZ \
-          ip saddr 10.10.50.0/24 \
+          ip saddr 10.10.50.10 \
           oifname $SERVICES \
-          tcp dport { 88, 4533, 2283 } \
+          ip daddr { 10.10.60.11, 10.10.60.12 } \
+          tcp dport { 4533, 2283 } \
           accept;
 
-        iifname $JELLYFIN \
-          ip saddr 10.10.60.20 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
-          tcp dport 2049 \
-          accept;
-
-        iifname $NAVIDROME \
-          ip saddr 10.10.60.22 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
-          tcp dport 2049 \
-          accept;
-
-        iifname $IMMICH \
-          ip saddr 10.10.60.24 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
-          tcp dport 2049 \
-          accept;
-
-        iifname $BACKUP \
-          ip saddr 10.10.70.0/24 \
-          oifname $STORAGE \
-          ip daddr 10.10.40.0/24 \
+        iifname $DMZ \
+          ip saddr 10.10.50.10 \
+          oifname $EDGE \
           accept;
       }
     '';

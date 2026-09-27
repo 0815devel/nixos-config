@@ -1,6 +1,11 @@
 { ... }:
 
 {
+  fileSystems."/var/lib/caddy" = {
+    device = "10.10.40.1:/tank/services/caddy/data";
+    fsType = "nfs";
+  };
+
   networking = {
     hostName = "reverse_proxy";
     useDHCP = false;
@@ -9,12 +14,26 @@
   systemd.network = {
     enable = true;
     wait-online.enable = true;
-    networks."lan" = {
+    networks."dmz" = {
       matchConfig.MACAddress = "02:00:00:00:00:07";
       networkConfig = {
-        Address = [ "10.0.0.2/24" ];
-        Gateway = "10.0.0.1";
-        DNS = [ "10.0.0.1" ];
+        Address = [ "10.10.50.10/24" ];
+        Gateway = "10.10.50.1";
+        DNS = [ "1.1.1.1" ];
+        DHCP = "no";
+      };
+    };
+    networks."svc" = {
+      matchConfig.MACAddress = "02:00:00:00:00:08";
+      networkConfig = {
+        Address = [ "10.10.60.10/24" ];
+        DHCP = "no";
+      };
+    };
+    networks."nfs" = {
+      matchConfig.MACAddress = "02:00:00:00:00:03";
+      networkConfig = {
+        Address = [ "10.10.40.10/24" ];
         DHCP = "no";
       };
     };
@@ -27,16 +46,8 @@
     httpsPort = 443;
     virtualHosts = {
 
-      "test.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.22:4533 {
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-        }
-      '';
-
       "navidrome.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.22:4533 {
+        reverse_proxy http://10.10.60.11:4533 {
             header_up X-Real-IP {remote_host}
             header_up X-Forwarded-For {remote_host}
             header_up X-Forwarded-Proto {scheme}
@@ -44,7 +55,7 @@
       '';
 
       "immich.lboos.xyz".extraConfig = ''
-        reverse_proxy http://10.0.0.24:2283 {
+        reverse_proxy http://10.10.60.12:2283 {
             header_up X-Real-IP {remote_host}
             header_up X-Forwarded-For {remote_host}
             header_up X-Forwarded-Proto {scheme}

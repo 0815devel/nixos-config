@@ -10,6 +10,8 @@
       define LAN = "br-lan"
       define GUEST = "br-guest"
       define IOT = "br-iot"
+      define DMZ = "br-dmz"
+      define SERVICE = "br-service"
 
       define HOME = "wg-home"
       define NETHERLANDS = "wg-nld"
@@ -37,10 +39,10 @@
 
         iifname $LAN ip saddr 10.10.10.0/24 oifname $EDGE masquerade;
         iifname $GUEST ip saddr 10.10.20.0/24 oifname $EDGE masquerade;
-        iifname $HOME ip saddr 10.10.80.0/24 oifname $EDGE masquerade;
-
         iifname $IOT ip saddr 10.10.30.0/24 oifname $NETHERLANDS masquerade;
-
+        iifname $DMZ ip saddr 10.10.50.0/24 oifname $EDGE masquerade;
+        iifname $SERVICE ip saddr 10.10.60.0/24 oifname $EDGE masquerade;
+        iifname $HOME ip saddr 10.10.80.0/24 oifname $EDGE masquerade;
       }
     '';
   };

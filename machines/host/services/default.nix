@@ -2,9 +2,11 @@
 
 {
   imports = [
-    #./dnsmasq.nix
+    ./ssh.nix
+    ./dnsmasq.nix
     ./ddclient.nix
     ./libvirt.nix
     ./nfs.nix
+    ./avahi.nix
   ];
 }

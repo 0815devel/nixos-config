@@ -8,6 +8,11 @@
       address = [
         "10.10.10.1/24"
       ];
+      vlan = [
+        "vlan-edge"
+        "vlan-guest"
+        "vlan-iot"
+      ];
     };
 
 
@@ -75,13 +80,5 @@
       networkConfig.ConfigureWithoutCarrier = true;
     };
 
-
-    "backup" = {
-      matchConfig.Name = "br-backup";
-      address = [
-        "10.10.70.1/24"
-      ];
-      networkConfig.ConfigureWithoutCarrier = true;
-    };
   };
 }

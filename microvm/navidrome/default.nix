@@ -18,7 +18,7 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-lan-music";
+        id = "vm-svc-music";
         mac = "02:00:00:00:00:05";
       }
       {
@@ -31,7 +31,6 @@
   imports = [
     ./config.nix
     ../../profiles/base
-    ../../profiles/headless
     ../../profiles/microvm
   ];
 }
