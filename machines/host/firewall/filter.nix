@@ -72,10 +72,10 @@
 
         udp dport 51820 accept;
 
-        udp dport 53 accept
-        tcp dport 53 accept
-        udp dport 67 accept
-        udp dport 68 accept
+        iifname != $EDGE udp dport 53 accept;
+        iifname != $EDGE tcp dport 53 accept;
+        iifname != $EDGE udp dport 67 accept;
+        iifname != $EDGE udp dport 68 accept;
 
       }
 
