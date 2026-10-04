@@ -3,6 +3,7 @@
 {
   services.nfs.server = {
     enable = true;
+    hostName = "10.10.40.1";
     exports = ''
       # Transfer
       /tank/transfer *(rw,sync,no_subtree_check,all_squash)
