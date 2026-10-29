@@ -46,6 +46,7 @@
       Address = "0.0.0.0";
       Port = 4533;
       MusicFolder = "/music";
+      Plugins.Enabled = false;
     };
   };
 
