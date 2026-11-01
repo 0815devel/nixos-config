@@ -8,13 +8,28 @@
       address = [
         "10.10.10.1/24"
       ];
+
       vlan = [
         "vlan-edge"
         "vlan-guest"
         "vlan-iot"
       ];
-    };
 
+      #networkConfig = {
+      #  DHCPServer = true;
+      #};
+
+      #dhcpServerConfig = {
+      #  PoolOffset = 100;
+      #  PoolSize = 100;
+      #  EmitDNS = true;
+      #  DNS = "_server_address";
+      #  EmitRouter = true;
+      #  DefaultLeaseTimeSec = 3600;
+      #  MaxLeaseTimeSec = 7200;
+      #};
+    };
+    
 
     "edge" = {
       matchConfig.Name = "br-edge";
@@ -35,6 +50,20 @@
       address = [
         "10.10.20.1/24"
       ];
+
+      #networkConfig = {
+      #  DHCPServer = true;
+      #};
+
+      #dhcpServerConfig = {
+      #  PoolOffset = 100;
+      #  PoolSize = 100;
+      #  EmitDNS = true;
+      #  DNS = "_server_address";
+      #  EmitRouter = true;
+      #  DefaultLeaseTimeSec = 3600;
+      #  MaxLeaseTimeSec = 7200;
+      #};
     };
 
 
@@ -51,6 +80,20 @@
           Priority = 100;
         }
       ];
+
+      #networkConfig = {
+      #  DHCPServer = true;
+      #};
+
+      #dhcpServerConfig = {
+      #  PoolOffset = 100;
+      #  PoolSize = 100;
+      #  EmitDNS = true;
+      #  DNS = "_server_address";
+      #  EmitRouter = true;
+      #  DefaultLeaseTimeSec = 3600;
+      #  MaxLeaseTimeSec = 7200;
+      #};
     };
 
 
