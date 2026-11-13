@@ -11,6 +11,11 @@
     age.keyFile = "/tank/configuration/sops/age/keys.txt";
   };
 
+  systemd.services.systemd-networkd = {
+    requires = [ "sops-install-secrets.service" ];
+    after = [ "sops-install-secrets.service" ];
+  };
+
   sops.secrets."wireguard/interface/privat" = {
     mode = "0640";
     owner = "systemd-network";

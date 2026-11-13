@@ -27,6 +27,7 @@
 
   systemd.network = {
     enable = true;
-    wait-online.enable = false;
+    wait-online.enable = true;
   };
+  
 }
