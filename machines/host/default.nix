@@ -13,7 +13,6 @@
     ../../profiles/base
     ../../profiles/nix
     ../../microvm
-    ../../secrets
   ];
 
   boot.loader = {

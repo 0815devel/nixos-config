@@ -11,7 +11,6 @@
       self,
       nixpkgs,
       microvm,
-      sops-nix,
       ...
     }@inputs:
     let
