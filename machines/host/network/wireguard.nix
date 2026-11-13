@@ -10,8 +10,7 @@
       };
 
       wireguardConfig = {
-        PrivateKeyFile =
-          config.sops.secrets."wireguard/interface/privat".path;
+        PrivateKeyFile = "/tank/configuration/secrets/wg-home-interface";
 
         ListenPort = 51820;
       };
@@ -21,8 +20,7 @@
           PublicKey =
             "bAE6GcTNdino1PHClucHOA4j4sD2SwD6ihSSmqRt2DE=";
 
-          PresharedKeyFile =
-            config.sops.secrets."wireguard/peerA/psk".path;
+          PresharedKeyFile = "/tank/configuration/secrets/wg-home-peerA";
 
           AllowedIPs = [
             "10.10.70.2/32"
@@ -33,8 +31,7 @@
           PublicKey =
             "cwZAgoL+h/oZs9h6M+5nFuTS8kw0av0/E5lVF76S7ww=";
 
-          PresharedKeyFile =
-            config.sops.secrets."wireguard/peerB/psk".path;
+          PresharedKeyFile = "/tank/configuration/secrets/wg-home-peerB";
 
           AllowedIPs = [
             "10.10.70.3/32"
@@ -51,8 +48,7 @@
       };
 
       wireguardConfig = {
-        PrivateKeyFile =
-          config.sops.secrets."wireguard/netherlands/privat".path;
+        PrivateKeyFile = "/tank/configuration/secrets/wg-netherlands";
 
         RouteTable = 51820;
       };
