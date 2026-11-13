@@ -3,14 +3,16 @@
 {
   services.avahi = {
     enable = true;
-    reflector = true;
+    settings = {
+      reflector.enable-reflector = true;
+      
+      server.use-ipv4 = true;
+      server.use-ipv6 = false;
 
-    ipv4 = true;
-    ipv6 = false;
-
-    allowInterfaces = [
-      "br-lan"
-      "br-iot"
-    ];
+      server.allowInterfaces = [
+        "br-lan"
+        "br-iot"
+      ];
+    };
   };
 }
