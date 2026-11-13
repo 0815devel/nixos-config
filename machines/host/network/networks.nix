@@ -73,6 +73,14 @@
         "10.10.30.1/24"
       ];
 
+      routes = [
+        {
+          Destination = "10.10.30.0/24";
+          Scope = "link";
+          Table = 51820;
+        }
+      ];
+
       routingPolicyRules = [
         {
           From = "10.10.30.0/24";
