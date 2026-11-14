@@ -2,7 +2,7 @@
 
 {
   fileSystems."/var/lib/caddy" = {
-    device = "10.10.40.1:/tank/services/caddy/data";
+    device = "10.10.40.1:/tank/services/reverse_proxy/data";
     fsType = "nfs";
   };
 
