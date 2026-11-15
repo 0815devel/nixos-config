@@ -4,16 +4,15 @@
   imports = [
     ./hardware-configuration.nix
     ./zfs.nix
+    ./users.nix
     ./packages.nix
-    ./legacy
+    #./legacy
     ./services
-    #./firewall
-    #./network
+    ./firewall
+    ./network
     ../../profiles/base
-    ../../profiles/headless
     ../../profiles/nix
     ../../microvm
-    ../../secrets
   ];
 
   boot.loader = {

@@ -33,17 +33,6 @@
 
   systemd.network.networks = {
 
-    "lan-vlans" = {
-      matchConfig.Name = "br-lan";
-
-      networkConfig.VLAN = [
-        "vlan-edge"
-        "vlan-guest"
-        "vlan-iot"
-      ];
-    };
-
-
     "vlan-edge" = {
       matchConfig.Name = "vlan-edge";
       networkConfig.Bridge = "br-edge";

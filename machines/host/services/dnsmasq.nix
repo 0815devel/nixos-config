@@ -12,7 +12,6 @@
         "br-lan"
         "br-guest"
         "br-iot"
-        "wg-home"
       ];
 
       bind-interfaces = true;
@@ -56,8 +55,8 @@
       ];
 
       address = [
-        "/lboos.xyz/10.10.50.1"
-        "/home.lboos.xyz/"
+        "/lboos.xyz/10.10.50.10"
+        "/wireguard.lboos.xyz/10.10.50.1"
       ];
 
       domain-needed = true;

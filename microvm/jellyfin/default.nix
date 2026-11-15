@@ -18,7 +18,7 @@
     interfaces = [
       {
         type = "tap";
-        id = "vm-lan-jellyfin";
+        id = "vm-svc-jellyfin";
         mac = "02:00:00:00:00:01";
       }
       {
@@ -31,7 +31,6 @@
   imports = [
     ./config.nix
     ../../profiles/base
-    ../../profiles/headless
     ../../profiles/microvm
   ];
 }

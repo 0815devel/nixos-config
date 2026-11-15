@@ -13,8 +13,8 @@
     matchConfig.Name = [ "vm-dmz-*" ];
     networkConfig.Bridge = "br-dmz";
   };
-    systemd.network.networks."vm-services" = {
-    matchConfig.Name = [ "vm-services-*" ];
+    systemd.network.networks."vm-svc" = {
+    matchConfig.Name = [ "vm-svc-*" ];
     networkConfig.Bridge = "br-services";
   };
 }

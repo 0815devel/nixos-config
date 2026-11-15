@@ -5,17 +5,12 @@
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     {
       self,
       nixpkgs,
       microvm,
-      sops-nix,
       ...
     }@inputs:
     let
@@ -24,7 +19,7 @@
     {
       nixosConfigurations."host" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs microvm sops-nix; };
+        specialArgs = { inherit inputs microvm; };
         modules = [ ./machines/host ];
       };
     };

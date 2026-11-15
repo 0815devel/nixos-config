@@ -11,8 +11,7 @@
     protocol = "cloudflare";
     zone = "lboos.xyz";
 
-    passwordFile =
-      config.sops.secrets."dyndns/cloudflare".path;
+    passwordFile = "/tank/configuration/secrets/cloudflare-dyndns";
 
     domains = [
       "lboos.xyz"
