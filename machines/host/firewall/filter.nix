@@ -72,6 +72,8 @@
 
         udp dport 51820 accept;
 
+        udp dport 5353 accept;
+
         iifname != $EDGE udp dport 53 accept;
         iifname != $EDGE tcp dport 53 accept;
         iifname != $EDGE udp dport 67 accept;
