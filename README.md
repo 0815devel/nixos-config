@@ -11,7 +11,6 @@ This repository contains my personal [NixOS](https://nixos.org) configuration, m
 ├── machines/ # Physical machines
 ├── microvm/ # MicroVM machines with services
 ├── profiles/ # Shared profiles for hosts and MicroVMs
-├── secrets/ # Encrypted secrets (managed with SOPS)
 ```
 
 
@@ -30,7 +29,7 @@ Each machine has its own directory under `machines/`:
     - `default.nix` - Host and domain name; sysctl forwarding
     - `interfaces.nix` - Interface and VLAN configuration
     - `netdevs.nix` - Virtual interfaces
-    - `networks.nix` - IP addresses and routing table
+    - `networks.nix` - IP addresses and routing table (DHCP server (soon))
     - `vlan.nix` - VLAN definitions
     - `wireguard.nix` - VPN configuration
   - `services/` - Configuration of the services
@@ -41,6 +40,7 @@ Each machine has its own directory under `machines/`:
     - `nfs.nix` - Configuration of NFS exports
     - `ssh.nix` - SSH service
     - `libvirt.nix` - Legacy virtualization
+    - `unbound.nix` - DNS server (soon)
   - `hardware-configuration.nix` – Auto-generated hardware config
   - `users.nix` - User configurations
   - `packages.nix` – Installed packages
@@ -65,11 +65,3 @@ Shared configurations for different host types:
 - `profiles/base/` – Base configuration (locale, hosts)
 - `profiles/microvm/` – MicroVM-specific roles
 - `profiles/nix/` - Nix configuration
-
-### Secrets
-
-Secrets are stored under `secrets/` and encrypted with [SOPS](https://github.com/getsops/sops):
-
-- `default.nix` – Initialization
-- `.sops.yaml` – SOPS configuration
-- `secrets.yaml` – The actual keys

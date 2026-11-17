@@ -18,17 +18,17 @@
 
 # Network Access Matrix
 
-| Source   | Internet | LAN | Guest | IoT | Storage | DMZ | Services | Backup |
-|:---------|:--------:|:---:|:-----:|:---:|:-------:|:---:|:--------:|:------:|
-| Internet |    -     | ✖   |  ✖   | ✖    |   ✖     | ✔   |    ✖     |   ✖   |
-| LAN      |    ✔     | ✔   |  ✔   | ✔    |   ✔     | ✔   |    ✔    |   ✔   |
-| Guest    |    ✔     | ✖   |  ✖   | ✖    |   ✖     | ✔   |    ✖     |   ✖   |
-| IoT      |    ✔     | ✖   |  ✖   | ✔    |   ✖     | ✔   |    ✖     |   ✖   |
-| Storage  |    ✖     | ✖   |  ✖   | ✖    |   ✔     | ✖   |    ✖     |   ✖   |
-| DMZ      |    ✖     | ✖   |  ✖   | ✖    |   ✖     | ✔   |    ✔     |   ✖   |
-| Services |    ✔     | ✖   |  ✖   | ✖    |   ✔     | ✖   |    ✔     |   ✖   |
-| Home VPN |    ✔     | ✔   |  ✔   | ✔    |   ✔     | ✔  |    ✔     |   ✔   |
-| NL VPN   |    ✔     | ✖   |  ✖   | ✖    |   ✖     | ✖   |    ✖     |   ✖   |
+| Source   | Internet | LAN | Guest | IoT | Storage | DMZ | Services |
+|:---------|:--------:|:---:|:-----:|:---:|:-------:|:---:|:--------:|
+| Internet |    -     | ✖   |  ✖   | ✖    |   ✖     | ✔   |    ✖     |
+| LAN      |    ✔     | ✔   |  ✔   | ✔    |   ✔     | ✔   |    ✔     |
+| Guest    |    ✔     | ✖   |  ✖   | ✖    |   ✖     | ✔   |    ✖     |
+| IoT      |    ✔     | ✖   |  ✖   | ✔    |   ✖     | ✔   |    ✖     |
+| Storage  |    ✖     | ✖   |  ✖   | ✖    |   ✔     | ✖   |    ✖     |
+| DMZ      |    ✖     | ✖   |  ✖   | ✖    |   ✖     | ✔   |    ✔     |
+| Services |    ✔     | ✖   |  ✖   | ✖    |   ✔     | ✖   |    ✔     |
+| Home VPN |    ✔     | ✔   |  ✔   | ✔    |   ✔     | ✔   |    ✔     |
+| NL VPN   |    ✔     | ✖   |  ✖   | ✖    |   ✖     | ✖   |    ✖     |
 
 > Default policy: deny all, only explicitly required traffic is permitted.
 

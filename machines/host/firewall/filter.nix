@@ -102,7 +102,7 @@
           accept;
 
         iifname $HOME \
-          ip saddr 10.10.0.0/24 \
+          ip saddr 10.10.70.0/24 \
           accept;
 
         iifname $SERVICES \
@@ -119,8 +119,22 @@
         iifname $DMZ \
           ip saddr 10.10.50.10 \
           oifname $SERVICES \
-          ip daddr { 10.10.60.11, 10.10.60.12 } \
-          tcp dport { 4533, 2283 } \
+          ip daddr 10.10.60.11 \
+          tcp dport 4533  \
+          accept;
+
+        iifname $DMZ \
+          ip saddr 10.10.50.10 \
+          oifname $SERVICES \
+          ip daddr 10.10.60.12 \
+          tcp dport 2283 \
+          accept;
+
+        iifname $IOT \
+          ip saddr 10.10.30.0/24 \
+          oifname $SERVICES \
+          ip daddr 10.10.60.13 \
+          tcp dport 8096  \
           accept;
 
         iifname $DMZ \

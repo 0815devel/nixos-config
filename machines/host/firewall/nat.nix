@@ -28,8 +28,8 @@
         iifname $GUEST udp dport 53 ip daddr != 10.10.20.1 dnat to 10.10.20.1;
         iifname $GUEST tcp dport 53 ip daddr != 10.10.20.1 dnat to 10.10.20.1;
 
-        iifname $IOT udp dport 53 ip daddr != 10.10.30.1 dnat to 10.10.30.1;
-        iifname $IOT tcp dport 53 ip daddr != 10.10.30.1 dnat to 10.10.30.1;
+        iifname $IOT udp dport 53 dnat to 1.1.1.1;
+        iifname $IOT tcp dport 53 dnat to 1.1.1.1;
       }
 
 
