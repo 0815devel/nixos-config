@@ -23,7 +23,7 @@
           PresharedKeyFile = "/tank/configuration/secrets/wg-home-peerA";
 
           AllowedIPs = [
-            "10.10.70.2/32"
+            "10.10.70.10/32"
           ];
         }
 
@@ -34,7 +34,7 @@
           PresharedKeyFile = "/tank/configuration/secrets/wg-home-peerB";
 
           AllowedIPs = [
-            "10.10.70.3/32"
+            "10.10.70.11/32"
           ];
         }
       ];
