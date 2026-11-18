@@ -129,6 +129,15 @@
         "10.10.60.1/24"
       ];
       networkConfig.ConfigureWithoutCarrier = true;
+
+      routes = [
+        {
+          Destination = "10.10.60.0/24";
+          Scope = "link";
+          Table = 51820;
+        }
+      ];
+
     };
 
   };

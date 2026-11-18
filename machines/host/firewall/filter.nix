@@ -134,7 +134,7 @@
           ip saddr 10.10.30.0/24 \
           oifname $SERVICES \
           ip daddr 10.10.60.13 \
-          tcp dport 8096  \
+          tcp dport 8096 \
           accept;
 
         iifname $DMZ \
